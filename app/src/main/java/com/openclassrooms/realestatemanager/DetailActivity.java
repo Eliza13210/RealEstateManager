@@ -3,6 +3,8 @@ package com.openclassrooms.realestatemanager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.openclassrooms.realestatemanager.fragments.DetailFragment;
+
 public class DetailActivity extends AppCompatActivity {
 
     // 1 - Declare detail fragment
@@ -21,7 +23,7 @@ public class DetailActivity extends AppCompatActivity {
     // FRAGMENTS
     // --------------
 
-    private void configureAndShowDetailFragment(){
+    private void configureAndShowDetailFragment() {
         // A - Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
 

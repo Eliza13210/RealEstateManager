@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.openclassrooms.realestatemanager.fragments.DetailFragment;
+import com.openclassrooms.realestatemanager.fragments.MainFragment;
+
 public class MainActivity extends AppCompatActivity implements MainFragment.OnButtonClickedListener {
 
     private DetailFragment detailFragment;
