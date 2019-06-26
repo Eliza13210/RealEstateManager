@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener {
+public class MainActivity extends BaseActivity implements RealEstateViewHolder.OnItemClickedListener {
 
     private DetailFragment detailFragment;
     private MainFragment mainFragment;
@@ -27,41 +26,28 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         checkIfTablet();
         this.showMainFragment();
         this.configureAndShowDetailFragment();
+
+        if (findViewById(R.id.frame_layout_detail) != null) {
+            setActionbarTablet();
+        }else {
+            setActionbarPhone();
+        }
     }
 
 
-    private void setActionbar(){
-        BottomAppBar bottomAppBar=findViewById(R.id.bottom_app_bar);
+    private void setActionbarPhone() {
+        BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here
-        /**override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-            when (item!!.itemId) {
-                R.id.app_bar_fav -> toast("Fav menu item is clicked!")
-                R.id.app_bar_search -> toast("Search menu item is clicked!")
-                R.id.app_bar_settings -> toast("Settings item is clicked!")
-            }
 
-            return true
-        }*/
-        return super.onOptionsItemSelected(item);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_action_add_dark);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /**
-         * override fun onCreateOptionsMenu(menu: Menu): Boolean {
-         *     val inflater = menuInflater
-         *     inflater.inflate(R.menu.bottomappbar_menu, menu)
-         *     return true
-         * }
-         */
-// Inflate the menu; the search view
-        getMenuInflater().inflate(R.menu.bottom_app_bar_menu, menu);
-        return true;
+    private void setActionbarTablet() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
     }
+
 
     private void checkIfTablet() {
         if (getResources().getBoolean(R.bool.portrait_only)) {
@@ -88,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.frame_layout_detail, detailFragment)
                     .commit();
-        } else{
-            setActionbar();
         }
+
     }
 
     // --------------

@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RealEstateViewHolder extends RecyclerView.ViewHolder{
+public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     //VIEW
     @BindView(R.id.photo_realestate)

@@ -35,15 +35,12 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         //Inflate the layout of MainFragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        //Set onClickListener to button "SHOW ME DETAILS"
-        //  result.findViewById(R.id.fragment_main_button).setOnClickListener(this);
         configureRecyclerview();
         return view;
 
     }
 
     private void configureRecyclerview() {
-
         // Reset list
         this.listOfRealEstates = new ArrayList<>();
 
@@ -56,6 +53,14 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
                 ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
 
         listOfRealEstates.add(realEstate2);
+        RealEstate realEstate3 = new RealEstate
+                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+
+        listOfRealEstates.add(realEstate3);
+        RealEstate realEstate4 = new RealEstate
+                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+
+        listOfRealEstates.add(realEstate4);
 
 
         // Create adapter passing the list of news

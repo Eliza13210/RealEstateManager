@@ -2,9 +2,10 @@
 <resources>
     <dimen name="margin_photo_realestate">5dp</dimen>
     <dimen name="head_text_size">20dp</dimen>
-    <dimen name="text_size">12dp</dimen>
+    <dimen name="text_size">24dp</dimen>
+
     <!--PHOTO IN RECYCLERVIEW LIST-->
-    <dimen name="photo_list_size_width">100dp</dimen>
+    <dimen name="photo_list_size_width">10dp</dimen>
     <dimen name="photo_list_size_height">100dp</dimen>
 
     <dimen name="text_list_size_width">200dp</dimen>

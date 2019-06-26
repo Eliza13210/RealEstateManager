@@ -2,11 +2,11 @@ package com.openclassrooms.realestatemanager;
 
 import android.os.Bundle;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.fragments.DetailFragment;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity {
 
     // 1 - Declare detail fragment
     private DetailFragment detailFragment;
@@ -18,6 +18,15 @@ public class DetailActivity extends AppCompatActivity {
 
         // 2 - Configure and show home fragment
         this.configureAndShowDetailFragment();
+        setActionbar();
+    }
+
+    private void setActionbar(){
+        BottomAppBar bottomAppBar=findViewById(R.id.bottom_app_bar);
+        this.setSupportActionBar(bottomAppBar);
+        bottomAppBar.getMenu().removeItem(R.id.app_bar_edit);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_action_edit_dark);
     }
 
     // --------------
