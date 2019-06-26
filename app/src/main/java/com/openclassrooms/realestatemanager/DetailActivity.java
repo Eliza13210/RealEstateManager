@@ -1,9 +1,10 @@
 package com.openclassrooms.realestatemanager;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.openclassrooms.realestatemanager.fragments.DetailFragment;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
 
