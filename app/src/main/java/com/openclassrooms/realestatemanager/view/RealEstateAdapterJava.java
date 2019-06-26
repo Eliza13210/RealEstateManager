@@ -13,28 +13,28 @@ import com.openclassrooms.realestatemanager.models.RealEstate;
 
 import java.util.List;
 
-public class RealEstateAdapter extends RecyclerView.Adapter<RealEstateViewHolder> {
+public class RealEstateAdapterJava extends RecyclerView.Adapter<RealEstateViewHolderKotlin> {
 
     //FOR DATA
     private List<RealEstate> realEstateList;
     private Context context;
 
-    public RealEstateAdapter(List<RealEstate> realEstateList) {
+    public RealEstateAdapterJava(List<RealEstate> realEstateList) {
         this.realEstateList = realEstateList;
     }
 
     @NonNull
     @Override
-    public RealEstateViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RealEstateViewHolderKotlin onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         // CREATE VIEW HOLDER AND INFLATING ITS XML LAYOUT
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recyclerview_item_realestate, viewGroup, false);
-        return new RealEstateViewHolder(view);
+        return new RealEstateViewHolderKotlin(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RealEstateViewHolder realEstateViewHolder, int i) {
+    public void onBindViewHolder(@NonNull RealEstateViewHolderKotlin realEstateViewHolder, int i) {
         realEstateViewHolder.updateWithItem(this.realEstateList.get(i), context);
     }
 

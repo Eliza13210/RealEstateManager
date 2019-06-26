@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RealEstateViewHolder extends RecyclerView.ViewHolder {
+public class RealEstateViewHolder extends RecyclerView.ViewHolder{
 
     //VIEW
     @BindView(R.id.photo_realestate)
@@ -28,6 +28,23 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.item_price)
     TextView price;
 
+    //Declare callback
+    private OnItemClickedListener callback;
+
+    // Declare interface that will be implemented by any container activity
+    public interface OnItemClickedListener {
+        void onItemClick(View view);
+    }
+
+    // Create callback to parent activity
+    private void createCallbackToParentActivity(Context context) {
+        try {
+            //Parent activity will automatically subscribe to callback
+            callback = (OnItemClickedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(e.toString() + " must implement OnItemClickedListener");
+        }
+    }
 
     public RealEstateViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -35,6 +52,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateWithItem(RealEstate realEstateItem, Context context) {
+        createCallbackToParentActivity(context);
         String defaultImg = "https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg";
         try {
             Glide.with(context)
@@ -49,6 +67,9 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         type.setText(realEstateItem.getType());
         location.setText(realEstateItem.getLocation());
         price.setText(realEstateItem.getPrice());
+        itemView.setOnClickListener(v -> {
+            // Spread the click to the parent activity
+            callback.onItemClick(itemView);
+        });
     }
-
 }

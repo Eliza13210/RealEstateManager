@@ -1,7 +1,5 @@
 package com.openclassrooms.realestatemanager.fragments;
 
-import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +13,7 @@ import android.view.ViewGroup;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.view.RealEstateAdapter;
+import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+public class MainFragment extends Fragment implements RealEstateViewHolder.OnItemClickedListener{
 
     @BindView(R.id.recyclerview_list_real_estates)
     RecyclerView recyclerView;
@@ -30,14 +29,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     //For recyclerview
     private RealEstateAdapter adapter;
     private List<RealEstate> listOfRealEstates;
-
-    //2 - Declare callback
-    private OnButtonClickedListener mCallback;
-
-    // 1 - Declare our interface that will be implemented by any container activity
-    public interface OnButtonClickedListener {
-        public void onButtonClicked(View view);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +59,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
         // Create adapter passing the list of news
-        this.adapter = new RealEstateAdapter(this.listOfRealEstates);
+        this.adapter = new RealEstateAdapter(this.listOfRealEstates, getContext());
         // Attach the adapter to the recycler view to populate items
         this.recyclerView.setAdapter(this.adapter);
         //Check if portrait orientation
@@ -89,35 +80,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onItemClick(View view) {
 
-        // 4 - Call the method that creating callback after being attached to parent activity
-        this.createCallbackToParentActivity();
-    }
-
-    // --------------
-    // ACTIONS
-    // --------------
-
-    @Override
-    public void onClick(View v) {
-        // 5 - Spread the click to the parent activity
-        mCallback.onButtonClicked(v);
-    }
-
-    // --------------
-    // FRAGMENT SUPPORT
-    // --------------
-
-    // 3 - Create callback to parent activity
-    private void createCallbackToParentActivity() {
-        try {
-            //Parent activity will automatically subscribe to callback
-            mCallback = (OnButtonClickedListener) getActivity();
-        } catch (ClassCastException e) {
-            throw new ClassCastException(e.toString() + " must implement OnButtonClickedListener");
-        }
     }
 }
 
