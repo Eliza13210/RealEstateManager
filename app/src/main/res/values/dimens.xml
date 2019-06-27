@@ -3,7 +3,8 @@
     <dimen name="margin_photo_realestate">5dp</dimen>
     <dimen name="head_text_size">20dp</dimen>
     <dimen name="text_size">12dp</dimen>
-    <!--PHOTO IN RECYCLERVIEW LIST-->
+
+    <!--RECYCLERVIEW LIST OF REAL ESTATES-->
     <dimen name="photo_list_size_width">100dp</dimen>
     <dimen name="photo_list_size_height">100dp</dimen>
 
