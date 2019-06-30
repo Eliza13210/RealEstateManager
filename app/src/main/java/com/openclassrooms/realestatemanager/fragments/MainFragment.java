@@ -46,7 +46,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
         //TEST
         RealEstate realEstate = new RealEstate
-                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+                ("https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "Flat", "Center", "21000");
         listOfRealEstates.add(realEstate);
 
         RealEstate realEstate2 = new RealEstate

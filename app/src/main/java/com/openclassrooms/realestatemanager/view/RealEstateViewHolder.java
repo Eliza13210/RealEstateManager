@@ -53,7 +53,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     public void updateWithItem(RealEstate realEstateItem, Context context) {
         createCallbackToParentActivity(context);
-        String defaultImg = "https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg";
+        String defaultImg = "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg";
         try {
             Glide.with(context)
                     .load(defaultImg)

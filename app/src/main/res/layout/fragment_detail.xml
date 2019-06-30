@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="8">
+        android:weightSum="80">
 
         <TextView
             android:id="@+id/title_media"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:text="Media"
             android:textSize="@dimen/head_text_size" />
 
@@ -26,7 +26,7 @@
             android:id="@+id/recyclerview_photos"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="20"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -34,22 +34,22 @@
             android:id="@+id/title_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:text="Description"
             android:textSize="@dimen/head_text_size" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:layout_weight="25"
+            android:text="Description here"
             android:textSize="@dimen/text_size" />
 
         <!--INFORMATION DETAILS, LOCATION AND MAP-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="25"
             android:orientation="horizontal">
 
             <!--INFORMATION DETAILS-->

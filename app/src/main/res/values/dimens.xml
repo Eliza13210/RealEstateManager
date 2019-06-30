@@ -10,4 +10,8 @@
 
     <dimen name="text_list_size_width">200dp</dimen>
     <dimen name="text_list_size_height">100dp</dimen>
+
+        <!--PHOTO OF ITEM IN DETAIL FRAGMENT-->
+    <dimen name="photo_item_size_width">100dp</dimen>
+    <dimen name="photo_item_size_height">100dp</dimen>
 </resources>

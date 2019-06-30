@@ -5,9 +5,12 @@
     <dimen name="text_size">24dp</dimen>
 
     <!--RECYCLERVIEW LIST OF REAL ESTATES-->
-    <dimen name="photo_list_size_width">10dp</dimen>
+    <dimen name="photo_list_size_width">100dp</dimen>
     <dimen name="photo_list_size_height">100dp</dimen>
 
     <dimen name="text_list_size_width">200dp</dimen>
     <dimen name="text_list_size_height">100dp</dimen>
+
+    <dimen name="photo_item_size_width">300dp</dimen>
+    <dimen name="photo_item_size_height">100dp</dimen>
 </resources>
