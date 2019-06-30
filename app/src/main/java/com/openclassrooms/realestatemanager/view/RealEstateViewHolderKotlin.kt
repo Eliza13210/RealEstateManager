@@ -2,42 +2,21 @@ package com.openclassrooms.realestatemanager.view
 
 import android.content.Context
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import com.bumptech.glide.Glide
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.models.RealEstate
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.recyclerview_item_realestate.view.*
 
 class RealEstateViewHolderKotlin(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
-    //VIEW
-    @BindView(R.id.photo_realestate)
-    internal var photo: ImageView? = null
-    @BindView(R.id.item_type)
-    internal var type: TextView? = null
-    @BindView(R.id.item_location)
-    internal var location: TextView? = null
-    @BindView(R.id.item_price)
-    internal var price: TextView? = null
+    private var view: View = v
 
     fun updateWithItem(realEstateItem: RealEstate, context: Context) {
-
         val defaultImg = "https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg"
-        try {
-            Glide.with(context)
-                    .load(defaultImg)
-                    //.into(ImageView.photo_realestate)
-        } catch (e: Exception) {
-            Glide.with(context)
-                    .load(defaultImg)
-                    //.into(photo)
-        }
-
-       // type.setText(realEstateItem.type)
-       // location.setText(realEstateItem.location)
-        //price.setText(realEstateItem.price)
+        Picasso.get().load(defaultImg).into(view.photo_realestate)
+        view.item_type.text = realEstateItem.type
+        view.item_location.text = realEstateItem.location
+        view.item_price.text = realEstateItem.price
     }
 
     override fun onClick(v: View?) {

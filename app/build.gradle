@@ -53,8 +53,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
+    //Kotlin
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    apply plugin: 'kotlin-android-extensions'
 
     //EASY PERMISSIONS
     implementation 'pub.devrel:easypermissions:1.1.1'

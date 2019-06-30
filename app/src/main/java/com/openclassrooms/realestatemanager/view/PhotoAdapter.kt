@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.view
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,10 @@ import com.openclassrooms.realestatemanager.models.Photo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recyclerview_photo_detail.view.*
 
-class PhotoAdapter(val listOfPhotos: List<Photo>, var context: Context) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(val listOfPhotos: List<Photo>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_photo_detail, parent, false))
+        return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_photo_detail, parent, false))
     }
 
     override fun getItemCount() = this.listOfPhotos.size

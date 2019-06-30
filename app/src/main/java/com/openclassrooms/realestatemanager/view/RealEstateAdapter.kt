@@ -16,7 +16,7 @@ class RealEstateAdapter(val realEstateList: List<RealEstate>, val context: Conte
     override fun getItemCount() = this.realEstateList.size
 
     override fun onBindViewHolder(realEstateViewHolder: RealEstateViewHolder, i: Int) {
-
         realEstateViewHolder.updateWithItem(this.realEstateList[i], context)
     }
+
 }
