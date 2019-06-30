@@ -1,3 +1,9 @@
 package com.openclassrooms.realestatemanager.models
 
-class RealEstate(var photo: String, var type: String, var price: String, var location: String)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+
+
+@Entity
+data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long, var photo: String, var type: String, var price: String, var location: String)

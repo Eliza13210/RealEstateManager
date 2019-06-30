@@ -27,7 +27,8 @@ class DetailFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             adapter = PhotoAdapter(listOf(
-                    Photo("https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "bathroom")
+                    Photo(1, 1,
+                            "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "bathroom")
             )
             )
         }

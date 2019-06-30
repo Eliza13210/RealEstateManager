@@ -46,19 +46,19 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
         //TEST
         RealEstate realEstate = new RealEstate
-                ("https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "Flat", "Center", "21000");
+                (1,"https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "Flat", "Center", "21000");
         listOfRealEstates.add(realEstate);
 
         RealEstate realEstate2 = new RealEstate
-                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+                (2,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
 
         listOfRealEstates.add(realEstate2);
         RealEstate realEstate3 = new RealEstate
-                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+                (3,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
 
         listOfRealEstates.add(realEstate3);
         RealEstate realEstate4 = new RealEstate
-                ("https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
+                (4,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
 
         listOfRealEstates.add(realEstate4);
 
