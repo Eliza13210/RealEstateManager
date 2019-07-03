@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainFragment extends Fragment implements RealEstateViewHolder.OnItemClickedListener{
+public class MainFragment extends Fragment implements RealEstateViewHolder.OnItemClickedListener {
 
     // 1 - FOR DATA
     private RealEstateViewModel realEstateViewModel;
@@ -63,8 +63,14 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         }
     }
 
+    private void configureMenu(View view){
+        view.findViewById(R.id.fab).setOnClickListener(v -> {
+            createRealEstate();
+        });
+    }
+
     // Configuring ViewModel
-    private void configureViewModel(){
+    private void configureViewModel() {
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(getActivity());
         this.realEstateViewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel.class);
     }
@@ -75,13 +81,8 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         configureRecyclerview();
     }
 
-    @Override
-    public void onItemClick(View view) {
-
-    }
-
     // - Get all real estates
-    private void getItems(){
+    private void getItems() {
         this.realEstateViewModel.getAllItems().observe(this, this::updateItemsList);
     }
 
@@ -89,24 +90,29 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         this.adapter.updateData(realEstateList);
     }
 
-    /**  // 3 - Create a new item
-    private void createItem(){
-       RealEstate realEstate= new RealEstate(this.editText.getText().toString(), this.spinner.getSelectedItemPosition(), USER_ID);
-        this.editText.setText("");
-        this.realEstateViewModel.createPhoto(item);
+    @Override
+    public void onItemClick(Long id) {
     }
 
-    // 3 - Delete an item
-    private void deleteItem(Item item){
-        this.itemViewModel.deleteItem(item.getId());
-    }
+     // 3 - Create a new item
+     private void createRealEstate(){
+    // RealEstate realEstate= new RealEstate();
 
-    // 3 - Update an item (selected or not)
-    private void updateItem(Item item){
-        item.setSelected(!item.getSelected());
-        this.itemViewModel.updateItem(item);
-    }
-*/
+     //this.realEstateViewModel.createRealEstate(realEstate);
+     }
+
+     /**
+     // 3 - Delete an item
+     private void deleteItem(Item item){
+     this.itemViewModel.deleteItem(item.getId());
+     }
+
+     // 3 - Update an item (selected or not)
+     private void updateItem(Item item){
+     item.setSelected(!item.getSelected());
+     this.itemViewModel.updateItem(item);
+     }
+     */
 }
 
 

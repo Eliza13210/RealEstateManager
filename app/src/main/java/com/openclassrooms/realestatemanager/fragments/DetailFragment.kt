@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
 
-    // 1 - FOR DATA
+    // FOR DATA
     private lateinit var viewModel: RealEstateViewModel
-    private val ID: Long = 1
+    private var realEstateId: Long = 1
 
-    private val photoAdapter: PhotoAdapter=PhotoAdapter()
+    private val photoAdapter: PhotoAdapter = PhotoAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(com.openclassrooms.realestatemanager.R.layout.fragment_detail, container, false)!!
 
@@ -30,9 +30,14 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         this.initRecyclerView()
         this.configureViewModel()
-        this.getCurrentRealEstate(ID)
+        this.getCurrentRealEstate(realEstateId)
         this.getPhotos()
+    }
 
+    fun updateDetails(tag: Long) {
+        this.realEstateId = tag
+        getCurrentRealEstate(realEstateId)
+        getPhotos()
     }
 
     // RecyclerView node initialized here
@@ -48,7 +53,7 @@ class DetailFragment : Fragment() {
     private fun configureViewModel() {
         val mViewModelFactory = Injection.provideViewModelFactory(activity)
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
-        this.viewModel.init(ID)
+        this.viewModel.init(realEstateId)
     }
 
     // 3 - Get Current User
@@ -66,10 +71,9 @@ class DetailFragment : Fragment() {
         detail_address.text = realEstate.address
     }
 
-    // ---
     //  Get all photos
     private fun getPhotos() {
-        this.viewModel.getPhotos(ID).observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
+        this.viewModel.getPhotos(realEstateId).observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
     }
 
     private fun updatePhotoList(list: List<Photo>) {

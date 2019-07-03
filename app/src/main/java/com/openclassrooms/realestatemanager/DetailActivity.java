@@ -11,6 +11,17 @@ public class DetailActivity extends BaseActivity {
     // 1 - Declare detail fragment
     private DetailFragment detailFragment;
 
+    // Create static variable to identify Intent
+    public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 3 - Call update method here because we are sure that DetailFragment is visible
+        this.updateDetailFragmentWithIntentTag();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +32,8 @@ public class DetailActivity extends BaseActivity {
         setActionbar();
     }
 
-    private void setActionbar(){
-        BottomAppBar bottomAppBar=findViewById(R.id.bottom_app_bar);
+    private void setActionbar() {
+        BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
         bottomAppBar.getMenu().removeItem(R.id.app_bar_edit);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -45,5 +56,17 @@ public class DetailActivity extends BaseActivity {
                     .add(R.id.frame_layout_detail, detailFragment)
                     .commit();
         }
+    }
+
+    // --------------
+    // UPDATE UI
+    // --------------
+
+    // 2 - Update DetailFragment with tag passed from Intent
+    private void updateDetailFragmentWithIntentTag(){
+        // Get button's tag from intent
+        long tag = getIntent().getIntExtra(EXTRA_TAG, 0);
+        // Update DetailFragment's TextView
+        detailFragment.updateDetails(tag);
     }
 }

@@ -82,12 +82,16 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
     // CallBack
     // --------------
     @Override
-    public void onItemClick(View view) {
+    public void onItemClick(Long id) {
+
         // Check if detail fragment is not created or if not visible, then open DetailActivity
-        Log.e("Main", "Clicked");
+        Log.e("Main", "Clicked" + id);
         if (detailFragment == null || !detailFragment.isVisible()) {
-            startActivity(new Intent(this, DetailActivity.class));
+            Intent i = new Intent(this, DetailActivity.class);
+            i.putExtra(DetailActivity.EXTRA_TAG, id);
+            startActivity(i);
+        } else{
+            detailFragment.updateDetails(id);
         }
-        //If tablet, show details in detail fragment
     }
 }

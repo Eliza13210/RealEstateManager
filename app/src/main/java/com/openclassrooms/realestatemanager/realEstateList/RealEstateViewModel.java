@@ -48,6 +48,10 @@ public class RealEstateViewModel extends ViewModel {
         return realEstateDataSource.getAllItems();
     }
 
+    public void createRealEstate(RealEstate realEstate){
+        realEstateDataSource.createRealEstate(realEstate);
+    }
+
     // -------------
     // FOR PHOTO
     // -------------
