@@ -7,15 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.RealEstate;
+import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel;
 import com.openclassrooms.realestatemanager.view.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -23,48 +26,30 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment implements RealEstateViewHolder.OnItemClickedListener{
 
+    // 1 - FOR DATA
+    private RealEstateViewModel realEstateViewModel;
+
     @BindView(R.id.recyclerview_list_real_estates)
     RecyclerView recyclerView;
 
     //For recyclerview
     private RealEstateAdapter adapter;
-    private List<RealEstate> listOfRealEstates;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Inflate the layout of MainFragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        configureRecyclerview();
+        this.configureRecyclerview();
+        this.configureViewModel();
+        this.getItems();
         return view;
 
     }
 
     private void configureRecyclerview() {
-        // Reset list
-        this.listOfRealEstates = new ArrayList<>();
-
-        //TEST
-        RealEstate realEstate = new RealEstate
-                (1,"https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg", "Flat", "Center", "21000");
-        listOfRealEstates.add(realEstate);
-
-        RealEstate realEstate2 = new RealEstate
-                (2,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
-
-        listOfRealEstates.add(realEstate2);
-        RealEstate realEstate3 = new RealEstate
-                (3,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
-
-        listOfRealEstates.add(realEstate3);
-        RealEstate realEstate4 = new RealEstate
-                (4,"https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg", "Flat", "Center", "21000");
-
-        listOfRealEstates.add(realEstate4);
-
-
         // Create adapter passing the list of news
-        this.adapter = new RealEstateAdapter(this.listOfRealEstates, getContext());
+        this.adapter = new RealEstateAdapter(getContext());
         // Attach the adapter to the recycler view to populate items
         this.recyclerView.setAdapter(this.adapter);
         //Check if portrait orientation
@@ -78,6 +63,12 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         }
     }
 
+    // Configuring ViewModel
+    private void configureViewModel(){
+        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(getActivity());
+        this.realEstateViewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel.class);
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -88,6 +79,41 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     public void onItemClick(View view) {
 
     }
+
+    // 3 - Get Current User
+    private void getCurrentRealEstate(int id){
+        //this.realEstateViewModel.getRealEstate(id).observe(this, this::updateDetails);
+    }
+
+    // ---
+
+    // 3 - Get all real estates
+    private void getItems(){
+        this.realEstateViewModel.getAllItems().observe(this, this::updateItemsList);
+    }
+
+    private void updateItemsList(List<RealEstate> realEstateList) {
+        this.adapter.updateData(realEstateList);
+    }
+
+    /**  // 3 - Create a new item
+    private void createItem(){
+       RealEstate realEstate= new RealEstate(this.editText.getText().toString(), this.spinner.getSelectedItemPosition(), USER_ID);
+        this.editText.setText("");
+        this.realEstateViewModel.createPhoto(item);
+    }
+
+    // 3 - Delete an item
+    private void deleteItem(Item item){
+        this.itemViewModel.deleteItem(item.getId());
+    }
+
+    // 3 - Update an item (selected or not)
+    private void updateItem(Item item){
+        item.setSelected(!item.getSelected());
+        this.itemViewModel.updateItem(item);
+    }
+*/
 }
 
 

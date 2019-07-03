@@ -14,6 +14,8 @@ import androidx.room.Update;
 @Dao
 public interface RealEstateDao {
 
+        @Query("SELECT * FROM RealEstate")
+        LiveData<List<RealEstate>> getAllRealEstates();
 
         @Query("SELECT * FROM RealEstate WHERE id = :id")
         LiveData<RealEstate> getRealEstate(long id);

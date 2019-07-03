@@ -44,6 +44,10 @@ public class RealEstateViewModel extends ViewModel {
         return this.currentRealEstate;
     }
 
+    public LiveData<List<RealEstate>> getAllItems() {
+        return realEstateDataSource.getAllItems();
+    }
+
     // -------------
     // FOR PHOTO
     // -------------

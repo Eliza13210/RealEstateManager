@@ -10,7 +10,8 @@ import com.openclassrooms.realestatemanager.models.Photo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recyclerview_photo_detail.view.*
 
-class PhotoAdapter(val listOfPhotos: List<Photo>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+    var listOfPhotos = arrayListOf<Photo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_photo_detail, parent, false))
@@ -47,5 +48,10 @@ class PhotoAdapter(val listOfPhotos: List<Photo>) : RecyclerView.Adapter<PhotoAd
             Picasso.get().load(photo.url).into(view.photo_detail);
             view.text_detail.text = photo.text
         }
+    }
+
+    fun updateData(items: List<Photo>) {
+        this.listOfPhotos = items as ArrayList<Photo>
+        this.notifyDataSetChanged()
     }
 }
