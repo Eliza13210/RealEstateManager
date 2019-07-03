@@ -80,14 +80,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     }
 
-    // 3 - Get Current User
-    private void getCurrentRealEstate(int id){
-        //this.realEstateViewModel.getRealEstate(id).observe(this, this::updateDetails);
-    }
-
-    // ---
-
-    // 3 - Get all real estates
+    // - Get all real estates
     private void getItems(){
         this.realEstateViewModel.getAllItems().observe(this, this::updateItemsList);
     }

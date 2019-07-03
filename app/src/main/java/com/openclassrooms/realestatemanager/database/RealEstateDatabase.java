@@ -18,48 +18,63 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {RealEstate.class, Photo.class}, version = 1, exportSchema = false)
 public abstract class RealEstateDatabase extends RoomDatabase {
 
-        // --- SINGLETON ---
-        private static volatile RealEstateDatabase INSTANCE;
+    // --- SINGLETON ---
+    private static volatile RealEstateDatabase INSTANCE;
 
-        // --- DAO ---
-        public abstract RealEstateDao mRealEstateDao();
-        public abstract PhotoDao mPhotoDao();
+    // --- DAO ---
+    public abstract RealEstateDao mRealEstateDao();
+
+    public abstract PhotoDao mPhotoDao();
 
 
-        // --- INSTANCE ---
-        public static RealEstateDatabase getInstance(Context context) {
-            if (INSTANCE == null) {
-                synchronized (RealEstateDatabase.class) {
-                    if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                RealEstateDatabase.class, "MyDatabase.db")
-                                .addCallback(prepopulateDatabase())
-                                .build();
-                    }
+    // --- INSTANCE ---
+    public static RealEstateDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (RealEstateDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            RealEstateDatabase.class, "MyDatabase.db")
+                            .addCallback(prepopulateDatabase())
+                            .build();
                 }
             }
-            return INSTANCE;
         }
+        return INSTANCE;
+    }
 
-        // ---
+    // ---
 
-        private static Callback prepopulateDatabase(){
-            return new Callback() {
+    private static Callback prepopulateDatabase() {
+        return new Callback() {
 
-                @Override
-                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                    super.onCreate(db);
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
 
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("id", 1);
-                    contentValues.put("type", "flat");
-                    contentValues.put("price", "31000");
-                    contentValues.put("location", "Manhattan");
-                    contentValues.put("photo", "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg");
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("id", 1);
+                contentValues.put("type", "flat");
+                contentValues.put("price", "31000");
+                contentValues.put("location", "Manhattan");
+                contentValues.put("photo", "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg");
+                contentValues.put("description", "Beautiful flat");
+                contentValues.put("surface", "400");
+                contentValues.put("rooms", "8");
+                contentValues.put("bathrooms", "4");
+                contentValues.put("bedrooms", "4");
+                contentValues.put("address", "123 baker street, NY");
 
-                    db.insert("RealEstate", OnConflictStrategy.IGNORE, contentValues);
-                }
-            };
-        }
+                db.insert("RealEstate", OnConflictStrategy.IGNORE, contentValues);
+
+                contentValues = new ContentValues();
+                contentValues.put("realEstateId", 1);
+                contentValues.put("id", 1);
+                contentValues.put("url", "https://www.hommemaker.com/wp-content/uploads/2018/11/Kitchen_1_004_With_Food-OS.jpg");
+                contentValues.put("text", "kitchen;");
+
+                db.insert("Photo", OnConflictStrategy.IGNORE, contentValues);
+            }
+        };
+    }
 
 }
