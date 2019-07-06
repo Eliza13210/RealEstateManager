@@ -65,7 +65,7 @@ public class DetailActivity extends BaseActivity {
     // 2 - Update DetailFragment with tag passed from Intent
     private void updateDetailFragmentWithIntentTag(){
         // Get button's tag from intent
-        long tag = getIntent().getIntExtra(EXTRA_TAG, 0);
+        long tag = getIntent().getLongExtra(EXTRA_TAG, 0);
         // Update DetailFragment's TextView
         detailFragment.updateDetails(tag);
     }

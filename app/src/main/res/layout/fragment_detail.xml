@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.DetailFragment">
 
     <LinearLayout
@@ -89,6 +90,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/surface"
+                            android:textStyle="bold"
                             android:textSize="@dimen/text_size" />
 
                         <TextView
@@ -126,6 +128,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/number_of_rooms"
+                            android:textStyle="bold"
                             android:textSize="@dimen/text_size" />
 
                         <TextView
@@ -164,7 +167,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/number_of_bathrooms"
-                            android:textSize="@dimen/text_size" />
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/detail_bathrooms"
@@ -202,7 +206,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Number of bedrooms"
-                            android:textSize="@dimen/text_size" />
+                            android:textSize="@dimen/text_size"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/detail_bedrooms"
@@ -243,7 +248,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Location"
-                        android:textSize="@dimen/text_size" />
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/detail_address"

@@ -13,6 +13,7 @@ import com.openclassrooms.realestatemanager.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
 import androidx.appcompat.widget.Toolbar;
+import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements RealEstateViewHolder.OnItemClickedListener {
 
@@ -29,9 +30,15 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
 
         if (findViewById(R.id.frame_layout_detail) != null) {
             setActionbarTablet();
-        }else {
+        } else {
             setActionbarPhone();
         }
+    }
+
+    // 3 - Create a new item
+    private void createRealEstate() {
+        Log.e("main", "clicked");
+        startActivity(new Intent(this, CreateRealEstateActivity.class));
     }
 
 
@@ -41,6 +48,7 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_action_add_dark);
+        fab.setOnClickListener(v -> createRealEstate());
     }
 
     private void setActionbarTablet() {
@@ -90,7 +98,7 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
             Intent i = new Intent(this, DetailActivity.class);
             i.putExtra(DetailActivity.EXTRA_TAG, id);
             startActivity(i);
-        } else{
+        } else {
             detailFragment.updateDetails(id);
         }
     }

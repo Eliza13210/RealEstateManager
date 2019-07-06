@@ -17,17 +17,23 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".DetailActivity"
-            android:theme="@style/MainTheme"></activity>
+            android:theme="@style/MainTheme"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/MainTheme">
-
+            android:theme="@style/MainTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CreateRealEstateActivity"
+            android:theme="@style/Theme.Transparent"
+            android:launchMode="singleTask"
+            />
     </application>
 
 </manifest>

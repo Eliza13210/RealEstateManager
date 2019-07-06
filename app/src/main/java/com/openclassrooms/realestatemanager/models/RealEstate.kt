@@ -4,9 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-
 @Entity
-data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long,
+data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var photo: String,
                       var type: String,
                       var price: String,

@@ -63,11 +63,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         }
     }
 
-    private void configureMenu(View view){
-        view.findViewById(R.id.fab).setOnClickListener(v -> {
-            createRealEstate();
-        });
-    }
+
 
     // Configuring ViewModel
     private void configureViewModel() {
@@ -92,16 +88,11 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     @Override
     public void onItemClick(Long id) {
+
     }
 
-     // 3 - Create a new item
-     private void createRealEstate(){
-    // RealEstate realEstate= new RealEstate();
 
-     //this.realEstateViewModel.createRealEstate(realEstate);
-     }
-
-     /**
+    /**
      // 3 - Delete an item
      private void deleteItem(Item item){
      this.itemViewModel.deleteItem(item.getId());

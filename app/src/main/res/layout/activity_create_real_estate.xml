@@ -1,0 +1,186 @@
+<LinearLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <!--AGENT REAL ESTATE-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="REAL ESTATE AGENT"/>
+                <EditText
+                    android:id="@+id/agent"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+        <!--TYPE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type"/>
+            <EditText
+                android:id="@+id/type"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Type"/>
+            </LinearLayout>
+
+            <!--PRICE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"/>
+              <EditText
+                  android:id="@+id/price"
+                  android:layout_width="100dp"
+                  android:layout_height="wrap_content"
+                  android:inputType="number"
+                  android:text="$"
+                  android:textAlignment="textEnd"/>
+            </LinearLayout>
+
+            <!--SURFACE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Surface"/>
+
+                <EditText
+                    android:id="@+id/surface"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="sq m"
+                    android:textAlignment="textEnd"/>
+            </LinearLayout>
+
+                <!--ROOM DETAILS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nb rooms"/>
+                    <Spinner
+                        android:id="@+id/rooms"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nb of bathrooms"/>
+                    <Spinner
+                        android:id="@+id/bathrooms"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
+            <!--ROOM DETAILS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"/>
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="300dp"
+                    android:maxLines="10"
+                    android:layout_height="wrap_content"
+                    android:text="..."/>
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    />
+                </LinearLayout>
+            <!--GEO LOCATION -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City or Postal Code"/>
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <!--ADDRESS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"/>
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Create object"/>
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
