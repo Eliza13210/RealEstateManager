@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
@@ -15,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.openclassrooms.realestatemanager.models.Photo;
 
@@ -24,6 +27,7 @@ import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,9 +41,9 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     EditText agent_tv;
     //TYPE
     @BindView(R.id.house)
-    ImageView house;
+    TextView house;
     @BindView(R.id.apartement)
-    ImageView apartement;
+    TextView apartement;
     @BindView(R.id.type)
     EditText type_tv;
 
@@ -68,6 +72,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     @BindView(R.id.btn_send)
     Button btn_validate;
 
+    @BindView(R.id.ic_camera)
+    TextView camera_ic;
+    @BindView(R.id.ic_gallery)
+    TextView gallery_ic;
+
     // For creating real estate object
     private List<Photo> photos = new ArrayList<>();
     private String type = "";
@@ -91,6 +100,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         setContentView(R.layout.activity_create_real_estate);
         ButterKnife.bind(this);
         initAnimation(savedInstanceState);
+        initToolbar();
         initSpinner();
         initButton();
     }
@@ -120,7 +130,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private void circularRevealActivity() {
 
         int cx = rootLayout.getWidth() / 2;
-        int cy = 56;
+        int cy = rootLayout.getHeight() - 70;
 
         float finalRadius = Math.max(rootLayout.getWidth(), rootLayout.getHeight());
 
@@ -164,15 +174,45 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     }
 
     private void initButton() {
+        //Button
         btn_validate.setOnClickListener(v -> getInfoFromUI());
+        //Spinners
         house.setOnClickListener(v -> getType("tag_house"));
         apartement.setOnClickListener(v -> getType("tag_apartement"));
+
+        //Edit text type
+        type_tv.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                house.setBackgroundResource(R.color.white);
+                apartement.setBackgroundResource(R.color.white);
+            }
+
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        switch (parent.getId()) {
+            case R.id.spinner_rooms:
+                rooms = parent.getItemAtPosition(pos).toString();
+                break;
+            case R.id.spinner_bathrooms:
+                bathrooms = parent.getItemAtPosition(pos).toString();
+                break;
+            default:
+                break;
+        }
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
@@ -185,19 +225,35 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         if (type.isEmpty()) {
             type = type_tv.getText().toString();
         }
+        // photos = new ArrayList<>();
+        price = price_tv.getText().toString();
+        location = location_tv.getText().toString();
+        description = description_tv.getText().toString();
+        surface = surface_tv.getText().toString();
+        address = address_tv.getText().toString();
+        // startDate = "";
+
+        //pointsOfInterest = null;
     }
 
     private void getType(String tag) {
+        type_tv.setText("");
         switch (tag) {
             case "tag_house":
                 type = "house";
                 //CHANGE COLOR TO SHOW CLICKED
+                house.setBackgroundResource(R.drawable.rounded_corners);
+                apartement.setBackgroundResource(R.color.white);
                 break;
             case "tag_apartement":
                 type = "apartement";
+
+                house.setBackgroundResource(R.color.white);
+                apartement.setBackgroundResource(R.drawable.rounded_corners);
                 break;
             default:
-                type = "";
+                break;
+
         }
     }
 }

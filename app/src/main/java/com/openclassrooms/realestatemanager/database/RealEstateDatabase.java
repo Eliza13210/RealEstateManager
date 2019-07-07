@@ -56,7 +56,6 @@ public abstract class RealEstateDatabase extends RoomDatabase {
                 contentValues.put("type", "flat");
                 contentValues.put("price", "31000");
                 contentValues.put("location", "Manhattan");
-                contentValues.put("photo", "https://media.architecturaldigest.com/photos/57fb9bd406d6622c7c27fc1e/master/w_1024%2Cc_limit/002%252520Rear%252520facade.jpg");
                 contentValues.put("description", "Beautiful flat");
                 contentValues.put("surface", "400");
                 contentValues.put("rooms", "8");

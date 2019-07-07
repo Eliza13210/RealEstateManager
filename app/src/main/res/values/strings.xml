@@ -13,6 +13,7 @@
 
     <!-- SPINNER ROOMS CREATE REALESTATE ACTIVITY-->
     <string-array name="rooms_array">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -32,6 +33,7 @@
 
     <!-- SPINNER BATHROOMS CREATE REALESTATE ACTIVITY-->
     <string-array name="bathrooms_array">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

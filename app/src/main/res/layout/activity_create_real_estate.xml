@@ -9,264 +9,312 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <include layout="@layout/toolbar" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:background="@color/white"
             android:orientation="vertical">
 
-            <!--AGENT REAL ESTATE-->
+            <include layout="@layout/toolbar" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Real estate agent" />
-
-                <EditText
-                    android:id="@+id/agent"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:maxLength="30" />
-            </LinearLayout>
-
-            <!--TYPE -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/house"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:clickable="true"
-                    android:drawableTop="@drawable/ic_icon_home"
-                    android:text="House"
-                    android:textAlignment="center"
-                    android:textSize="8dp" />
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:background="@color/white"
+                android:orientation="vertical">
 
 
-                <TextView
-                    android:id="@+id/apartement"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:clickable="true"
-                    android:drawableTop="@drawable/ic_apartement"
-                    android:text="Flat"
-                    android:textAlignment="center"
-                    android:textSize="8dp" />
-
+                <!--AGENT REAL ESTATE-->
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Other:" />
-
-                    <EditText
-                        android:id="@+id/type"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:hint="..." />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <!--SURFACE -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Surface" />
-
-                    <EditText
-                        android:id="@+id/surface"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="8"
-                        android:text="sq m"
-                        android:textAlignment="textEnd" />
-                </LinearLayout>
-
-
-                <!--PRICE -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Price" />
-
-                    <EditText
-                        android:id="@+id/price"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:text="$"
-                        android:textAlignment="textEnd" />
-                </LinearLayout>
-            </LinearLayout>
-            <!--ROOM DETAILS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.3"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nb rooms" />
-
-                <Spinner
-                    android:id="@+id/spinner_rooms"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nb of bathrooms" />
-
-                <Spinner
-                    android:id="@+id/spinner_bathrooms"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"></Spinner>
-            </LinearLayout>
-
-            <!--DESCRIPTION -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Description" />
-
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="3"
-                    android:background="@drawable/text_input_border"
-                    android:hint="Description..."
-                    android:paddingLeft="10dp" />
-            </LinearLayout>
-
-            <!--VIEW-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2">
-
-                <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-
-                <!--GEO LOCATION -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="City or Postal Code" />
+                        android:text="Agent"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/agent"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:maxLength="30" />
+                </LinearLayout>
+
+                <!--TYPE -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/house"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="true"
+                        android:drawableTop="@drawable/ic_icon_home"
+                        android:padding="2dp"
+                        android:text="House"
+                        android:textAlignment="center"
+                        android:textSize="8dp" />
+
+
+                    <TextView
+                        android:id="@+id/apartement"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:clickable="true"
+                        android:drawableTop="@drawable/ic_apartement"
+                        android:padding="2dp"
+                        android:text="Flat"
+                        android:textAlignment="center"
+                        android:textSize="8dp" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="3">
 
-                        <ImageView
-                            android:id="@+id/geo_loc"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_geo_loc" />
+                            android:paddingStart="20dp"
+                            android:text="Other:"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/location"
+                            android:id="@+id/type"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:hint="..." />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--SURFACE -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Surface"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/surface"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:hint="sq m"
+                            android:inputType="number"
+                            android:maxLength="8"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+
+
+                    <!--PRICE -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Price"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/price"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:hint="$"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--ROOM DETAILS -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rooms" />
+
+                    <Spinner
+                        android:id="@+id/spinner_rooms"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bathrooms" />
+
+                    <Spinner
+                        android:id="@+id/spinner_bathrooms"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"></Spinner>
+                </LinearLayout>
+
+                <!--DESCRIPTION -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Description"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        />
+
+                    <EditText
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="3"
+                        android:hint="..."
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <!--CAMERA OR GALLERY -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0.2"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/ic_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/ic_camera"
+                        android:clickable="true"
+                        android:padding="20dp" />
+
+                    <TextView
+                        android:id="@+id/ic_gallery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_pick_photo"
+                        android:clickable="true"
+                        android:padding="20dp" />
+
+                </LinearLayout>
+
+                <!--VIEW-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:orientation="horizontal">
+
+                    <!--GEO LOCATION -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City or Postal Code" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/geo_loc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_geo_loc" />
+
+                            <EditText
+                                android:id="@+id/location"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!--ADDRESS -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address" />
+
+                        <EditText
+                            android:id="@+id/address"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!--ADDRESS -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Address" />
-
-                    <EditText
-                        android:id="@+id/address"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/rounded_button"
+                    android:padding="10dp"
+                    android:text="Add"
+                    android:textColor="@color/white" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/rounded_button"
-                android:padding="10dp"
-                android:text="Add object"
-                android:textColor="@color/white" />
         </LinearLayout>
     </FrameLayout>
 
