@@ -187,8 +187,6 @@
                     android:background="@drawable/text_input_border"
                     android:hint="Description..."
                     android:paddingLeft="10dp" />
-
-
             </LinearLayout>
 
             <!--VIEW-->
