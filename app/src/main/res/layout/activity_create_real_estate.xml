@@ -1,13 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <FrameLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+      >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,10 +21,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="@dimen/margin_create_act"
                 android:background="@color/white"
                 android:orientation="vertical">
-
 
                 <!--AGENT REAL ESTATE-->
                 <LinearLayout
@@ -34,14 +35,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Agent"
-                        android:textSize="15dp"
+                        android:text="@string/agent"
+                        android:textSize="@dimen/text_size_create_act"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/agent"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:inputType="text"
                         android:maxLength="30" />
                 </LinearLayout>
 
@@ -59,10 +61,11 @@
                         android:layout_weight="0.5"
                         android:clickable="true"
                         android:drawableTop="@drawable/ic_icon_home"
+                        android:focusable="true"
                         android:padding="2dp"
-                        android:text="House"
+                        android:text="@string/house"
                         android:textAlignment="center"
-                        android:textSize="8dp" />
+                        android:textSize="@dimen/text_size_ic" />
 
 
                     <TextView
@@ -72,10 +75,11 @@
                         android:layout_weight="0.5"
                         android:clickable="true"
                         android:drawableTop="@drawable/ic_apartement"
+                        android:focusable="true"
                         android:padding="2dp"
-                        android:text="Flat"
+                        android:text="@string/flat"
                         android:textAlignment="center"
-                        android:textSize="8dp" />
+                        android:textSize="@dimen/text_size_ic" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -86,8 +90,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="20dp"
-                            android:text="Other:"
-                            android:textSize="15dp"
+                            android:text="@string/other"
+                            android:textSize="@dimen/text_size_create_act"
                             android:textStyle="bold" />
 
                         <EditText
@@ -103,7 +107,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:baselineAligned="false">
 
                     <!--SURFACE -->
                     <LinearLayout
@@ -115,15 +120,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Surface"
-                            android:textSize="15dp"
+                            android:text="@string/surface"
+                            android:textSize="@dimen/text_size_create_act"
                             android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/surface"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:hint="sq m"
+                            android:hint="@string/m2"
                             android:inputType="number"
                             android:maxLength="8"
                             android:textAlignment="textEnd" />
@@ -140,15 +145,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Price"
-                            android:textSize="15dp"
+                            android:text="@string/price"
+                            android:textSize="@dimen/text_size_create_act"
                             android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/price"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:hint="$"
+                            android:hint="@string/dollar"
                             android:inputType="number"
                             android:maxLength="10"
                             android:textAlignment="textEnd" />
@@ -165,7 +170,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rooms" />
+                        android:text="@string/rooms" />
 
                     <Spinner
                         android:id="@+id/spinner_rooms"
@@ -175,12 +180,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bathrooms" />
+                        android:text="@string/bathrooms" />
 
                     <Spinner
                         android:id="@+id/spinner_bathrooms"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"></Spinner>
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
                 <!--DESCRIPTION -->
@@ -195,10 +201,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Description"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        />
+                        android:text="@string/description"
+                        android:textSize="@dimen/text_size_create_act"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/description"
@@ -224,6 +229,7 @@
                         android:layout_marginEnd="20dp"
                         android:background="@drawable/ic_camera"
                         android:clickable="true"
+                        android:focusable="true"
                         android:padding="20dp" />
 
                     <TextView
@@ -232,6 +238,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_pick_photo"
                         android:clickable="true"
+                        android:focusable="true"
                         android:padding="20dp" />
 
                 </LinearLayout>
@@ -253,6 +260,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="0.5"
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <!--GEO LOCATION -->
@@ -277,6 +285,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:contentDescription="@string/geo_location"
                                 android:src="@drawable/ic_geo_loc" />
 
                             <EditText
@@ -296,7 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Address" />
+                            android:text="@string/address" />
 
                         <EditText
                             android:id="@+id/address"
@@ -312,7 +321,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/rounded_button"
                     android:padding="10dp"
-                    android:text="Add"
+                    android:text="@string/add"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>

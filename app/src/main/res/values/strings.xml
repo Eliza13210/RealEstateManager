@@ -7,8 +7,29 @@
     <string name="action_search">action search</string>
     <string name="action_add">action add</string>
     <string name="number_of_rooms">Number of rooms</string>
-    <string name="surface">Surface</string>
     <string name="number_of_bathrooms">Number of bathrooms</string>
+    <string name="agent">Agent</string>
+    <string name="house">House</string>
+    <string name="flat">Flat</string>
+    <string name="other">Other:</string>
+    <string name="surface">Surface</string>
+    <string name="m2">m2</string>
+    <string name="price">Price</string>
+    <string name="dollar">$</string>
+    <string name="rooms">Rooms</string>
+    <string name="bathrooms">Bathrooms</string>
+    <string name="description">Description</string>
+    <string name="geo_location">Geo location</string>
+    <string name="address">Address</string>
+    <string name="add">Add</string>
+
+
+    <string name="service_not_available">service not available</string>
+    <string name="invalid_lat_long_used">invalid lat and long used</string>
+    <string name="no_address_found">no address found</string>
+    <string name="address_found">address found</string>
+    <string name="popup_title_permission_files_access">Access photo gallery</string>
+    <string name="toast_title_no_image_chosen">No image chosen</string>
 
 
     <!-- SPINNER ROOMS CREATE REALESTATE ACTIVITY-->
