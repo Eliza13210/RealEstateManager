@@ -275,6 +275,8 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
+
+                Log.e("Photo", "capture requestcode");
                 this.handleResponseTakePhoto(requestCode, resultCode, data);
                 break;
             case RC_CHOOSE_PHOTO:
@@ -314,6 +316,10 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
             this.uriImageSelected = data.getData();
             Photo photo = new Photo(null, realEstateId, uriImageSelected.toString(), "");
             photos.add(photo);
+            Log.e("Photo", photo.getUrl());
+            Log.e("Photo", "photo list size" + photos.size());
+            Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show();
         }
@@ -325,17 +331,23 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
      * User clicking on camera icon to take new photo
      */
     private void takePhoto() {
+
+        Log.e("Photo", "take photo void");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
 
+                Log.e("Photo", "ERROR " + ex);
+                // Error occurred while creating the File
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
+
+
+                Log.e("Photo", "Photo file not null");
                 Uri photoURI = FileProvider.getUriForFile(
                         getApplicationContext(), "com.openclassrooms.realestatemanager.fileprovider",
                         photoFile);
@@ -346,6 +358,9 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     }
 
     private File createImageFile() throws IOException {
+
+
+        Log.e("Photo", "Create image file");
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -358,17 +373,23 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
+
+        Log.e("Photo", currentPhotoPath);
         return image;
     }
 
 
     protected void handleResponseTakePhoto(int requestCode, int resultCode, Intent data) {
+
+        Log.e("Photo", "resuult code = " + resultCode);
         if (resultCode == RESULT_OK) {
             //use imageUri here to access the image
-            Bundle extras = data.getExtras();
-            Log.e("URI", currentPhotoPath.toString());
+            //Bundle extras = data.getExtras();
+            Log.e("URI", currentPhotoPath);
             Photo photo = new Photo(null, realEstateId, currentPhotoPath, "");
             photos.add(photo);
+            Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
+            Log.e("Photo", "Create new photo " + photo.getUrl());
         } else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT);
         }
@@ -423,6 +444,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         String locationForSearch = Utils.setLocationString(latLng);
         pointsOfInterest = Utils.getPointsOfInterest(locationForSearch);
         Log.e("poi", "number of poi " + pointsOfInterest.size());
+        Log.e("poi", "first " + pointsOfInterest.get(0));
+
+        // TODO CHECK IF MINIMU INFO AND SAVE TO DATABASE
+        //ASKS FOR TWO PERMISSIONS
+        // PB TAKE PHOTO
     }
 
     private void getType(String tag) {
