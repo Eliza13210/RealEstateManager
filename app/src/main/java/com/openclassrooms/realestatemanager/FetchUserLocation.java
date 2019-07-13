@@ -53,7 +53,7 @@ public class FetchUserLocation {
             getDeviceLocation();
             Log.e("Permission", "Granted");
         } else {
-            ActivityCompat.requestPermissions((MainActivity) context,
+            ActivityCompat.requestPermissions((CreateRealEstateActivity) context,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             Log.e("Permission", "Request permission");
@@ -61,7 +61,6 @@ public class FetchUserLocation {
     }
 
     public void getDeviceLocation() {
-        checkLocationPermission();
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -77,8 +76,12 @@ public class FetchUserLocation {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
+
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = (Location) task.getResult();
+
+                            Log.e("location ",mLastKnownLocation.toString());
+
                             double mLatitude;
                             double mLongitude;
 
@@ -91,6 +94,8 @@ public class FetchUserLocation {
                                 pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
                                 pref.edit().putString("CurrentLatitude", Double.toString(mLatitude)).apply();
                                 pref.edit().putString("CurrentLongitude", Double.toString(mLongitude)).apply();
+
+                                Log.e("fetchLoc", Double.toString(mLatitude) + " " + Double.toString(mLongitude));
 
                                 getAddress(mLatitude, mLongitude);
                             } else {
@@ -107,7 +112,7 @@ public class FetchUserLocation {
     }
 
     private void getAddress(double latitude, double longitude) {
-        StringBuilder result = new StringBuilder();
+
         String userAddress = "";
         String city = "";
         try {
@@ -115,8 +120,14 @@ public class FetchUserLocation {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
-                userAddress = address.getAddressLine(1);
+                userAddress = address.getAddressLine(0);
                 city = address.getLocality();
+
+                Log.e("location ",address.getThoroughfare());
+            }
+            else{
+
+                Log.e("Geocoder adress ", "address.size less than 0");
             }
         } catch (IOException e) {
             Log.e("tag", e.getMessage());
@@ -128,7 +139,4 @@ public class FetchUserLocation {
         Log.e("get loc", userAddress + city);
     }
 
-    public void getUserLatLng(String address){
-
-    }
 }

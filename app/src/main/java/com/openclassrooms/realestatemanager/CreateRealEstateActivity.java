@@ -5,7 +5,6 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +26,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.openclassrooms.realestatemanager.models.Photo;
+import com.openclassrooms.realestatemanager.models.Result;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,8 +92,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     //LOCATION
     @BindView(R.id.geo_loc)
     ImageView geoLocation;
-    @BindView(R.id.location)
-    EditText location_tv;
     @BindView(R.id.address)
     EditText address_tv;
 
@@ -110,7 +109,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private List<Photo> photos = new ArrayList<>();
     private String type = "";
     private String price = "";
-    private String location = "";
     private String description = "";
     private String surface = "";
     private String rooms = "";
@@ -120,7 +118,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private String startDate = "";
     private String endDate = "";
     private String agent = "";
-    private String[] pointsOfInterest = null;
+    private List<Result> pointsOfInterest = new ArrayList<>();
 
 
     @Override
@@ -134,6 +132,12 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         initSpinner();
         initClickableItems();
     }
+
+    /**
+     * Animation that starts when user click ob Fab button in Main Activity
+     *
+     * @param savedInstanceState
+     */
 
     private void initAnimation(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
@@ -177,6 +181,9 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         initToolbar();
     }
 
+    /**
+     * Initiate buttons and toolbar and spinners
+     */
     protected void initToolbar() {
         //Initiate toolbar to navigate back
         this.setSupportActionBar(toolbar);
@@ -236,6 +243,9 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         geoLocation.setOnClickListener(v -> getUserLocation());
     }
 
+    /**
+     * Get user location when clicking on geo location icon
+     */
     private void getUserLocation() {
         //Fetch user location
         FetchUserLocation fetchUserLocation = new FetchUserLocation(this);
@@ -243,15 +253,13 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         SharedPreferences pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
 
         //Update UI
-        String address = pref.getString("CurrentAddress", "Default");
-        String locality = pref.getString("CurrentCity", "Default");
+        String address = pref.getString("CurrentAddress", "Address not found");
         address_tv.setText(address);
-        location_tv.setText(locality);
     }
 
 
     /**
-     * For picking photo from gallery
+     * Click on gallery icon lets the user pick a photo from phones gallery
      */
 
     @Override
@@ -314,7 +322,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
 
     /**
-     * Take new photo
+     * User clicking on camera icon to take new photo
      */
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -373,12 +381,15 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+
         switch (parent.getId()) {
             case R.id.spinner_rooms:
                 rooms = parent.getItemAtPosition(pos).toString();
+                Log.e("Spinner", rooms);
                 break;
             case R.id.spinner_bathrooms:
                 bathrooms = parent.getItemAtPosition(pos).toString();
+                Log.e("Spinner", rooms);
                 break;
             default:
                 break;
@@ -388,18 +399,30 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> parent) {
         rooms = "";
         bathrooms = "";
+        Log.e("Spinner", rooms + bathrooms);
     }
+
+    /**
+     * Collects all info about Real estate object when user click on validate to register the object in database
+     */
 
     private void getInfoFromUI() {
         agent = agent_tv.getText().toString();
-
         price = price_tv.getText().toString();
-        location = location_tv.getText().toString();
         description = description_tv.getText().toString();
         surface = surface_tv.getText().toString();
         address = address_tv.getText().toString();
         startDate = Utils.getTodayDate(Calendar.getInstance().getTime());
-        pointsOfInterest = Utils.getPointsOfInterest()
+
+        //Fetch nearby search results from the location
+
+        LatLng latLng = Utils.getLatLngFromAddress(this, address);
+        Log.e("Create", address);
+        Log.e("Create", latLng.toString());
+        assert latLng != null;
+        String locationForSearch = Utils.setLocationString(latLng);
+        pointsOfInterest = Utils.getPointsOfInterest(locationForSearch);
+        Log.e("poi", "number of poi " + pointsOfInterest.size());
     }
 
     private void getType(String tag) {
@@ -410,10 +433,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 //CHANGE COLOR TO SHOW CLICKED
                 house.setBackgroundResource(R.drawable.rounded_corners);
                 apartement.setBackgroundResource(R.color.white);
+                Log.e("Type ", type);
                 break;
             case "tag_apartement":
                 type = "apartement";
-
+                Log.e("Type ", type);
                 house.setBackgroundResource(R.color.white);
                 apartement.setBackgroundResource(R.drawable.rounded_corners);
                 break;

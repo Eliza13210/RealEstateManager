@@ -7,7 +7,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.openclassrooms.realestatemanager.models.NearbySearchObject;
 import com.openclassrooms.realestatemanager.models.Result;
 import com.openclassrooms.realestatemanager.network.NearbySearchStream;
@@ -73,6 +75,12 @@ public class Utils {
         return isConnected;
     }
 
+    /** Fetch nearby search results from Google Places Api
+     *
+     * @param latlng
+     * @return
+     */
+
     public static List<Result> getPointsOfInterest(String latlng) {
         List<Result> list = new ArrayList<>();
         Disposable disposable = NearbySearchStream.fetchNearbyPlacesStream(latlng).subscribeWith(new DisposableObserver<NearbySearchObject>() {
@@ -94,7 +102,14 @@ public class Utils {
         return list;
     }
 
-    public LatLng getLocationFromAddress(Context context,String strAddress) {
+    /**
+     * Get latitude and longitude object from a location address
+     * @param context
+     * @param strAddress
+     * @return
+     */
+
+    public static LatLng getLatLngFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -108,13 +123,29 @@ public class Utils {
             }
 
             Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
         } catch (IOException ex) {
-
+            Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
 
         return p1;
+    }
+
+    /**
+     * Get adress from a latitude and longitude object
+     * @param latLng
+     * @return
+     */
+
+    public static String setLocationString(LatLng latLng) {
+        //Build location string to fetch nearby restaurants
+        StringBuilder builder = new StringBuilder();
+        builder.append(latLng.latitude);
+        builder.append(",");
+        builder.append(latLng.longitude);
+
+        return builder.toString();
     }
 }
