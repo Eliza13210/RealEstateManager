@@ -326,15 +326,10 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 // Error occurred while creating the File
 
             }
-
-            // TODO java.lang.NullPointerException: Attempt to invoke virtual method 'android.content.res.XmlResourceParser android.content.pm.ProviderInfo.loadXmlMetaData(android.content.pm.PackageManager, java.lang.String)' on a null object reference
-            //        at androidx.core.content.FileProvider.parsePathStrategy(FileProvider.java:605)
-            //        at androidx.core.content.FileProvider.getPathStrategy(FileProvider.java:579)
-            //        at androidx.core.content.FileProvider.getUriForFile(FileProvider.java:417)
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        getApplicationContext().getPackageName(),
+                Uri photoURI = FileProvider.getUriForFile(
+                        getApplicationContext(), "com.openclassrooms.realestatemanager.fileprovider",
                         photoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -398,15 +393,13 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private void getInfoFromUI() {
         agent = agent_tv.getText().toString();
 
-        //TODO  photos = new ArrayList<>();
         price = price_tv.getText().toString();
         location = location_tv.getText().toString();
         description = description_tv.getText().toString();
         surface = surface_tv.getText().toString();
         address = address_tv.getText().toString();
         startDate = Utils.getTodayDate(Calendar.getInstance().getTime());
-
-        //TODO pointsOfInterest = null;
+        pointsOfInterest = Utils.getPointsOfInterest()
     }
 
     private void getType(String tag) {

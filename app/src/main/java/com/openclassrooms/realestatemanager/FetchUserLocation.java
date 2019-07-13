@@ -60,7 +60,8 @@ public class FetchUserLocation {
         }
     }
 
-    private void getDeviceLocation() {
+    public void getDeviceLocation() {
+        checkLocationPermission();
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -125,5 +126,9 @@ public class FetchUserLocation {
         pref.edit().putString("CurrentAddress", userAddress).apply();
         pref.edit().putString("CurrentCity", city).apply();
         Log.e("get loc", userAddress + city);
+    }
+
+    public void getUserLatLng(String address){
+
     }
 }
