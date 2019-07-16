@@ -19,6 +19,7 @@ import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JUnit4.class)
 public class NetworkTest {
@@ -47,9 +48,10 @@ public class NetworkTest {
                 .assertNoTimeout() // 3.2 - Check if no Timeout
                 .awaitTerminalEvent(); // 3.3 - Await the stream terminated before continue
 
-        // 4 - Get list of user fetched
+        // 4 - Get list of results fetched
         NearbySearchObject nearbySearchObject = testObserver.values().get(0);
         assertEquals("OK", nearbySearchObject.getStatus());
+        assertTrue(nearbySearchObject.getResults() != null);
     }
 
 

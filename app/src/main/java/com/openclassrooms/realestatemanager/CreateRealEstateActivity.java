@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -65,21 +66,23 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class CreateRealEstateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private CountDownTimer timer = null;
 
-    //PERMISSIONS
+    //PERMISSIONS AND REQUESTS
     private static final int RC_IMAGE_PERMS = 111;
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
+
     protected static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private static final int RC_CHOOSE_PHOTO = 200;
+
     // Uri of image selected by user
     private Uri uriImageSelected;
     private String currentPhotoPath;
-    private static final int RC_CHOOSE_PHOTO = 200;
 
     // For latLng
     private FetchUserLocation fetchUserLocation;
 
-    private RealEstateViewModel viewModel;
-
+    //VIEW
     @BindView(R.id.photo_layout)
     RelativeLayout photo_layout;
 
@@ -146,9 +149,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private String bedrooms;
     private LatLng latLng;
 
-    private PhotoPopUp photoPopUp;
+    //FOR SAVING
     private SharedPreferences pref;
+    private RealEstateViewModel viewModel;
 
+    private Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,9 +248,9 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     }
 
     private void initClickableItems() {
-        //Button
+        //Button to add
         btn_validate.setOnClickListener(v -> getInfoFromUI());
-        //Type
+        //User chose which type of object
         house.setOnClickListener(v -> getType("tag_house"));
         apartement.setOnClickListener(v -> getType("tag_apartement"));
 
@@ -267,20 +272,31 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
             }
         });
 
+        //Address edit text
         address_tv.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                getPointsOfInterest();
+                //Give the user time to finish writing
+                if (timer != null) {
+                    timer.cancel();
+                }
+                timer = new CountDownTimer(1500, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    public void onFinish() {
+                        //do what you wish
+                        getPointsOfInterest();
+                    }
+                }.start();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -296,11 +312,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
      */
     private void getUserLocation() {
         fetchUserLocation.checkLocationPermission();
-
-        //TODO WAIT TILL FETCH GEO LOC
-        if (!TextUtils.isEmpty(address_tv.getText().toString())) {
-            getPointsOfInterest();
-        }
     }
 
 
@@ -335,6 +346,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 // If request is cancelled, the result arrays are empty.
                 if (resultCode == PackageManager.PERMISSION_GRANTED) {
                     Log.e("MainActivity", "Permission Granted");
+                    fetchUserLocation.getDeviceLocation();
                 } else {
                     Toast.makeText(this, "You need to grant permission to access your latLng", Toast.LENGTH_LONG).show();
                 }
@@ -363,7 +375,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
     private void addPhotoToList(String uri) {
         //Show pop up to get description of photo
-        photoPopUp = new PhotoPopUp(this);
+        PhotoPopUp photoPopUp = new PhotoPopUp(this);
         photoPopUp.popUpDialog(uri);
 
         String text = pref.getString("Photo text", "");
@@ -524,6 +536,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> parent) {
         rooms = "";
         bathrooms = "";
+        bedrooms = "";
         Log.e("Spinner", rooms + bathrooms);
     }
 
@@ -595,32 +608,33 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         address = address_tv.getText().toString();
         latLng = Utils.getLatLngFromAddress(this, address);
         Log.e("Create", address);
-        Log.e("Create", latLng.toString());
-        assert latLng != null;
-        String locationForSearch = Utils.setLocationString(latLng);
 
-        if (!pointsOfInterest.isEmpty()) {
-            Log.e("poi", "number of poi " + pointsOfInterest.size());
-            Log.e("poi", "first " + pointsOfInterest.get(0));
+        if (latLng != null) {
+            String locationForSearch = Utils.setLocationString(latLng);
+
+            disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(new DisposableObserver<NearbySearchObject>() {
+                @Override
+                public void onNext(NearbySearchObject nearbySearchObject) {
+                    pointsOfInterest = nearbySearchObject.getResults();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.e("Main", "Error fetching nearby places " + e);
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        } else {
+            Toast.makeText(this, "Enter a valid address", Toast.LENGTH_SHORT).show();
         }
+    }
 
-
-        Disposable disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(new DisposableObserver<NearbySearchObject>() {
-            @Override
-            public void onNext(NearbySearchObject nearbySearchObject) {
-                pointsOfInterest.addAll(nearbySearchObject.getResults());
-                Log.e("utils", nearbySearchObject.getStatus());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("Main", "Error fetching restaurants " + e);
-            }
-
-            @Override
-            public void onComplete() {
-            }
-        });
+    public void disposeWhenDestroy() {
+        if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
     }
 }
 

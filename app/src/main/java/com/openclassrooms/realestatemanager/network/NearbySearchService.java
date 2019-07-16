@@ -19,7 +19,7 @@ public interface NearbySearchService {
     @GET("{search}/json")
     Observable<NearbySearchObject> getRestaurant(
             @Path("search") String search,
-            @Query("latLng") String location,
+            @Query("location") String location,
             @Query("radius") String radius,
             // @Query("type") String type,
             @Query("key") String key
