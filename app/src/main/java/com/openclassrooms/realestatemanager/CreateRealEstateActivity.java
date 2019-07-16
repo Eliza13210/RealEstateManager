@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +31,11 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
+import com.openclassrooms.realestatemanager.models.NearbySearchObject;
 import com.openclassrooms.realestatemanager.models.Photo;
 import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.models.Result;
+import com.openclassrooms.realestatemanager.network.NearbySearchStream;
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel;
 import com.openclassrooms.realestatemanager.view.CircularRevealAnimation;
 import com.openclassrooms.realestatemanager.view.PhotoPopUp;
@@ -55,6 +58,8 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -262,6 +267,23 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
             }
         });
 
+        address_tv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                getPointsOfInterest();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         //Photo
         camera_ic.setOnClickListener(v -> takePhoto());
 
@@ -274,6 +296,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
      */
     private void getUserLocation() {
         fetchUserLocation.checkLocationPermission();
+
+        //TODO WAIT TILL FETCH GEO LOC
+        if (!TextUtils.isEmpty(address_tv.getText().toString())) {
+            getPointsOfInterest();
+        }
     }
 
 
@@ -531,19 +558,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         price = price_tv.getText().toString();
         description = description_tv.getText().toString();
         surface = surface_tv.getText().toString();
-        address = address_tv.getText().toString();
         startDate = Utils.getTodayDate(Calendar.getInstance().getTime());
-
-        //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
-
-        latLng = Utils.getLatLngFromAddress(this, address);
-        Log.e("Create", address);
-        Log.e("Create", latLng.toString());
-        assert latLng != null;
-        String locationForSearch = Utils.setLocationString(latLng);
-        pointsOfInterest = Utils.getPointsOfInterest(locationForSearch);
-        Log.e("poi", "number of poi " + pointsOfInterest.size());
-        Log.e("poi", "first " + pointsOfInterest.get(0));
 
         Log.e("check if", "is empty " + agent.isEmpty());
 
@@ -571,6 +586,41 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
         Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void getPointsOfInterest() {
+
+        //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
+
+        address = address_tv.getText().toString();
+        latLng = Utils.getLatLngFromAddress(this, address);
+        Log.e("Create", address);
+        Log.e("Create", latLng.toString());
+        assert latLng != null;
+        String locationForSearch = Utils.setLocationString(latLng);
+
+        if (!pointsOfInterest.isEmpty()) {
+            Log.e("poi", "number of poi " + pointsOfInterest.size());
+            Log.e("poi", "first " + pointsOfInterest.get(0));
+        }
+
+
+        Disposable disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(new DisposableObserver<NearbySearchObject>() {
+            @Override
+            public void onNext(NearbySearchObject nearbySearchObject) {
+                pointsOfInterest.addAll(nearbySearchObject.getResults());
+                Log.e("utils", nearbySearchObject.getStatus());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e("Main", "Error fetching restaurants " + e);
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
     }
 }
 

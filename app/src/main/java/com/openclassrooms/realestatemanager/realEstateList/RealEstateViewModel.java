@@ -48,8 +48,10 @@ public class RealEstateViewModel extends ViewModel {
         return realEstateDataSource.getAllItems();
     }
 
-    public void createRealEstate(RealEstate realEstate){
-        realEstateDataSource.createRealEstate(realEstate);
+    public void createRealEstate(RealEstate realEstate) {
+        executor.execute(() -> {
+            realEstateDataSource.createRealEstate(realEstate);
+        });
     }
 
     // -------------

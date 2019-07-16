@@ -20,4 +20,6 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var startDate: String?,
                       var endDate: String?,
                       var agent: String
+
+//TODO POINTS OF INTEREST
 )

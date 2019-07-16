@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.Task;
 import com.openclassrooms.realestatemanager.models.NearbySearchObject;
 import com.openclassrooms.realestatemanager.models.Result;
 import com.openclassrooms.realestatemanager.network.NearbySearchStream;
@@ -75,35 +76,10 @@ public class Utils {
         return isConnected;
     }
 
-    /** Fetch nearby search results from Google Places Api
-     *
-     * @param latlng
-     * @return
-     */
-
-    public static List<Result> getPointsOfInterest(String latlng) {
-        List<Result> list = new ArrayList<>();
-        Disposable disposable = NearbySearchStream.fetchNearbyPlacesStream(latlng).subscribeWith(new DisposableObserver<NearbySearchObject>() {
-            @Override
-            public void onNext(NearbySearchObject nearbySearchObject) {
-                list.addAll(nearbySearchObject.getResults());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("Main", "Error fetching restaurants " + e);
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-        return list;
-    }
 
     /**
      * Get latitude and longitude object from a latLng address
+     *
      * @param context
      * @param strAddress
      * @return
@@ -136,6 +112,7 @@ public class Utils {
 
     /**
      * Get adress from a latitude and longitude object
+     *
      * @param latLng
      * @return
      */

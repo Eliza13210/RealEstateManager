@@ -15,6 +15,7 @@ import com.openclassrooms.realestatemanager.view.RealEstateAdapter;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -49,7 +50,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     private void configureRecyclerview() {
         // Create adapter passing the list of news
-        this.adapter = new RealEstateAdapter(getContext());
+        this.adapter = new RealEstateAdapter(Objects.requireNonNull(getContext()));
         // Attach the adapter to the recycler view to populate items
         this.recyclerView.setAdapter(this.adapter);
         //Check if portrait orientation
@@ -62,7 +63,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
             this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
     }
-
 
 
     // Configuring ViewModel

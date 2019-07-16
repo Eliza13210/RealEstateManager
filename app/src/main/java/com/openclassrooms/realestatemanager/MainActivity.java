@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -13,12 +12,10 @@ import com.openclassrooms.realestatemanager.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
 import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
 
 public class MainActivity extends BaseActivity implements RealEstateViewHolder.OnItemClickedListener {
 
     private DetailFragment detailFragment;
-    private MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
 
     // 3 - Create a new item
     private void createRealEstate() {
-        Log.e("main", "clicked");
         startActivity(new Intent(this, CreateRealEstateActivity.class));
     }
 
@@ -64,7 +60,7 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
     }
 
     private void showMainFragment() {
-        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         if (mainFragment == null) {
             mainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
