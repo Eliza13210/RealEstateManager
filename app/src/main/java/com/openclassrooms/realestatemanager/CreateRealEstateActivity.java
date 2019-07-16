@@ -1,10 +1,10 @@
 package com.openclassrooms.realestatemanager;
 
 import android.Manifest;
-import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,13 +21,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.openclassrooms.realestatemanager.injections.Injection;
+import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Photo;
+import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.models.Result;
+import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel;
+import com.openclassrooms.realestatemanager.view.CircularRevealAnimation;
+import com.openclassrooms.realestatemanager.view.PhotoPopUp;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +51,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,14 +62,21 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
 
     //PERMISSIONS
-    private static final int RC_IMAGE_PERMS = 123;
+    private static final int RC_IMAGE_PERMS = 111;
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
     protected static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     // Uri of image selected by user
     private Uri uriImageSelected;
+    private String currentPhotoPath;
     private static final int RC_CHOOSE_PHOTO = 200;
 
-    String currentPhotoPath;
+    // For latLng
+    private FetchUserLocation fetchUserLocation;
+
+    private RealEstateViewModel viewModel;
+
+    @BindView(R.id.photo_layout)
+    RelativeLayout photo_layout;
 
     @BindView(R.id.root_layout)
     FrameLayout rootLayout;
@@ -80,11 +96,14 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     EditText surface_tv;
     @BindView(R.id.price)
     EditText price_tv;
+
     //SPINNERS
     @BindView(R.id.spinner_rooms)
     Spinner spinnerRooms;
     @BindView(R.id.spinner_bathrooms)
     Spinner spinnerBathrooms;
+    @BindView(R.id.spinner_bedrooms)
+    Spinner spinnerBedrooms;
 
     @BindView(R.id.description)
     EditText description_tv;
@@ -119,6 +138,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private String endDate = "";
     private String agent = "";
     private List<Result> pointsOfInterest = new ArrayList<>();
+    private String bedrooms;
+    private LatLng latLng;
+
+    private PhotoPopUp photoPopUp;
+    private SharedPreferences pref;
 
 
     @Override
@@ -131,6 +155,16 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         initToolbar();
         initSpinner();
         initClickableItems();
+        configViewModel();
+        fetchUserLocation =
+                new FetchUserLocation(this, address_tv);
+        pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE);
+    }
+
+    // Configuring ViewModel
+    private void configViewModel() {
+        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
+        this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel.class);
     }
 
     /**
@@ -148,8 +182,8 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {
-
                         circularRevealActivity();
+
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                             rootLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                         } else {
@@ -162,22 +196,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     }
 
     private void circularRevealActivity() {
-
-        int cx = rootLayout.getWidth() / 2;
-        int cy = rootLayout.getHeight() - 70;
-
-        float finalRadius = Math.max(rootLayout.getWidth(), rootLayout.getHeight());
-
-        // create the animator for this view (the start radius is zero)
-        Animator circularReveal = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, cx, cy, 0, finalRadius);
-        }
-        circularReveal.setDuration(1000);
-
-        // make the view visible and start the animation
-        rootLayout.setVisibility(View.VISIBLE);
-        circularReveal.start();
+        CircularRevealAnimation.startAnimation(rootLayout);
         initToolbar();
     }
 
@@ -208,6 +227,14 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBathrooms.setAdapter(adapter);
         spinnerBathrooms.setOnItemSelectedListener(this);
+
+        //Bedrooms spinner
+        ArrayAdapter<CharSequence> adapterBedrooms = ArrayAdapter.createFromResource(this,
+                R.array.bathrooms_array, android.R.layout.simple_spinner_item);
+
+        adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBedrooms.setAdapter(adapter);
+        spinnerBedrooms.setOnItemSelectedListener(this);
     }
 
     private void initClickableItems() {
@@ -227,7 +254,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 house.setBackgroundResource(R.color.white);
                 apartement.setBackgroundResource(R.color.white);
-
             }
 
             public void afterTextChanged(Editable s) {
@@ -239,33 +265,28 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         //Photo
         camera_ic.setOnClickListener(v -> takePhoto());
 
-        //Geo location
+        //Geo latLng
         geoLocation.setOnClickListener(v -> getUserLocation());
     }
 
     /**
-     * Get user location when clicking on geo location icon
+     * Get user latLng when clicking on geo latLng icon and update edit text with address
      */
     private void getUserLocation() {
-        //Fetch user location
-        FetchUserLocation fetchUserLocation = new FetchUserLocation(this);
         fetchUserLocation.checkLocationPermission();
-        SharedPreferences pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
-
-        //Update UI
-        String address = pref.getString("CurrentAddress", "Address not found");
-        address_tv.setText(address);
     }
 
 
     /**
-     * Click on gallery icon lets the user pick a photo from phones gallery
+     * Handling permissions to take photo, pick photo from gallery and geo locate user
      */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Forward results to EasyPermissions
+
+        Log.e("Activity", "Permission to easyperm" + requestCode);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
@@ -273,17 +294,102 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e("onActivityResult", "Permission to easyperm" + requestCode);
         switch (requestCode) {
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
-
                 Log.e("Photo", "capture requestcode");
                 this.handleResponseTakePhoto(requestCode, resultCode, data);
                 break;
             case RC_CHOOSE_PHOTO:
                 this.handleResponse(requestCode, resultCode, data);
                 break;
+            case FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (resultCode == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("MainActivity", "Permission Granted");
+                } else {
+                    Toast.makeText(this, "You need to grant permission to access your latLng", Toast.LENGTH_LONG).show();
+                }
+                fetchUserLocation.getDeviceLocation();
+            }
+            break;
         }
     }
+
+    /**
+     * Handle response after asking permission
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    private void handleResponse(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) { //SUCCESS
+            this.uriImageSelected = data.getData();
+            addPhotoToList(uriImageSelected.toString());
+
+        } else {
+            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void addPhotoToList(String uri) {
+        //Show pop up to get description of photo
+        photoPopUp = new PhotoPopUp(this);
+        photoPopUp.popUpDialog(uri);
+
+        String text = pref.getString("Photo text", "");
+//TODO ALIGN PHOTOS!
+        //Save photo in list
+        Photo photo = new Photo(null, realEstateId, uri, text);
+        photos.add(photo);
+
+        //Add imageview to show thumbnail
+        ImageView imageView = new ImageView(this);
+        imageView.setMaxWidth(50);
+        imageView.setMaxHeight(50);
+        imageView.setTag(uri);
+
+        Picasso.get().load(uri).into(imageView);
+
+        //Delete photo on click
+        photo_layout.addView(imageView);
+        List<Photo> remove = new ArrayList<>();
+
+        imageView.setOnClickListener(v -> {
+            for (Photo p : photos) {
+                if (p.getUrl() == imageView.getTag()) {
+                    Log.e("remove", "removed= " + photos.size() + imageView.getTag() + p.getUrl());
+                    remove.add(p);
+                }
+            }
+            photos.removeAll(remove);
+
+            photo_layout.removeView(imageView);
+            Log.e("remove", "removed= " + photos.size());
+        });
+
+        Log.e("Photo", photo.getUrl() + photo.getText() + text);
+        Log.e("Photo", "photo list size" + photos.size());
+        Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
+    }
+
+    protected void handleResponseTakePhoto(int requestCode, int resultCode, Intent data) {
+
+        Log.e("Photo", "resuult code = " + resultCode);
+        if (resultCode == RESULT_OK) {
+            //use imageUri here to access the image
+            currentPhotoPath = "file:///" + currentPhotoPath;
+            addPhotoToList(currentPhotoPath);
+
+            Log.e("URI", currentPhotoPath);
+        } else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     // --------------------
     // ACTIONS
@@ -308,22 +414,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         // Launch an "Selection Image" Activity
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(i, RC_CHOOSE_PHOTO);
-    }
-
-    // Handle activity response (after user has chosen or not a picture)
-    private void handleResponse(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) { //SUCCESS
-            this.uriImageSelected = data.getData();
-            Photo photo = new Photo(null, realEstateId, uriImageSelected.toString(), "");
-            photos.add(photo);
-            Log.e("Photo", photo.getUrl());
-            Log.e("Photo", "photo list size" + photos.size());
-            Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show();
-        }
-
     }
 
 
@@ -379,23 +469,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     }
 
 
-    protected void handleResponseTakePhoto(int requestCode, int resultCode, Intent data) {
-
-        Log.e("Photo", "resuult code = " + resultCode);
-        if (resultCode == RESULT_OK) {
-            //use imageUri here to access the image
-            //Bundle extras = data.getExtras();
-            Log.e("URI", currentPhotoPath);
-            Photo photo = new Photo(null, realEstateId, currentPhotoPath, "");
-            photos.add(photo);
-            Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
-            Log.e("Photo", "Create new photo " + photo.getUrl());
-        } else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT);
-        }
-
-    }
-
     /**
      * Select item in spinner
      */
@@ -410,7 +483,11 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 break;
             case R.id.spinner_bathrooms:
                 bathrooms = parent.getItemAtPosition(pos).toString();
-                Log.e("Spinner", rooms);
+                Log.e("Spinner", bathrooms);
+                break;
+            case R.id.spinner_bedrooms:
+                bedrooms = parent.getItemAtPosition(pos).toString();
+                Log.e("Spinner", bedrooms);
                 break;
             default:
                 break;
@@ -421,34 +498,6 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         rooms = "";
         bathrooms = "";
         Log.e("Spinner", rooms + bathrooms);
-    }
-
-    /**
-     * Collects all info about Real estate object when user click on validate to register the object in database
-     */
-
-    private void getInfoFromUI() {
-        agent = agent_tv.getText().toString();
-        price = price_tv.getText().toString();
-        description = description_tv.getText().toString();
-        surface = surface_tv.getText().toString();
-        address = address_tv.getText().toString();
-        startDate = Utils.getTodayDate(Calendar.getInstance().getTime());
-
-        //Fetch nearby search results from the location
-
-        LatLng latLng = Utils.getLatLngFromAddress(this, address);
-        Log.e("Create", address);
-        Log.e("Create", latLng.toString());
-        assert latLng != null;
-        String locationForSearch = Utils.setLocationString(latLng);
-        pointsOfInterest = Utils.getPointsOfInterest(locationForSearch);
-        Log.e("poi", "number of poi " + pointsOfInterest.size());
-        Log.e("poi", "first " + pointsOfInterest.get(0));
-
-        // TODO CHECK IF MINIMU INFO AND SAVE TO DATABASE
-        //ASKS FOR TWO PERMISSIONS
-        // PB TAKE PHOTO
     }
 
     private void getType(String tag) {
@@ -471,6 +520,57 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 break;
 
         }
+    }
+
+    /**
+     * Collects all info about Real estate object when user click on validate to register the object in database
+     */
+
+    private void getInfoFromUI() {
+        agent = agent_tv.getText().toString();
+        price = price_tv.getText().toString();
+        description = description_tv.getText().toString();
+        surface = surface_tv.getText().toString();
+        address = address_tv.getText().toString();
+        startDate = Utils.getTodayDate(Calendar.getInstance().getTime());
+
+        //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
+
+        latLng = Utils.getLatLngFromAddress(this, address);
+        Log.e("Create", address);
+        Log.e("Create", latLng.toString());
+        assert latLng != null;
+        String locationForSearch = Utils.setLocationString(latLng);
+        pointsOfInterest = Utils.getPointsOfInterest(locationForSearch);
+        Log.e("poi", "number of poi " + pointsOfInterest.size());
+        Log.e("poi", "first " + pointsOfInterest.get(0));
+
+        Log.e("check if", "is empty " + agent.isEmpty());
+
+        if (!agent.isEmpty() && !address.isEmpty()) {
+            createRealEstate();
+        } else {
+            Toast.makeText(this, "You need to choose an agent and address for the object you want to create", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void createRealEstate() {
+        Double lat = latLng.latitude;
+        String latitude = lat.toString();
+        Double lon = latLng.longitude;
+        String longitude = lon.toString();
+
+        RealEstate realEstate = new RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
+                rooms, bathrooms, address, false, startDate, null, agent
+        );
+        for (Photo photo : photos) {
+            photo.setRealEstateId(realEstate.getId());
+            viewModel.createPhoto(photo);
+        }
+        viewModel.createRealEstate(realEstate);
+
+        Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show();
+
     }
 }
 

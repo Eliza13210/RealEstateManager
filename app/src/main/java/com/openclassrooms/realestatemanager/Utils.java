@@ -103,7 +103,7 @@ public class Utils {
     }
 
     /**
-     * Get latitude and longitude object from a location address
+     * Get latitude and longitude object from a latLng address
      * @param context
      * @param strAddress
      * @return
@@ -119,6 +119,7 @@ public class Utils {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
+                Toast.makeText(context, "You must enter a valid address", Toast.LENGTH_SHORT).show();
                 return null;
             }
 
@@ -140,7 +141,7 @@ public class Utils {
      */
 
     public static String setLocationString(LatLng latLng) {
-        //Build location string to fetch nearby restaurants
+        //Build latLng string to fetch nearby restaurants
         StringBuilder builder = new StringBuilder();
         builder.append(latLng.latitude);
         builder.append(",");

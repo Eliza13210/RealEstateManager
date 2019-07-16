@@ -14,13 +14,12 @@ import retrofit2.http.Query;
 public interface NearbySearchService {
     String API_KEY = BuildConfig.API_KEY;
     String RADIUS = "1500";
-    // String TYPE = "restaurant";
     String NEARBY = "nearbysearch";
 
     @GET("{search}/json")
     Observable<NearbySearchObject> getRestaurant(
             @Path("search") String search,
-            @Query("location") String location,
+            @Query("latLng") String location,
             @Query("radius") String radius,
             // @Query("type") String type,
             @Query("key") String key

@@ -1,7 +1,5 @@
 package com.openclassrooms.realestatemanager.database.dao;
 
-import android.content.ClipData;
-
 import com.openclassrooms.realestatemanager.models.Photo;
 
 import java.util.List;

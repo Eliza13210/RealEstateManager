@@ -15,7 +15,7 @@ class RealEstateViewHolderKotlin(private val view: View) : RecyclerView.ViewHold
         val defaultImg = "https://s3.amazonaws.com/images.seroundtable.com/google-restraurant-menus-1499686091.jpg"
         Picasso.get().load(defaultImg).into(view.photo_realestate)
         view.item_type.text = realEstateItem.type
-        view.item_location.text = realEstateItem.location
+        view.item_location.text = realEstateItem.address
         view.item_price.text = realEstateItem.price
 
     }

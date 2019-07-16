@@ -63,12 +63,12 @@ public class Result {
     @Expose
     private List<String> types;
 
-    //To get location
+    //To get latLng
     @SerializedName("geometry")
     @Expose
     private Result geometry;
 
-    @SerializedName("location")
+    @SerializedName("latLng")
     @Expose
     private Result location;
 

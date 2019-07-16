@@ -45,7 +45,7 @@ class PhotoAdapter() : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
         fun bindPhoto(photo: Photo) {
             this.photo = photo
-            Picasso.get().load(photo.url).into(view.photo_detail);
+            Picasso.get().load(photo.url).into(view.photo_detail)
             view.text_detail.text = photo.text
         }
     }

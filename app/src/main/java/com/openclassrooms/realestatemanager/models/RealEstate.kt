@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey
 data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var type: String?,
                       var price: String?,
-                      var location: String?,
+                      var latitude: String?,
+                      var longitude: String?,
                       var description: String?,
                       var surface: String?,
                       var bedrooms: String?,
@@ -18,6 +19,5 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var sold: Boolean?,
                       var startDate: String?,
                       var endDate: String?,
-                      var agent: String?,
-                      var pointsOfInterest: String?
+                      var agent: String
 )

@@ -53,9 +53,9 @@ public abstract class RealEstateDatabase extends RoomDatabase {
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
+                contentValues.put("agent", "Théo");
                 contentValues.put("type", "flat");
                 contentValues.put("price", "31000");
-                contentValues.put("location", "Manhattan");
                 contentValues.put("description", "Beautiful flat");
                 contentValues.put("surface", "400");
                 contentValues.put("rooms", "8");

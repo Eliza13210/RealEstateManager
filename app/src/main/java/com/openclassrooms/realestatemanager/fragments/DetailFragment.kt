@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,16 +59,18 @@ class DetailFragment : Fragment() {
 
     // 3 - Get Current User
     private fun getCurrentRealEstate(id: Long) {
-        this.viewModel.getRealEstate(id).observe(this, Observer<RealEstate> { this.updateDetails(it) })
+        this.viewModel.getRealEstate(id).observe(this, Observer<RealEstate> { this.updateDetails(it) }
+        )
+
     }
 
     private fun updateDetails(realEstate: RealEstate) {
+        Log.e("det fr", realEstate.agent)
         detail_description.text = realEstate.description
         detail_surface.text = realEstate.surface
         detail_rooms.text = realEstate.rooms
         detail_bathrooms.text = realEstate.bathrooms
         detail_bedrooms.text = realEstate.bedrooms
-
         detail_address.text = realEstate.address
     }
 
@@ -77,6 +80,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun updatePhotoList(list: List<Photo>) {
+        Log.e("det fr", "list of photos="+ list.size)
         this.photoAdapter.updateData(list)
     }
 }

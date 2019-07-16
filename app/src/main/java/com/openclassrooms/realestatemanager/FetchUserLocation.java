@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -25,16 +26,18 @@ import androidx.core.content.ContextCompat;
 
 public class FetchUserLocation {
 
-    //For user location
+    //For user latLng
     public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 123;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private boolean locationPermissionGranted = false;
 
     private Context context;
+    private EditText editText;
     private SharedPreferences pref;
 
-    public FetchUserLocation(Context context) {
+    public FetchUserLocation(Context context, EditText editText) {
         this.context = context;
+        this.editText = editText;
     }
 
     public void checkLocationPermission() {
@@ -42,7 +45,7 @@ public class FetchUserLocation {
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         /*
-         * Request location permission, so that we can get the location of the
+         * Request latLng permission, so that we can get the latLng of the
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
@@ -62,12 +65,12 @@ public class FetchUserLocation {
 
     public void getDeviceLocation() {
         /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
+         * Get the best and most recent latLng of the device, which may be null in rare
+         * cases when a latLng is not available.
          */
         try {
             if (!locationPermissionGranted) {
-                Toast.makeText(context, "You need to grant permission to access your location", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "You need to grant permission to access your latLng", Toast.LENGTH_LONG).show();
             } else {
                 Task locationResult = fusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener((CreateRealEstateActivity) context, new OnCompleteListener() {
@@ -77,10 +80,8 @@ public class FetchUserLocation {
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
 
-                            // Set the map's camera position to the current location of the device.
+                            // Set the map's camera position to the current latLng of the device.
                             mLastKnownLocation = (Location) task.getResult();
-
-                            Log.e("location ",mLastKnownLocation.toString());
 
                             double mLatitude;
                             double mLongitude;
@@ -99,7 +100,7 @@ public class FetchUserLocation {
 
                                 getAddress(mLatitude, mLongitude);
                             } else {
-                                Toast.makeText(context, "Error defining location", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Error defining latLng", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -114,18 +115,14 @@ public class FetchUserLocation {
     private void getAddress(double latitude, double longitude) {
 
         String userAddress = "";
-        String city = "";
+
         try {
             Geocoder geocoder = new Geocoder(context, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 userAddress = address.getAddressLine(0);
-                city = address.getLocality();
-
-                Log.e("location ",address.getThoroughfare());
-            }
-            else{
+            } else {
 
                 Log.e("Geocoder adress ", "address.size less than 0");
             }
@@ -135,8 +132,13 @@ public class FetchUserLocation {
 
         //Save user address
         pref.edit().putString("CurrentAddress", userAddress).apply();
-        pref.edit().putString("CurrentCity", city).apply();
-        Log.e("get loc", userAddress + city);
+        Log.e("get loc", userAddress);
+
+        updateUI(userAddress);
+    }
+
+    private void updateUI(String address) {
+        editText.setText(address);
     }
 
 }

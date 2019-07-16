@@ -30,6 +30,7 @@
     <string name="address_found">address found</string>
     <string name="popup_title_permission_files_access">Access photo gallery</string>
     <string name="toast_title_no_image_chosen">No image chosen</string>
+    <string name="bedrooms">Bedrooms</string>
 
 
     <!-- SPINNER ROOMS CREATE REALESTATE ACTIVITY-->
