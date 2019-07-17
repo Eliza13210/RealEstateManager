@@ -87,7 +87,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     }
 
     @Override
-    public void onItemClick(Long id) {
+    public void onItemClick(String id) {
 
     }
 

@@ -30,7 +30,6 @@
             android:theme="@style/MainTheme"></activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,7 +13,7 @@ import androidx.room.Update;
 @Dao
 public interface PhotoDao {
     @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
-    LiveData<List<Photo>> getPhotos(long realEstateId);
+    LiveData<List<Photo>> getPhotos(String realEstateId);
 
     @Insert
     long insertPhoto(Photo photo);

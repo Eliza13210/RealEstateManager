@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
+data class RealEstate(@PrimaryKey(autoGenerate = false)val id: String,
                       var type: String?,
                       var price: String?,
                       var latitude: String?,

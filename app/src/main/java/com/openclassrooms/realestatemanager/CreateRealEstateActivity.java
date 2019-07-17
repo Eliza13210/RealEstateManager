@@ -12,7 +12,6 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -132,7 +131,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     TextView gallery_ic;
 
     // For creating real estate object
-    private long realEstateId = 1;
+    private String realEstateId = "temporary";
     private List<Photo> photos = new ArrayList<>();
     private String type = "";
     private String price = "";
@@ -337,10 +336,10 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         switch (requestCode) {
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 Log.e("Photo", "capture requestcode");
-                this.handleResponseTakePhoto(requestCode, resultCode, data);
+                this.handleResponseTakePhoto(resultCode);
                 break;
             case RC_CHOOSE_PHOTO:
-                this.handleResponse(requestCode, resultCode, data);
+                this.handleResponse(resultCode, data);
                 break;
             case FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -358,12 +357,8 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
     /**
      * Handle response after asking permission
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param data
      */
-    private void handleResponse(int requestCode, int resultCode, Intent data) {
+    private void handleResponse(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) { //SUCCESS
             this.uriImageSelected = data.getData();
             addPhotoToList(uriImageSelected.toString());
@@ -414,7 +409,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show();
     }
 
-    protected void handleResponseTakePhoto(int requestCode, int resultCode, Intent data) {
+    protected void handleResponseTakePhoto(int resultCode) {
 
         Log.e("Photo", "resuult code = " + resultCode);
         if (resultCode == RESULT_OK) {
@@ -491,7 +486,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
 
         Log.e("Photo", "Create image file");
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
@@ -587,15 +582,18 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         String latitude = lat.toString();
         Double lon = latLng.longitude;
         String longitude = lon.toString();
+        realEstateId = address + "_" + startDate;
 
-        RealEstate realEstate = new RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
+        RealEstate realEstate = new RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, false, startDate, null, agent
         );
+
+        viewModel.createRealEstate(realEstate);
+
         for (Photo photo : photos) {
-            photo.setRealEstateId(realEstate.getId());
+            photo.setRealEstateId(realEstateId);
             viewModel.createPhoto(photo);
         }
-        viewModel.createRealEstate(realEstate);
 
         Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show();
 
@@ -633,8 +631,15 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         }
     }
 
+
     public void disposeWhenDestroy() {
         if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposeWhenDestroy();
     }
 }
 

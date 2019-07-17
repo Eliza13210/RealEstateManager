@@ -21,7 +21,7 @@ class DetailFragment : Fragment() {
 
     // FOR DATA
     private lateinit var viewModel: RealEstateViewModel
-    private var realEstateId: Long = 1
+    private var realEstateId: String =""
 
     private val photoAdapter: PhotoAdapter = PhotoAdapter()
 
@@ -31,13 +31,14 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         this.initRecyclerView()
         this.configureViewModel()
-        this.getCurrentRealEstate(realEstateId)
-        this.getPhotos()
+       // this.getCurrentRealEstate(realEstateId)
+      //  this.getPhotos()
     }
 
-    fun updateDetails(tag: Long) {
+    fun updateDetails(tag: String) {
         this.realEstateId = tag
-        getCurrentRealEstate(realEstateId)
+        Log.e("fragment", tag)
+        getCurrentRealEstate(tag)
         getPhotos()
     }
 
@@ -54,11 +55,11 @@ class DetailFragment : Fragment() {
     private fun configureViewModel() {
         val mViewModelFactory = Injection.provideViewModelFactory(activity)
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
-        this.viewModel.init(realEstateId)
+       // this.viewModel.init(realEstateId)
     }
 
     // 3 - Get Current User
-    private fun getCurrentRealEstate(id: Long) {
+    private fun getCurrentRealEstate(id: String) {
         this.viewModel.getRealEstate(id).observe(this, Observer<RealEstate> { this.updateDetails(it) }
         )
 

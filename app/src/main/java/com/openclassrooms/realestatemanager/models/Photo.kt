@@ -10,6 +10,6 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["realEstateId"],
             onDelete = CASCADE)])
-data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null, var realEstateId: Long, var url: String, val text: String?)
+data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null, var realEstateId: String, var url: String, val text: String?)
 
 

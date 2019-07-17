@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.view;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     // Declare interface that will be implemented by any container activity
     public interface OnItemClickedListener {
-        void onItemClick(Long id);
+        void onItemClick(String id);
     }
 
     // Create callback to parent activity
@@ -69,6 +70,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         price.setText(realEstateItem.getPrice());
         itemView.setOnClickListener(v -> {
             // Spread the click to the parent activity
+            Log.e("holder", realEstateItem.getId());
             callback.onItemClick(realEstateItem.getId());
         });
     }

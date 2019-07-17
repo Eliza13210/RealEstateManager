@@ -10,7 +10,7 @@ class PhotoDataRepository(val photoDao: PhotoDao) {
 
     // --- GET ---
 
-    fun getPhotos(realEstateId: Long): LiveData<List<Photo>> {
+    fun getPhotos(realEstateId: String): LiveData<List<Photo>> {
         return this.photoDao.getPhotos(realEstateId)
     }
 

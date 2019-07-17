@@ -9,7 +9,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
 
     // --- GET REAL ESTATE ---
-    fun getRealEstate(realEstateId: Long): LiveData<RealEstate> {
+    fun getRealEstate(realEstateId: String): LiveData<RealEstate> {
         return this.realEstateDao.getRealEstate(realEstateId)
     }
 
@@ -26,7 +26,7 @@ class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
     }
 
     // --- DELETE ---
-    fun deleteRealEstate(realEstateId: Long) {
+    fun deleteRealEstate(realEstateId: String) {
         this.realEstateDao.deleteItem(realEstateId)
     }
 

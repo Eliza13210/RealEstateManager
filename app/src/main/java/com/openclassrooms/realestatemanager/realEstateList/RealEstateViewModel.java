@@ -29,7 +29,7 @@ public class RealEstateViewModel extends ViewModel {
         this.executor = executor;
     }
 
-    public void init(long realestateId) {
+    public void init(String realestateId) {
         if (this.currentRealEstate != null) {
             return;
         }
@@ -40,8 +40,8 @@ public class RealEstateViewModel extends ViewModel {
     // FOR REAL ESTATE
     // -------------
 
-    public LiveData<RealEstate> getRealEstate(long realEstateId) {
-        return this.currentRealEstate;
+    public LiveData<RealEstate> getRealEstate(String realEstateId) {
+        return realEstateDataSource.getRealEstate(realEstateId);
     }
 
     public LiveData<List<RealEstate>> getAllItems() {
@@ -58,7 +58,7 @@ public class RealEstateViewModel extends ViewModel {
     // FOR PHOTO
     // -------------
 
-    public LiveData<List<Photo>> getPhotos(long realEstateId) {
+    public LiveData<List<Photo>> getPhotos(String realEstateId) {
         return photoDataSource.getPhotos(realEstateId);
     }
 

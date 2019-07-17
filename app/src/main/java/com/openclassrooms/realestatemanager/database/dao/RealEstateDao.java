@@ -18,7 +18,7 @@ public interface RealEstateDao {
         LiveData<List<RealEstate>> getAllRealEstates();
 
         @Query("SELECT * FROM RealEstate WHERE id = :id")
-        LiveData<RealEstate> getRealEstate(long id);
+        LiveData<RealEstate> getRealEstate(String id);
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void createRealEstate(RealEstate realEstate);
@@ -27,6 +27,6 @@ public interface RealEstateDao {
         int updateItem(RealEstate item);
 
         @Query("DELETE FROM RealEstate WHERE id = :itemId")
-        int deleteItem(long itemId);
+        int deleteItem(String itemId);
 
 }

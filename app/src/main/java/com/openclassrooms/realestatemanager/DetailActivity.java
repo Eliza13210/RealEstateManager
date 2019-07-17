@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +28,7 @@ public class DetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        // 2 - Configure and show home fragment
+        // 2 - Configure and show  fragment
         this.configureAndShowDetailFragment();
         setActionbar();
     }
@@ -35,9 +36,15 @@ public class DetailActivity extends BaseActivity {
     private void setActionbar() {
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
-        bottomAppBar.getMenu().removeItem(R.id.app_bar_edit);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_action_edit_dark);
+        fab.setOnClickListener(v -> edit());
+    }
+
+    private void edit() {
+
+        //TODO
+        // EDIT  ACT SAME LAYOUT BUT WITH SOLD? END DATE
     }
 
     // --------------
@@ -47,10 +54,12 @@ public class DetailActivity extends BaseActivity {
     private void configureAndShowDetailFragment() {
         // A - Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
+        Log.e("Detail", "det frag");
 
         if (detailFragment == null) {
             // B - Create new fragment
             detailFragment = new DetailFragment();
+            Log.e("Detail", "new det frag");
             // C - Add it to FrameLayout container
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.frame_layout_detail, detailFragment)
@@ -65,8 +74,9 @@ public class DetailActivity extends BaseActivity {
     // 2 - Update DetailFragment with tag passed from Intent
     private void updateDetailFragmentWithIntentTag(){
         // Get button's tag from intent
-        long tag = getIntent().getLongExtra(EXTRA_TAG, 0);
+        String tag = getIntent().getStringExtra(EXTRA_TAG);
         // Update DetailFragment's TextView
         detailFragment.updateDetails(tag);
+        Log.e("Detail", "update det frag");
     }
 }
