@@ -234,7 +234,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 R.array.bathrooms_array, android.R.layout.simple_spinner_item);
 
         adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBathrooms.setAdapter(adapter);
+        spinnerBathrooms.setAdapter(adapterBathroom);
         spinnerBathrooms.setOnItemSelectedListener(this);
 
         //Bedrooms spinner
@@ -242,7 +242,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
                 R.array.bathrooms_array, android.R.layout.simple_spinner_item);
 
         adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBedrooms.setAdapter(adapter);
+        spinnerBedrooms.setAdapter(adapterBedrooms);
         spinnerBedrooms.setOnItemSelectedListener(this);
     }
 

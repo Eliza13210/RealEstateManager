@@ -31,8 +31,6 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         this.initRecyclerView()
         this.configureViewModel()
-       // this.getCurrentRealEstate(realEstateId)
-      //  this.getPhotos()
     }
 
     fun updateDetails(tag: String) {
@@ -45,7 +43,7 @@ class DetailFragment : Fragment() {
     // RecyclerView node initialized here
     private fun initRecyclerView() {
         recyclerview_photos.apply {
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false)
             // set the custom adapter to the RecyclerView
             adapter = photoAdapter
         }

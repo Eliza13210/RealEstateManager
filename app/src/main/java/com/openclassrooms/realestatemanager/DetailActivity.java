@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,6 +15,7 @@ public class DetailActivity extends BaseActivity {
 
     // Create static variable to identify Intent
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
+    private String tag;
 
 
     @Override
@@ -42,9 +44,11 @@ public class DetailActivity extends BaseActivity {
     }
 
     private void edit() {
+        Log.e("Detail", "edit clicked with tag " + tag);
+        Intent i = new Intent(this, EditActivity.class);
+        i.putExtra("RealEstateId", tag);
+        startActivity(i);
 
-        //TODO
-        // EDIT  ACT SAME LAYOUT BUT WITH SOLD? END DATE
     }
 
     // --------------
@@ -72,11 +76,11 @@ public class DetailActivity extends BaseActivity {
     // --------------
 
     // 2 - Update DetailFragment with tag passed from Intent
-    private void updateDetailFragmentWithIntentTag(){
+    private void updateDetailFragmentWithIntentTag() {
         // Get button's tag from intent
-        String tag = getIntent().getStringExtra(EXTRA_TAG);
+        tag = getIntent().getStringExtra(EXTRA_TAG);
         // Update DetailFragment's TextView
         detailFragment.updateDetails(tag);
-        Log.e("Detail", "update det frag");
+        Log.e("Detail", "update det frag with" + tag);
     }
 }

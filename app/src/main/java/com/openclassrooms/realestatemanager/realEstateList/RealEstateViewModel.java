@@ -30,6 +30,7 @@ public class RealEstateViewModel extends ViewModel {
     }
 
     public void init(String realestateId) {
+
         if (this.currentRealEstate != null) {
             return;
         }
@@ -51,6 +52,18 @@ public class RealEstateViewModel extends ViewModel {
     public void createRealEstate(RealEstate realEstate) {
         executor.execute(() -> {
             realEstateDataSource.createRealEstate(realEstate);
+        });
+    }
+
+    public void updateRealEstate(RealEstate realEstate) {
+        executor.execute(() -> {
+            realEstateDataSource.updateRealEstate(realEstate);
+        });
+    }
+
+    public void deleteRealEstate(String id) {
+        executor.execute(() -> {
+            realEstateDataSource.deleteRealEstate(id);
         });
     }
 
@@ -79,5 +92,6 @@ public class RealEstateViewModel extends ViewModel {
             photoDataSource.updatePhoto(photo);
         });
     }
+
 }
 

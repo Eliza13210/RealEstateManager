@@ -42,6 +42,11 @@
             android:label="Create new real estate"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent" />
+        <activity
+            android:name=".EditActivity"
+            android:label="Edit item"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Transparent" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
