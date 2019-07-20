@@ -29,7 +29,6 @@ public class FetchUserLocation {
     //For user latLng
     public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 123;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private boolean locationPermissionGranted = false;
 
     private Context context;
     private EditText editText;
@@ -52,7 +51,6 @@ public class FetchUserLocation {
         if (ContextCompat.checkSelfPermission(Objects.requireNonNull(this).context,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            locationPermissionGranted = true;
             getDeviceLocation();
             Log.e("Permission", "Granted");
         } else {
@@ -69,43 +67,40 @@ public class FetchUserLocation {
          * cases when a latLng is not available.
          */
         try {
-            if (!locationPermissionGranted) {
-                Toast.makeText(context, "You need to grant permission to access your latLng", Toast.LENGTH_LONG).show();
-            } else {
-                Task locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener((CreateRealEstateActivity) context, new OnCompleteListener() {
-                    Location mLastKnownLocation;
+            Task locationResult = fusedLocationProviderClient.getLastLocation();
+            locationResult.addOnCompleteListener((CreateRealEstateActivity) context, new OnCompleteListener() {
+                Location mLastKnownLocation;
 
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if (task.isSuccessful()) {
 
-                            // Set the map's camera position to the current latLng of the device.
-                            mLastKnownLocation = (Location) task.getResult();
+                        // Set the map's camera position to the current latLng of the device.
+                        mLastKnownLocation = (Location) task.getResult();
 
-                            double mLatitude;
-                            double mLongitude;
+                        double mLatitude;
+                        double mLongitude;
 
-                            if (mLastKnownLocation != null) {
-                                //Get the latitude and longitude
-                                mLatitude = mLastKnownLocation.getLatitude();
-                                mLongitude = mLastKnownLocation.getLongitude();
+                        if (mLastKnownLocation != null) {
+                            //Get the latitude and longitude
+                            mLatitude = mLastKnownLocation.getLatitude();
+                            mLongitude = mLastKnownLocation.getLongitude();
 
-                                //Save latitude and longitude
-                                pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
-                                pref.edit().putString("CurrentLatitude", Double.toString(mLatitude)).apply();
-                                pref.edit().putString("CurrentLongitude", Double.toString(mLongitude)).apply();
+                            //Save latitude and longitude
+                            pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
+                            pref.edit().putString("CurrentLatitude", Double.toString(mLatitude)).apply();
+                            pref.edit().putString("CurrentLongitude", Double.toString(mLongitude)).apply();
 
-                                Log.e("fetchLoc", Double.toString(mLatitude) + " " + Double.toString(mLongitude));
+                            Log.e("fetchLoc", Double.toString(mLatitude) + " " + Double.toString(mLongitude));
 
-                                getAddress(mLatitude, mLongitude);
-                            } else {
-                                Toast.makeText(context, "Error defining latLng", Toast.LENGTH_LONG).show();
-                            }
+                            getAddress(mLatitude, mLongitude);
+                        } else {
+                            Toast.makeText(context, "Error defining latLng", Toast.LENGTH_LONG).show();
                         }
                     }
-                });
-            }
+                }
+            });
+
         } catch (
                 SecurityException e) {
             Log.e("Exception: %s", e.getMessage());

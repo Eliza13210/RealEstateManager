@@ -15,6 +15,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.recyclerview_photo_detail.*
 
 
 class DetailFragment : Fragment() {
@@ -76,6 +77,7 @@ class DetailFragment : Fragment() {
     //  Get all photos
     private fun getPhotos() {
         this.viewModel.getPhotos(realEstateId).observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
+
     }
 
     private fun updatePhotoList(list: List<Photo>) {

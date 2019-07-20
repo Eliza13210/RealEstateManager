@@ -89,19 +89,19 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     FrameLayout rootLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.agent)
+    @BindView(R.id.agent_et)
     EditText agent_tv;
     //TYPE
-    @BindView(R.id.house)
+    @BindView(R.id.house_tv)
     TextView house;
-    @BindView(R.id.apartement)
+    @BindView(R.id.apartement_tv)
     TextView apartement;
-    @BindView(R.id.type)
+    @BindView(R.id.type_tv)
     EditText type_tv;
 
-    @BindView(R.id.surface)
+    @BindView(R.id.surface_tv)
     EditText surface_tv;
-    @BindView(R.id.price)
+    @BindView(R.id.price_tv)
     EditText price_tv;
 
     //SPINNERS
@@ -112,13 +112,13 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     @BindView(R.id.spinner_bedrooms)
     Spinner spinnerBedrooms;
 
-    @BindView(R.id.description)
+    @BindView(R.id.description_et)
     EditText description_tv;
 
     //LOCATION
     @BindView(R.id.geo_loc)
     ImageView geoLocation;
-    @BindView(R.id.address)
+    @BindView(R.id.address_tv)
     EditText address_tv;
 
     //BUTTON
@@ -160,54 +160,17 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         // overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
         setContentView(R.layout.activity_create_real_estate);
         ButterKnife.bind(this);
-        initAnimation(savedInstanceState);
+        //initAnimation(savedInstanceState);
         initToolbar();
         initSpinner();
         initClickableItems();
-        configViewModel();
+        //configViewModel();
         fetchUserLocation =
                 new FetchUserLocation(this, address_tv);
         pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE);
     }
 
-    // Configuring ViewModel
-    private void configViewModel() {
-        ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(this);
-        this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel.class);
-    }
 
-    /**
-     * Animation that starts when user click ob Fab button in Main Activity
-     *
-     * @param savedInstanceState
-     */
-
-    private void initAnimation(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            rootLayout.setVisibility(View.INVISIBLE);
-
-            ViewTreeObserver viewTreeObserver = rootLayout.getViewTreeObserver();
-            if (viewTreeObserver.isAlive()) {
-                viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        circularRevealActivity();
-
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            rootLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        } else {
-                            rootLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    private void circularRevealActivity() {
-        CircularRevealAnimation.startAnimation(rootLayout);
-        initToolbar();
-    }
 
     /**
      * Initiate buttons and toolbar and spinners
@@ -223,7 +186,7 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
     private void initSpinner() {
         //Rooms spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.rooms_array, android.R.layout.simple_spinner_item);
+                R.array.rooms_array, R.layout.spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRooms.setAdapter(adapter);
@@ -610,7 +573,8 @@ public class CreateRealEstateActivity extends AppCompatActivity implements Adapt
         if (latLng != null) {
             String locationForSearch = Utils.setLocationString(latLng);
 
-            disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(new DisposableObserver<NearbySearchObject>() {
+            disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith
+                    (new DisposableObserver<NearbySearchObject>() {
                 @Override
                 public void onNext(NearbySearchObject nearbySearchObject) {
                     pointsOfInterest = nearbySearchObject.getResults();

@@ -20,7 +20,6 @@
         android:background="@color/black"
         android:text="Bathroom"
         android:textColor="@color/white"
-        android:gravity="center_horizontal"
         android:layout_alignBottom="@id/photo_detail"
         />
 

@@ -33,12 +33,11 @@
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateRealEstateActivity"
+            android:name=".CreateActivity"
             android:label="Create new real estate"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent" />

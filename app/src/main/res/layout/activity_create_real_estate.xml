@@ -63,7 +63,7 @@
 
 
                             <EditText
-                                android:id="@+id/address"
+                                android:id="@+id/address_tv"
                                 android:layout_width="300dp"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>

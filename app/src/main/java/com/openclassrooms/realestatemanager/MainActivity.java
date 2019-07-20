@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements RealEstateViewHolder.O
 
     // 3 - Create a new item
     private void createRealEstate() {
-        startActivity(new Intent(this, CreateRealEstateActivity.class));
+        startActivity(new Intent(this, CreateActivity.class));
     }
 
 
