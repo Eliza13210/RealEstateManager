@@ -16,13 +16,12 @@ import javax.xml.datatype.DatatypeConstants.MONTHS
 
 class EditActivity : BaseActivityUIInformation() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            realEstateId = bundle.getString("RealEstateId")
+            realEstateId = bundle.getString("RealEstateId", "1")
             initRealEstate(realEstateId)
             getPhotos(realEstateId)
         }
@@ -33,9 +32,11 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     private fun initRealEstate(id: String?) {
-        this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {
-            this.updateDetails(it)
-        })
+        Log.e("init real estate", id)
+
+            this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {if(it!=null)
+                this.updateDetails(it)
+            })
     }
 
 
@@ -81,8 +82,8 @@ class EditActivity : BaseActivityUIInformation() {
 
             } else {
                 sold = false
-                endDate=""
-                end_date.text=""
+                endDate = ""
+                end_date.text = ""
             }
         }
     }
@@ -136,14 +137,15 @@ class EditActivity : BaseActivityUIInformation() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            val myFormat = "dd.MM.yyyy" // mention the format you need
-            val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-            end_date.text = sdf.format(cal.time)
+            // val myFormat = "dd.MM.yyyy" // mention the format you need
+            // val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
+            end_date.text = Utils.getTodayDate(cal.time)
         }
         DatePickerDialog(this@EditActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
+        //TODO CHECK NOT BEFORE TODAYS DATE UTIL
 
     }
 }

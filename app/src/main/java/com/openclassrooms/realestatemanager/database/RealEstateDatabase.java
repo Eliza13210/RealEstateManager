@@ -34,7 +34,7 @@ public abstract class RealEstateDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RealEstateDatabase.class, "MyDatabase.db")
-                            .addCallback(prepopulateDatabase())
+                           // .addCallback(prepopulateDatabase())
                             .build();
                 }
             }
@@ -43,7 +43,7 @@ public abstract class RealEstateDatabase extends RoomDatabase {
     }
 
     // ---
-
+/**
     private static Callback prepopulateDatabase() {
         return new Callback() {
 
@@ -74,6 +74,6 @@ public abstract class RealEstateDatabase extends RoomDatabase {
                 db.insert("Photo", OnConflictStrategy.IGNORE, contentValues);
             }
         };
-    }
+    }*/
 
 }
