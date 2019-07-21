@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -28,6 +29,9 @@ class CreateActivity : BaseActivityUIInformation() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAddressTextView()
+
+        fetchUserLocation = FetchUserLocation(this, address_tv)
+        pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE)
     }
 
     override fun getLayoutView(): Int {
@@ -38,10 +42,13 @@ class CreateActivity : BaseActivityUIInformation() {
         //Button to add
         btn_send.setOnClickListener {
             getInfoFromUI()
-
-            //Geo latLng
-            geo_loc.setOnClickListener { getUserLocation() }
         }
+        //Geo latLng
+        geo_loc.setOnClickListener {
+            Log.e("create", "clicked img")
+            getUserLocation()
+        }
+
     }
 
     override fun getInfoFromUI() {
@@ -118,6 +125,7 @@ class CreateActivity : BaseActivityUIInformation() {
      * Get user latLng when clicking on geo latLng icon and update edit text with address
      */
     private fun getUserLocation() {
+        Log.e("create", "check permission")
         fetchUserLocation?.checkLocationPermission()
     }
 
@@ -148,24 +156,8 @@ class CreateActivity : BaseActivityUIInformation() {
 
     }
 
-    /** Handle access user location intent result */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            handleResponse(resultCode)
-        }
-    }
-
-    private fun handleResponse(resultCode: Int) {
-        if (resultCode == Activity.RESULT_OK) { //SUCCESS
-            fetchUserLocation?.getDeviceLocation()
-        } else {
-            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun disposeWhenDestroy() {
-        if (this.disposable != null && !this.disposable.isDisposed()) this.disposable.dispose()
+        if (this.disposable != null && !this.disposable.isDisposed) this.disposable.dispose()
     }
 
     override fun onDestroy() {

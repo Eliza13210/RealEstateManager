@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat;
 public class FetchUserLocation {
 
     //For user latLng
-    public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 123;
+    public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 147;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     private Context context;
@@ -40,6 +40,8 @@ public class FetchUserLocation {
     }
 
     public void checkLocationPermission() {
+
+        Log.e("fetch", "check permission");
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
@@ -54,7 +56,7 @@ public class FetchUserLocation {
             getDeviceLocation();
             Log.e("Permission", "Granted");
         } else {
-            ActivityCompat.requestPermissions((CreateRealEstateActivity) context,
+            ActivityCompat.requestPermissions((CreateActivity) context,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             Log.e("Permission", "Request permission");
@@ -68,7 +70,7 @@ public class FetchUserLocation {
          */
         try {
             Task locationResult = fusedLocationProviderClient.getLastLocation();
-            locationResult.addOnCompleteListener((CreateRealEstateActivity) context, new OnCompleteListener() {
+            locationResult.addOnCompleteListener((CreateActivity) context, new OnCompleteListener() {
                 Location mLastKnownLocation;
 
                 @Override

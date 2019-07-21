@@ -94,14 +94,13 @@ public class Utils {
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
+            if (address.size() > 0) {
+                Address location = address.get(0);
+                p1 = new LatLng(location.getLatitude(), location.getLongitude());
+            } else {
                 Toast.makeText(context, "You must enter a valid address", Toast.LENGTH_SHORT).show();
                 return null;
             }
-
-            Address location = address.get(0);
-            p1 = new LatLng(location.getLatitude(), location.getLongitude());
-
         } catch (IOException ex) {
             Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
             ex.printStackTrace();

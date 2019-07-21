@@ -46,7 +46,7 @@ import java.util.*
 abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks {
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
-    private var pref: SharedPreferences? = null
+    protected var pref: SharedPreferences? = null
 
     //PERMISSIONS AND REQUESTS
     private val RC_IMAGE_PERM = 100
@@ -92,8 +92,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         initButtons()
         initSpinner()
         initClickableItems()
-        fetchUserLocation = FetchUserLocation(this, address_tv)
-        pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE)
 
     }
 
@@ -233,10 +231,28 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         })
 
         //TAKE PHOTO OR CHOOSE FROM GALLERY
-        ic_camera.setOnClickListener { takePhoto() }
-        ic_gallery.setOnClickListener { pickPhoto() }
+        ic_camera.setOnClickListener {
+            if (hasCameraPermission()) {
+                takePhoto()
+            } else {
+                // Ask for one permission
+                EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_camera_access),
+                        RC_CAPTURE_IMAGE_ACTIVITY_PERM,
+                        Manifest.permission.CAMERA)
+            }
+        }
+        ic_gallery.setOnClickListener {
+            if (hasReadExternalStoragePermission()) {
+                pickPhoto()
+            } else {
+                // Ask for permission
 
-
+                Log.e("pick photo", "ask for permission")
+                EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_files_access),
+                        RC_IMAGE_PERM,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
     }
 
     private fun getType(tag: String) {
@@ -262,55 +278,36 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
 
     private fun pickPhoto() {
-        if (hasReadExternalStoragePermission()) {
-            // Launch an "Selection Image" Activity
-            Log.e("pick photo", "has permission")
-            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(i, RC_CHOOSE_PHOTO_PERM)
-
-        } else {
-            // Ask for permission
-
-            Log.e("pick photo", "ask for permission")
-            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_files_access),
-                    RC_IMAGE_PERM,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
+        // Launch an "Selection Image" Activity
+        Log.e("pick photo", "has permission")
+        val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(i, RC_CHOOSE_PHOTO_PERM)
     }
 
 
     private fun takePhoto() {
-        if (hasCameraPermission()) {
-            Log.e("Photo", "take photo void")
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (intent.resolveActivity(packageManager) != null) {
-                var photoFile: File? = null
-                try {
-                    photoFile = createImageFile()
-                } catch (ex: IOException) {
+        Log.e("Photo", "take photo void")
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (ex: IOException) {
 
-                    Log.e("Photo", "ERROR $ex")
-                    // Error occurred while creating the File
-                }
-
-                // Continue only if the File was successfully created
-                if (photoFile != null) {
-
-
-                    Log.e("Photo", "Photo file not null")
-                    val photoURI = FileProvider.getUriForFile(
-                            applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
-                            photoFile)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(intent, RC_CAPTURE_IMAGE_ACTIVITY_PERM)
-                }
+                Log.e("Photo", "ERROR $ex")
+                // Error occurred while creating the File
             }
-        } else {
-            //TODO WRONG REQUESTCODE ?
-            // Ask for one permission
-            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_camera_access),
-                    RC_CAPTURE_IMAGE_ACTIVITY_PERM,
-                    Manifest.permission.CAMERA)
+
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+
+                Log.e("Photo", "Photo file not null")
+                val photoURI = FileProvider.getUriForFile(
+                        applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
+                        photoFile)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                startActivityForResult(intent, RC_CAPTURE_IMAGE_ACTIVITY_PERM)
+            }
         }
     }
 
@@ -336,15 +333,29 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+        if (requestCode == FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show()
+        } else if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
         Log.e("Activity", "onPermissionsGranted:" + requestCode + ":" + perms.size)
+        when (requestCode) {
+            RC_CAPTURE_IMAGE_ACTIVITY_PERM -> {
+                Log.e("Photo", "capture requestcode")
+                this.takePhoto()
+            }
+            RC_IMAGE_PERM -> {
+                Log.e("on act result", "asked")
+                this.pickPhoto()
+            }
+            FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
-        // TODO START INTENT
+                fetchUserLocation?.getDeviceLocation()
+            }
+        }
     }
 
     /**
