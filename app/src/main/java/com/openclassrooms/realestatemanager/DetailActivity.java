@@ -3,12 +3,15 @@ package com.openclassrooms.realestatemanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.fragments.DetailFragment;
 
-public class DetailActivity extends BaseActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DetailActivity extends AppCompatActivity {
 
     // 1 - Declare detail fragment
     private DetailFragment detailFragment;
@@ -34,6 +37,7 @@ public class DetailActivity extends BaseActivity {
         this.configureAndShowDetailFragment();
         setActionbar();
     }
+
 
     private void setActionbar() {
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);

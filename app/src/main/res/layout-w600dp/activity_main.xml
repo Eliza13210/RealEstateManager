@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_create_act"
         android:backgroundTint="@color/blue"
-        android:elevation="8dp"
+        android:elevation="4dp"
         app:layout_anchor="@+id/frame_layout_detail"
         android:layout_gravity="end|bottom"
         app:borderWidth="0dp" />

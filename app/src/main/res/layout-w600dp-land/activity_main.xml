@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_create_act"
             android:backgroundTint="@color/blue"
-            android:elevation="8dp"
+            android:elevation="4dp"
             android:layout_gravity="bottom"
             app:borderWidth="0dp" />
     </LinearLayout>

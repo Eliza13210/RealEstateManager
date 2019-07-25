@@ -67,4 +67,8 @@
         <item>8</item>
     </string-array>
 
+
+    <string name="map_url_start">https://maps.googleapis.com/maps/api/staticmap?center=</string>
+    <string name="map_url_city_and_marker">&amp;zoom=13&amp;size=600x300&amp;maptype=roadmap
+        &amp;markers=color:red%7Clabel:</string>
 </resources>

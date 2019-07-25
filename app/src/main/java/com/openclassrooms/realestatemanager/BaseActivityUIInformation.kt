@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -32,8 +31,7 @@ import com.openclassrooms.realestatemanager.view.CircularRevealAnimation
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.PhotoPopUp
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_create_real_estate.*
-import kotlinx.android.synthetic.main.activity_edit.root_layout
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import pub.devrel.easypermissions.AppSettingsDialog
