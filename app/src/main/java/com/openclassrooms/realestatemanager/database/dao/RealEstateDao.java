@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.database.dao;
 
+import android.database.Cursor;
+
 import com.openclassrooms.realestatemanager.models.RealEstate;
 
 import java.util.List;
@@ -14,19 +16,22 @@ import androidx.room.Update;
 @Dao
 public interface RealEstateDao {
 
-        @Query("SELECT * FROM RealEstate")
-        LiveData<List<RealEstate>> getAllRealEstates();
+    @Query("SELECT * FROM RealEstate")
+    LiveData<List<RealEstate>> getAllRealEstates();
 
-        @Query("SELECT * FROM RealEstate WHERE id = :id")
-        LiveData<RealEstate> getRealEstate(String id);
+    @Query("SELECT * FROM RealEstate WHERE id = :id")
+    LiveData<RealEstate> getRealEstate(String id);
 
-        @Insert(onConflict = OnConflictStrategy.REPLACE)
-        void createRealEstate(RealEstate realEstate);
+    @Query("SELECT * FROM RealEstate WHERE id = :id")
+    Cursor getRealEstateWithCursor(String id);
 
-        @Update
-        int updateItem(RealEstate item);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long createRealEstate(RealEstate realEstate);
 
-        @Query("DELETE FROM RealEstate WHERE id = :itemId")
-        int deleteItem(String itemId);
+    @Update
+    int updateItem(RealEstate item);
+
+    @Query("DELETE FROM RealEstate WHERE id = :itemId")
+    int deleteItem(String itemId);
 
 }

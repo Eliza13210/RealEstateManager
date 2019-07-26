@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.database.dao;
 
+import android.database.Cursor;
+
 import com.openclassrooms.realestatemanager.models.Photo;
 
 import java.util.List;
@@ -14,6 +16,9 @@ import androidx.room.Update;
 public interface PhotoDao {
     @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
     LiveData<List<Photo>> getPhotos(String realEstateId);
+
+    @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
+    Cursor getPhotoWithCursor(String realEstateId);
 
     @Insert
     long insertPhoto(Photo photo);
