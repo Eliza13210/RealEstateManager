@@ -34,7 +34,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     // Declare interface that will be implemented by any container activity
     public interface OnItemClickedListener {
-        void onItemClick(String id);
+        void onItemClick(long id);
     }
 
     // Create callback to parent activity
@@ -70,7 +70,6 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         price.setText(realEstateItem.getPrice());
         itemView.setOnClickListener(v -> {
             // Spread the click to the parent activity
-            Log.e("holder", realEstateItem.getId());
             callback.onItemClick(realEstateItem.getId());
         });
     }

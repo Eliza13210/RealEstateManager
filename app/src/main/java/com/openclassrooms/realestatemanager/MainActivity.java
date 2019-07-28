@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     // CallBack
     // --------------
     @Override
-    public void onItemClick(String id) {
-        tag = id;
+    public void onItemClick(long id) {
+        tag = String.valueOf(id);
         // Check if detail fragment is not created or if not visible, then open DetailActivity
         Log.e("Main", "Clicked" + id);
         if (detailFragment == null) {

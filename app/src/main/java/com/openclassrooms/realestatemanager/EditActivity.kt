@@ -21,7 +21,7 @@ class EditActivity : BaseActivityUIInformation() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            realEstateId = bundle.getString("RealEstateId", "1")
+            realEstateId = bundle.getLong("RealEstateId", 0)
             initRealEstate(realEstateId)
             getPhotos(realEstateId)
         }
@@ -31,8 +31,7 @@ class EditActivity : BaseActivityUIInformation() {
         return R.layout.activity_edit
     }
 
-    private fun initRealEstate(id: String?) {
-        Log.e("init real estate", id)
+    private fun initRealEstate(id: Long) {
 
             this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {if(it!=null)
                 this.updateDetails(it)
@@ -63,7 +62,7 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     //  Get all photos
-    private fun getPhotos(realEstateId: String) {
+    private fun getPhotos(realEstateId: Long) {
         this.viewModel?.getPhotos(realEstateId)?.observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
     }
 

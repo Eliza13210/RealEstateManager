@@ -1,9 +1,6 @@
 package com.openclassrooms.realestatemanager
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -11,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.database.RealEstateDatabase
 import com.openclassrooms.realestatemanager.models.NearbySearchObject
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.network.NearbySearchStream
@@ -139,13 +137,12 @@ class CreateActivity : BaseActivityUIInformation() {
         val latitude = lat.toString()
         val lon = latLng?.longitude
         val longitude = lon.toString()
-        realEstateId = address + "_" + startDate
 
-        val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
+        val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, false, startDate, null, agent
         )
 
-        viewModel?.createRealEstate(realEstate)
+        realEstateId= viewModel?.createRealEstate(realEstate)!!
 
         for (photo in photos) {
             photo.realEstateId = realEstateId

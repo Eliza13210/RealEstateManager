@@ -60,7 +60,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
     protected var viewModel: RealEstateViewModel? = null
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
-    protected var realEstateId: String = "1"
+    protected var realEstateId: Long = 0
 
     // For creating real estate object
     protected val photos = ArrayList<Photo>()

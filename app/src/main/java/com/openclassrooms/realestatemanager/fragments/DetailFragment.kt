@@ -24,10 +24,9 @@ class DetailFragment : Fragment() {
 
     // FOR DATA
     private lateinit var viewModel: RealEstateViewModel
-    private var realEstateId: String = ""
+    private var realEstateId: Long = 0
 
     private val photoAdapter: PhotoAdapter = PhotoAdapter()
-    var isImageFitToScreen: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(com.openclassrooms.realestatemanager.R.layout.fragment_detail, container, false)!!
 
@@ -38,9 +37,8 @@ class DetailFragment : Fragment() {
     }
 
 
-    fun updateDetails(tag: String) {
+    fun updateDetails(tag: Long) {
         this.realEstateId = tag
-        Log.e("fragment", tag)
         getCurrentRealEstate(tag)
         getPhotos()
     }
@@ -62,7 +60,7 @@ class DetailFragment : Fragment() {
     }
 
     // 3 - Get Current User
-    private fun getCurrentRealEstate(id: String) {
+    private fun getCurrentRealEstate(id: Long) {
         this.viewModel.getRealEstate(id).observe(this, Observer<RealEstate> { this.updateDetails(it) }
         )
 

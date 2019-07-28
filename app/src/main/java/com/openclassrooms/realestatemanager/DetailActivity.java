@@ -18,7 +18,7 @@ public class DetailActivity extends AppCompatActivity {
 
     // Create static variable to identify Intent
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
-    private String tag;
+    private long tag;
 
 
     @Override
@@ -82,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
     // 2 - Update DetailFragment with tag passed from Intent
     private void updateDetailFragmentWithIntentTag() {
         // Get button's tag from intent
-        tag = getIntent().getStringExtra(EXTRA_TAG);
+        tag = getIntent().getLongExtra(EXTRA_TAG, 0);
         // Update DetailFragment's TextView
         detailFragment.updateDetails(tag);
         Log.e("Detail", "update det frag with" + tag);

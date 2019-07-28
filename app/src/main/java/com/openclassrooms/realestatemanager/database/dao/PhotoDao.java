@@ -15,10 +15,10 @@ import androidx.room.Update;
 @Dao
 public interface PhotoDao {
     @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
-    LiveData<List<Photo>> getPhotos(String realEstateId);
+    LiveData<List<Photo>> getPhotos(long realEstateId);
 
     @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
-    Cursor getPhotoWithCursor(String realEstateId);
+    Cursor getPhotoWithCursor(long realEstateId);
 
     @Insert
     long insertPhoto(Photo photo);

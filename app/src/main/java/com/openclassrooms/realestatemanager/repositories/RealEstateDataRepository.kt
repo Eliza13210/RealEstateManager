@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.repositories
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import com.openclassrooms.realestatemanager.database.dao.RealEstateDao
 import com.openclassrooms.realestatemanager.models.RealEstate
@@ -9,7 +8,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
 
     // --- GET REAL ESTATE ---
-    fun getRealEstate(realEstateId: String): LiveData<RealEstate> {
+    fun getRealEstate(realEstateId: Long): LiveData<RealEstate> {
         return this.realEstateDao.getRealEstate(realEstateId)
     }
 
@@ -21,12 +20,12 @@ class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
 
     // --- CREATE ---
 
-    fun createRealEstate(realEstate: RealEstate) {
-        this.realEstateDao.createRealEstate(realEstate)
+    fun createRealEstate(realEstate: RealEstate): Long {
+        return this.realEstateDao.createRealEstate(realEstate)
     }
 
     // --- DELETE ---
-    fun deleteRealEstate(realEstateId: String) {
+    fun deleteRealEstate(realEstateId: Long) {
         this.realEstateDao.deleteItem(realEstateId)
     }
 

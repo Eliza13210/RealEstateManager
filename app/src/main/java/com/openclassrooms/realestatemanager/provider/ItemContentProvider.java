@@ -25,7 +25,7 @@ public class ItemContentProvider extends ContentProvider {
     public static final Uri URI_PHOTO = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME_PHOTO);
     public static final Uri URI_REALESTATE = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME_REALESTATE);
 
-    private final Executor executor= Executors.newSingleThreadExecutor();
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
 
     @Override
@@ -38,8 +38,8 @@ public class ItemContentProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         if (getContext() != null) {
-            // long userId = ContentUris.parseId(uri);
-            final Cursor cursor = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().getRealEstateWithCursor(uri.toString());
+            long id = ContentUris.parseId(uri);
+            final Cursor cursor = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().getRealEstateWithCursor(id);
             cursor.setNotificationUri(getContext().getContentResolver(), uri);
             return cursor;
         }
@@ -56,8 +56,6 @@ public class ItemContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-        executor.execute(() -> {
-        });
 
         if (getContext() != null) {
             final long id = RealEstateDatabase.getInstance(getContext()).mRealEstateDao()
@@ -74,7 +72,7 @@ public class ItemContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
         if (getContext() != null) {
-            final int count = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().deleteItem(uri.toString());
+            final int count = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().deleteItem(ContentUris.parseId(uri));
             getContext().getContentResolver().notifyChange(uri, null);
             return count;
         }

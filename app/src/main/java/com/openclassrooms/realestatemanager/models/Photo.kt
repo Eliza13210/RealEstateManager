@@ -13,16 +13,13 @@ import android.content.ContentValues
             parentColumns = ["id"],
             childColumns = ["realEstateId"],
             onDelete = CASCADE)])
-data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null, var realEstateId: String, var url: String, var text: String?) {
+data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null, var realEstateId: Long, var url: String, var text: String? = "") {
 
     // --- UTILS ---
     fun fromContentValues(values: ContentValues): Photo {
-        var photo = Photo(null, "", "", "")
+        val photo = Photo(null, values.getAsLong("realEstateId"), values.getAsString("url"))
 
         if (values.containsKey("text")) photo.text = values.getAsString("text")
-        if (values.containsKey("url")) photo.url = values.getAsString("url")
-        if (values.containsKey("realEstateId")) photo.realEstateId = values.getAsString("realEstateId")
-
         return photo
     }
 }
