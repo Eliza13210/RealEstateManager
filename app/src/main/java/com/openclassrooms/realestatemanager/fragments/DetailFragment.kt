@@ -74,8 +74,10 @@ class DetailFragment : Fragment() {
         detail_bathrooms.text = realEstate.bathrooms
         detail_bedrooms.text = realEstate.bedrooms
         detail_address.text = realEstate.address
+        if (realEstate.sold)
+            isSold_tv.text = "SOLD " + realEstate.endDate
 
-        var sb: StringBuilder = java.lang.StringBuilder()
+        val sb: StringBuilder = java.lang.StringBuilder()
         sb.append("https://maps.googleapis.com/maps/api/staticmap?center=" +
                 realEstate.latitude + "," + realEstate.longitude + "&zoom=15&size=680x680&maptype=roadmap&markers=color:blue%7Clabel:S%7C" +
                 realEstate.latitude + "," + realEstate.longitude +

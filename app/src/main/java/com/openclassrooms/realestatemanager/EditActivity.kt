@@ -33,9 +33,10 @@ class EditActivity : BaseActivityUIInformation() {
 
     private fun initRealEstate(id: Long) {
 
-            this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {if(it!=null)
+        this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {
+            if (it != null)
                 this.updateDetails(it)
-            })
+        })
     }
 
 
@@ -74,11 +75,10 @@ class EditActivity : BaseActivityUIInformation() {
 
     override fun initButtons() {
         btn_update.setOnClickListener { getInfoFromUI() }
-        btn_delete.setOnClickListener { deleteRealEstate() }
         check_sold.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+                sold = true
                 startDatePicker()
-
             } else {
                 sold = false
                 endDate = ""
@@ -87,12 +87,6 @@ class EditActivity : BaseActivityUIInformation() {
         }
     }
 
-
-    private fun deleteRealEstate() {
-        Log.e("edit", "delete clicket")
-        viewModel?.deleteRealEstate(realEstateId)
-        Toast.makeText(this, "Item successfully deleted", Toast.LENGTH_SHORT).show()
-    }
 
     override fun getInfoFromUI() {
 
@@ -103,13 +97,19 @@ class EditActivity : BaseActivityUIInformation() {
         surface = surface_tv.text.toString()
         endDate = end_date.text.toString()
 
-        Log.e("check if", "is empty " + agent.isEmpty())
+        Log.e("check if", "is sold " + sold + " " + endDate)
 
-        if (agent.isNotEmpty()) {
-            createRealEstate()
+        //Check if end date is picked when object is sold before updating
+        if (sold) {
+            if (endDate.isNotEmpty()) {
+                createRealEstate()
+            } else {
+                Toast.makeText(this, "You need to choose a date if the object is sold", Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(this, "You need to choose an agent and address for the object you want to create", Toast.LENGTH_SHORT).show()
+            createRealEstate()
         }
+
     }
 
     override fun createRealEstate() {
@@ -136,15 +136,23 @@ class EditActivity : BaseActivityUIInformation() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            // val myFormat = "dd.MM.yyyy" // mention the format you need
-            // val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-            end_date.text = Utils.getTodayDate(cal.time)
+            Log.e("Edit", " " + cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR))
+
+            if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
+                end_date.text = Utils.getTodayDate(cal.time)
+            } else {
+                sold = false
+                check_sold.isChecked = false
+                Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
+            }
         }
+
         DatePickerDialog(this@EditActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
-        //TODO CHECK NOT BEFORE TODAYS DATE UTIL
+
 
     }
+
 }

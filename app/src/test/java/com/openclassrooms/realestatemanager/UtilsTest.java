@@ -5,15 +5,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.ibm.icu.text.ComposedCharIter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 import static org.mockito.Mockito.when;
 
 
@@ -67,5 +71,29 @@ public class UtilsTest {
         String expected = "0.0,0.0";
         assertEquals(expected, result);
 
+    }
+
+    @Test
+    public void checkBeforeTodayWhenFalse() {
+
+        Calendar cal = Calendar.getInstance();
+
+        cal.add(Calendar.MONTH, 4);
+        cal.add(Calendar.DAY_OF_MONTH, 10);
+
+        boolean isBefore = Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+        assertFalse(isBefore);
+    }
+
+    @Test
+    public void checkBeforeTodayWhenTrue() {
+
+        Calendar cal = Calendar.getInstance();
+
+        cal.add(Calendar.MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+
+        boolean isBefore = Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+        assertTrue(isBefore);
     }
 }

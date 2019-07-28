@@ -59,13 +59,18 @@
         </provider>
         <!-- You don't need to include android:required="false" if your app's
      minSdkVersion is 28 or higher. -->
-        <uses-library android:name="android.test.runner"
+        <uses-library
+            android:name="android.test.runner"
             android:required="false" />
 
         <provider
             android:name=".provider.RealEstateContentProvider"
             android:authorities="com.openclassrooms.realestatemanager.provider"
-            android:exported="true"/>
+            android:exported="true" />
+        <provider
+            android:name=".provider.PhotoContentProvider"
+            android:authorities="com.openclassrooms.realestatemanager.provider"
+            android:exported="true" />
     </application>
 
 </manifest>

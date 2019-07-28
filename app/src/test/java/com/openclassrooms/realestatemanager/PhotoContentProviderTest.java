@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.openclassrooms.realestatemanager.database.RealEstateDatabase;
-import com.openclassrooms.realestatemanager.models.Photo;
 import com.openclassrooms.realestatemanager.provider.PhotoContentProvider;
 
 import org.junit.Before;

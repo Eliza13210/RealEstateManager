@@ -63,6 +63,7 @@ public class RealEstateContentProviderTest {
         executor.execute(() -> {
             final Uri exUri = mContentResolver.insert(RealEstateContentProvider.URI_REALESTATE, generateItem());
             // TEST
+            assert exUri != null;
             final Cursor cursor = mContentResolver.query(exUri,
                     null, null, null, null);
 

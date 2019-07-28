@@ -9,9 +9,6 @@ import android.net.Uri;
 import com.openclassrooms.realestatemanager.database.RealEstateDatabase;
 import com.openclassrooms.realestatemanager.models.Photo;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -77,6 +74,7 @@ public class PhotoContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         if (getContext() != null) {
+            assert contentValues != null;
             final int count = RealEstateDatabase.getInstance(getContext()).mPhotoDao().updatePhoto(Photo.Companion.fromContentValues(contentValues));
             getContext().getContentResolver().notifyChange(uri, null);
             return count;

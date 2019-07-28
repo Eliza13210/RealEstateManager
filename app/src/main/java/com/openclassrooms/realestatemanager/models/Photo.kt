@@ -1,11 +1,10 @@
 package com.openclassrooms.realestatemanager.models
 
+import android.content.ContentValues
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
-import android.content.ClipData.Item
-import android.content.ContentValues
 
 
 @Entity(foreignKeys = [

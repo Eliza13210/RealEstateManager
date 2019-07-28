@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -124,5 +125,28 @@ public class Utils {
         builder.append(latLng.longitude);
 
         return builder.toString();
+    }
+
+    /**
+     * Check that date is before today date
+     */
+
+    public static boolean checkBeforeToday(int soldDay, int soldMonth, int soldYear) {
+
+        boolean isBefore = false;
+
+        Calendar today = Calendar.getInstance();
+        int todayDay = today.get(Calendar.DAY_OF_MONTH);
+        int todayMonth = today.get(Calendar.MONTH);
+        int todayYear = today.get(Calendar.YEAR);
+
+        if (soldYear < todayYear) {
+            isBefore = true;
+        } else if (soldYear == todayYear && soldMonth < todayMonth) {
+            isBefore = true;
+        } else if (soldYear == todayYear && soldMonth == todayMonth && soldDay <= todayDay) {
+            isBefore = true;
+        }
+        return isBefore;
     }
 }

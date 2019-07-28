@@ -17,7 +17,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = false) val id: Long?=null,
                       var rooms: String? = null,
                       var bathrooms: String? = null,
                       var address: String,
-                      var sold: Boolean? = false,
+                      var sold: Boolean = false,
                       var startDate: String? = null,
                       var endDate: String? = null,
                       var agent: String) {
