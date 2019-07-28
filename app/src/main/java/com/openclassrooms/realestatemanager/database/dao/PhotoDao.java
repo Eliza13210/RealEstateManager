@@ -9,6 +9,7 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -20,7 +21,7 @@ public interface PhotoDao {
     @Query("SELECT * FROM Photo WHERE realEstateId = :realEstateId")
     Cursor getPhotoWithCursor(long realEstateId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertPhoto(Photo photo);
 
     @Update

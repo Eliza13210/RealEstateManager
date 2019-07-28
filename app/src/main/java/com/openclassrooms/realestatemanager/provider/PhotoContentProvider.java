@@ -8,7 +8,6 @@ import android.net.Uri;
 
 import com.openclassrooms.realestatemanager.database.RealEstateDatabase;
 import com.openclassrooms.realestatemanager.models.Photo;
-import com.openclassrooms.realestatemanager.models.RealEstate;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -16,17 +15,12 @@ import java.util.concurrent.Executors;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class ItemContentProvider extends ContentProvider {
+public class PhotoContentProvider extends ContentProvider {
 
     // FOR DATA
     public static final String AUTHORITY = "com.openclassrooms.realestatemanager.provider";
     public static final String TABLE_NAME_PHOTO = Photo.class.getSimpleName();
-    public static final String TABLE_NAME_REALESTATE = RealEstate.class.getSimpleName();
     public static final Uri URI_PHOTO = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME_PHOTO);
-    public static final Uri URI_REALESTATE = Uri.parse("content://" + AUTHORITY + "/" + TABLE_NAME_REALESTATE);
-
-    private final Executor executor = Executors.newSingleThreadExecutor();
-
 
     @Override
     public boolean onCreate() {
@@ -39,7 +33,7 @@ public class ItemContentProvider extends ContentProvider {
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         if (getContext() != null) {
             long id = ContentUris.parseId(uri);
-            final Cursor cursor = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().getRealEstateWithCursor(id);
+            final Cursor cursor = RealEstateDatabase.getInstance(getContext()).mPhotoDao().getPhotoWithCursor(id);
             cursor.setNotificationUri(getContext().getContentResolver(), uri);
             return cursor;
         }
@@ -50,7 +44,7 @@ public class ItemContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return "vnd.android.cursor.item/" + AUTHORITY + "." + TABLE_NAME_REALESTATE;
+        return "vnd.android.cursor.item/" + AUTHORITY + "." + TABLE_NAME_PHOTO;
     }
 
     @Nullable
@@ -58,8 +52,9 @@ public class ItemContentProvider extends ContentProvider {
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 
         if (getContext() != null) {
-            final long id = RealEstateDatabase.getInstance(getContext()).mRealEstateDao()
-                    .createRealEstate(RealEstate.Companion.fromContentValues(contentValues));
+            assert contentValues != null;
+            final long id = RealEstateDatabase.getInstance(getContext()).mPhotoDao()
+                    .insertPhoto(Photo.Companion.fromContentValues(contentValues));
             if (id != 0) {
                 getContext().getContentResolver().notifyChange(uri, null);
                 return ContentUris.withAppendedId(uri, id);
@@ -72,7 +67,7 @@ public class ItemContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
         if (getContext() != null) {
-            final int count = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().deleteItem(ContentUris.parseId(uri));
+            final int count = RealEstateDatabase.getInstance(getContext()).mPhotoDao().deletePhoto(ContentUris.parseId(uri));
             getContext().getContentResolver().notifyChange(uri, null);
             return count;
         }
@@ -82,7 +77,7 @@ public class ItemContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
         if (getContext() != null) {
-            final int count = RealEstateDatabase.getInstance(getContext()).mRealEstateDao().updateItem(RealEstate.Companion.fromContentValues(contentValues));
+            final int count = RealEstateDatabase.getInstance(getContext()).mPhotoDao().updatePhoto(Photo.Companion.fromContentValues(contentValues));
             getContext().getContentResolver().notifyChange(uri, null);
             return count;
         }

@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.openclassrooms.realestatemanager.database.RealEstateDatabase;
-import com.openclassrooms.realestatemanager.provider.ItemContentProvider;
+import com.openclassrooms.realestatemanager.provider.RealEstateContentProvider;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class ItemContentProviderTest {
+public class RealEstateContentProviderTest {
 
     // FOR DATA
     private ContentResolver mContentResolver;
@@ -48,7 +48,7 @@ public class ItemContentProviderTest {
     @Test
     public void getItemsWhenNoItemInserted() {
         executor.execute(() -> {
-            final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(ItemContentProvider.URI_REALESTATE, ID),
+            final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(RealEstateContentProvider.URI_REALESTATE, ID),
                     null, null, null, null);
 
             assertThat(cursor, notNullValue());
@@ -61,7 +61,7 @@ public class ItemContentProviderTest {
     public void insertAndGetItem() {
         // BEFORE : Adding demo item
         executor.execute(() -> {
-            final Uri exUri = mContentResolver.insert(ItemContentProvider.URI_REALESTATE, generateItem());
+            final Uri exUri = mContentResolver.insert(RealEstateContentProvider.URI_REALESTATE, generateItem());
             // TEST
             final Cursor cursor = mContentResolver.query(exUri,
                     null, null, null, null);
