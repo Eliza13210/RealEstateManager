@@ -6,14 +6,19 @@ import android.net.NetworkInfo;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.ibm.icu.text.ComposedCharIter;
+import com.openclassrooms.realestatemanager.models.Result;
+
+import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -95,5 +100,44 @@ public class UtilsTest {
 
         boolean isBefore = Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
         assertTrue(isBefore);
+    }
+
+    @Test
+    public void checkIfResultTypeMatches_WhenFalse_ReturnEmptyList(){
+
+        List<Result> resultList=new ArrayList<>();
+        Result result=new Result();
+        List<String> typesList=new ArrayList<>();
+
+        typesList.add("car_wash");
+        result.setTypes(typesList);
+        resultList.add(result);
+
+        List<Result> updatedList=Utils.checkIfPointOfInterest(resultList);
+
+        assertTrue(updatedList.isEmpty());
+    }
+
+    @Test
+    public void checkIfResultTypeMatches_WhenTrue_ReturnUpdatedList(){
+
+        List<Result> resultList=new ArrayList<>();
+        Result result=new Result();
+        Result result_two=new Result();
+        List<String> typesList=new ArrayList<>();
+
+        typesList.add("school");
+        result.setTypes(typesList);
+        resultList.add(result);
+
+        typesList.add("doctor");
+        typesList.add("bus_station");
+        result_two.setTypes(typesList);
+        resultList.add(result_two);
+
+        List<Result> updatedList=Utils.checkIfPointOfInterest(resultList);
+
+        assertEquals(2, updatedList.size());
+
     }
 }

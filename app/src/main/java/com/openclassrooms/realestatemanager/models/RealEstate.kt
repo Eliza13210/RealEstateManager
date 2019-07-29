@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class RealEstate(@PrimaryKey(autoGenerate = false) val id: Long?=null,
+data class RealEstate(@PrimaryKey(autoGenerate = false) val id: Long? = null,
                       var type: String? = null,
                       var price: String? = null,
                       var latitude: String? = null,
@@ -20,9 +20,9 @@ data class RealEstate(@PrimaryKey(autoGenerate = false) val id: Long?=null,
                       var sold: Boolean = false,
                       var startDate: String? = null,
                       var endDate: String? = null,
-                      var agent: String) {
+                      var agent: String,
+                      var pointsOfInterest: String? = null) {
 
-//TODO POINTS OF INTEREST
 
     companion object {
 

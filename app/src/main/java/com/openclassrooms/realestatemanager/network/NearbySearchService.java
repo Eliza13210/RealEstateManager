@@ -21,7 +21,6 @@ public interface NearbySearchService {
             @Path("search") String search,
             @Query("location") String location,
             @Query("radius") String radius,
-            // @Query("type") String type,
             @Query("key") String key
     );
 

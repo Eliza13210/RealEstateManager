@@ -243,6 +243,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <!--ADDRESS-->
                     <TextView
                         android:id="@+id/location"
                         android:layout_width="match_parent"
@@ -255,8 +256,26 @@
                         android:id="@+id/detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_create_act"
                         android:text="Address goes here"
                         android:textSize="@dimen/text_size" />
+
+                    <!--POINTS OF INTEREST-->
+                    <TextView
+                        android:id="@+id/detail_poi_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Points of interest"
+                        android:textSize="@dimen/text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detail_poi_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Poi"
+                        android:textSize="@dimen/text_size" />
+
 
                 </LinearLayout>
 
@@ -296,6 +315,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.2" />
     </LinearLayout>
 </FrameLayout>

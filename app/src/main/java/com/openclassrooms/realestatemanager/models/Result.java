@@ -11,6 +11,27 @@ public class Result {
     @Expose
     private String name;
 
+    @SerializedName("types")
+    @Expose
+    private List<String> types;
+
+    //To get latLng
+    @SerializedName("geometry")
+    @Expose
+    private Result geometry;
+
+    @SerializedName("latLng")
+    @Expose
+    private Result location;
+
+    @SerializedName("lat")
+    @Expose
+    private Double lat;
+
+    @SerializedName("lng")
+    @Expose
+    private Double lng;
+
     public String getName() {
         return name;
     }
@@ -59,24 +80,4 @@ public class Result {
         this.lng = lng;
     }
 
-    @SerializedName("types")
-    @Expose
-    private List<String> types;
-
-    //To get latLng
-    @SerializedName("geometry")
-    @Expose
-    private Result geometry;
-
-    @SerializedName("latLng")
-    @Expose
-    private Result location;
-
-    @SerializedName("lat")
-    @Expose
-    private Double lat;
-
-    @SerializedName("lng")
-    @Expose
-    private Double lng;
 }

@@ -4,11 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
-import com.openclassrooms.realestatemanager.database.RealEstateDatabase
 import com.openclassrooms.realestatemanager.models.NearbySearchObject
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.network.NearbySearchStream
@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
+import java.lang.StringBuilder
 import java.util.*
 
 class CreateActivity : BaseActivityUIInformation() {
@@ -102,7 +103,7 @@ class CreateActivity : BaseActivityUIInformation() {
 
             disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(object : DisposableObserver<NearbySearchObject>() {
                 override fun onNext(nearbySearchObject: NearbySearchObject) {
-                    pointsOfInterest = nearbySearchObject.results
+                    listPoi = Utils.checkIfPointOfInterest(nearbySearchObject.results)
                 }
 
                 override fun onError(e: Throwable) {
@@ -138,11 +139,21 @@ class CreateActivity : BaseActivityUIInformation() {
         val lon = latLng?.longitude
         val longitude = lon.toString()
 
+        val sb = StringBuilder()
+
+        for (result in listPoi) {
+            sb.append(result.name + ", " + result.types[0].replace('_', ' '))
+            sb.append(System.getProperty("line.separator"))
+        }
+        val pointsOfInterest: String = sb.toString()
+
+        Log.e("create", pointsOfInterest)
+
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, false, startDate, null, agent
+                rooms, bathrooms, address, false, startDate, null, agent, pointsOfInterest
         )
 
-        realEstateId= viewModel?.createRealEstate(realEstate)!!
+        realEstateId = viewModel?.createRealEstate(realEstate)!!
 
         for (photo in photos) {
             photo.realEstateId = realEstateId

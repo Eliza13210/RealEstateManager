@@ -75,7 +75,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var startDate = ""
     protected var endDate = ""
     protected var agent = ""
-    protected var pointsOfInterest: List<Result> = ArrayList()
+    protected var listPoi: List<Result> = ArrayList()
     protected var bedrooms: String? = null
     protected var latitude: String = ""
     protected var longitude: String = ""

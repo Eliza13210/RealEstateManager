@@ -74,6 +74,8 @@ class DetailFragment : Fragment() {
         detail_bathrooms.text = realEstate.bathrooms
         detail_bedrooms.text = realEstate.bedrooms
         detail_address.text = realEstate.address
+        detail_poi_tv.text = realEstate.pointsOfInterest
+
         if (realEstate.sold)
             isSold_tv.text = "SOLD " + realEstate.endDate
 
