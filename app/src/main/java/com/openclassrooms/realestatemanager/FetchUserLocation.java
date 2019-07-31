@@ -14,6 +14,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.openclassrooms.realestatemanager.controllers.CreateActivity;
 
 import java.io.IOException;
 import java.util.List;

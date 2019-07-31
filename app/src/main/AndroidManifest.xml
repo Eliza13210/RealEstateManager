@@ -7,16 +7,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
 
     <application
         android:allowBackup="false"
@@ -25,25 +22,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".controllers.MapActivity"></activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".controllers.DetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MainTheme"></activity>
+            android:theme="@style/MainTheme" />
         <activity
-            android:name=".MainActivity"
+            android:name=".controllers.MainActivity"
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateActivity"
+            android:name=".controllers.CreateActivity"
             android:label="Create new real estate"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent" />
         <activity
-            android:name=".EditActivity"
+            android:name=".controllers.EditActivity"
             android:label="Edit item"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent" />
@@ -57,8 +56,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!-- You don't need to include android:required="false" if your app's
-     minSdkVersion is 28 or higher. -->
+        <!--
+ You don't need to include android:required="false" if your app's
+     minSdkVersion is 28 or higher.
+        -->
         <uses-library
             android:name="android.test.runner"
             android:required="false" />

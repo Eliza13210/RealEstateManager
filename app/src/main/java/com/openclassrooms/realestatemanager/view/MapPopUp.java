@@ -1,23 +1,13 @@
 package com.openclassrooms.realestatemanager.view;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.openclassrooms.realestatemanager.DetailActivity;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.fragments.DetailFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;

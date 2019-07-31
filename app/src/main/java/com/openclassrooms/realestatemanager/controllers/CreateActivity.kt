@@ -1,14 +1,16 @@
-package com.openclassrooms.realestatemanager
+package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
+import com.openclassrooms.realestatemanager.FetchUserLocation
+import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.models.NearbySearchObject
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.network.NearbySearchStream

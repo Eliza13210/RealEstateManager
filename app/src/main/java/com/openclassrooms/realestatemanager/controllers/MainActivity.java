@@ -1,16 +1,16 @@
-package com.openclassrooms.realestatemanager;
+package com.openclassrooms.realestatemanager.controllers;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
