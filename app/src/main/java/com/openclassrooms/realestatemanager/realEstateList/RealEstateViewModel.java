@@ -45,8 +45,8 @@ public class RealEstateViewModel extends ViewModel {
         return realEstateDataSource.getRealEstate(realEstateId);
     }
 
-    public LiveData<List<RealEstate>> getAllItems() {
-        return realEstateDataSource.getAllItems();
+    public LiveData<List<RealEstate>> fetchAllRealEstates() {
+        return realEstateDataSource.getAllRealEstates();
     }
 
     public long createRealEstate(RealEstate realEstate) {

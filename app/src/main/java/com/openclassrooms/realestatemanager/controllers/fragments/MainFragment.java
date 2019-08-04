@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.fragments;
+package com.openclassrooms.realestatemanager.controllers.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -79,7 +79,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     // - Get all real estates
     private void getItems() {
-        this.realEstateViewModel.getAllItems().observe(this, this::updateItemsList);
+        this.realEstateViewModel.fetchAllRealEstates().observe(this, this::updateItemsList);
     }
 
     private void updateItemsList(List<RealEstate> realEstateList) {
@@ -90,20 +90,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     public void onItemClick(long id) {
 
     }
-
-
-    /**
-     // 3 - Delete an item
-     private void deleteItem(Item item){
-     this.itemViewModel.deleteItem(item.getId());
-     }
-
-     // 3 - Update an item (selected or not)
-     private void updateItem(Item item){
-     item.setSelected(!item.getSelected());
-     this.itemViewModel.updateItem(item);
-     }
-     */
 }
 
 

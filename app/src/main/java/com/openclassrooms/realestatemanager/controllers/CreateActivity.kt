@@ -31,7 +31,7 @@ class CreateActivity : BaseActivityUIInformation() {
         super.onCreate(savedInstanceState)
         initAddressTextView()
 
-        fetchUserLocation = FetchUserLocation(this, address_tv)
+        fetchUserLocation = FetchUserLocation(this, address_tv, this, null)
         pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE)
     }
 

@@ -14,7 +14,7 @@ class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
 
     // --- GET ALL DATA ---
 
-    fun getAllItems(): LiveData<MutableList<RealEstate>>? {
+    fun getAllRealEstates(): LiveData<MutableList<RealEstate>>? {
         return this.realEstateDao.getAllRealEstates()
     }
 

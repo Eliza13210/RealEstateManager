@@ -22,11 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".controllers.MapActivity"></activity>
-        <activity
-            android:name=".controllers.DetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MainTheme" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/API_KEY" />
+
         <activity
             android:name=".controllers.MainActivity"
             android:theme="@style/MainTheme">
@@ -36,6 +35,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".controllers.MapActivity"
+            android:theme="@style/MainTheme">
+
+        </activity>
+        <activity
+            android:name=".controllers.DetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" />
         <activity
             android:name=".controllers.CreateActivity"
             android:label="Create new real estate"
@@ -47,6 +55,14 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent" />
 
+
+        <uses-library
+            android:name="android.test.runner"
+            android:required="false" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.openclassrooms.realestatemanager.fileprovider"
@@ -56,14 +72,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--
- You don't need to include android:required="false" if your app's
-     minSdkVersion is 28 or higher.
-        -->
-        <uses-library
-            android:name="android.test.runner"
-            android:required="false" />
-
         <provider
             android:name=".provider.RealEstateContentProvider"
             android:authorities="com.openclassrooms.realestatemanager.provider"

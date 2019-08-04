@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.fragments.DetailFragment;
-import com.openclassrooms.realestatemanager.fragments.MainFragment;
+import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
+import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +23,10 @@ import butterknife.ButterKnife;
 import static java.sql.DriverManager.println;
 
 public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener {
+
+
+    // Create static variable to identify Intent
+    public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
 
     private DetailFragment detailFragment;
     private String tag;
@@ -40,20 +44,12 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         checkIfTablet();
         this.showMainFragment();
         this.configureAndShowDetailFragment();
-
-        if (findViewById(R.id.frame_layout_detail) != null) {
-            tablet = true;
-            setActionbarTablet();
-        } else {
-            setActionbarPhone();
-        }
     }
 
     // 3 - Create a new item
     private void createRealEstate() {
         startActivity(new Intent(this, CreateActivity.class));
     }
-
 
     private void setActionbarPhone() {
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
@@ -87,6 +83,23 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         // WILL BE FALSE IF TABLET
         if (getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        //IF TABLET, SHOW DETAIL FRAGMENT AS WELL
+        if (findViewById(R.id.frame_layout_detail) != null) {
+            tablet = true;
+            setActionbarTablet();
+            // Get marker tag from intent if it comes from map activity
+            Intent intent = getIntent();
+            if (intent.hasExtra(EXTRA_TAG)) {
+                long tagFromMap = getIntent().getLongExtra(EXTRA_TAG, 0);
+                Log.e("main", "has extras " + tagFromMap);
+                // Update DetailFragment
+                detailFragment.updateDetails(tagFromMap);
+            } else {
+                Log.e("main", "has no  extras ");
+            }
+        } else {
+            setActionbarPhone();
         }
     }
 
@@ -158,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             case R.id.app_bar_add:
                 startActivity(new Intent(MainActivity.this, CreateActivity.class));
                 return true;
-
         }
         return super.onOptionsItemSelected(item);
     }

@@ -7,7 +7,7 @@ import android.util.Log;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.R;
-import com.openclassrooms.realestatemanager.fragments.DetailFragment;
+import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -81,7 +81,7 @@ public class DetailActivity extends AppCompatActivity {
 
     // 2 - Update DetailFragment with tag passed from Intent
     private void updateDetailFragmentWithIntentTag() {
-        // Get button's tag from intent
+        // Get tag from intent
         tag = getIntent().getLongExtra(EXTRA_TAG, 0);
         // Update DetailFragment's TextView
         detailFragment.updateDetails(tag);

@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,9 +13,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.openclassrooms.realestatemanager.controllers.CreateActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,10 +36,14 @@ public class FetchUserLocation {
     private Context context;
     private EditText editText;
     private SharedPreferences pref;
+    private Activity activity;
+    private GoogleMap map;
 
-    public FetchUserLocation(Context context, EditText editText) {
+    public FetchUserLocation(Context context, EditText editText, Activity activity, GoogleMap map) {
+        this.map = map;
         this.context = context;
         this.editText = editText;
+        this.activity = activity;
     }
 
     public void checkLocationPermission() {
@@ -57,7 +63,7 @@ public class FetchUserLocation {
             getDeviceLocation();
             Log.e("Permission", "Granted");
         } else {
-            ActivityCompat.requestPermissions((CreateActivity) context,
+            ActivityCompat.requestPermissions(activity,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             Log.e("Permission", "Request permission");
@@ -70,8 +76,10 @@ public class FetchUserLocation {
          * cases when a latLng is not available.
          */
         try {
+            Log.e("fetch", "try to get location");
             Task locationResult = fusedLocationProviderClient.getLastLocation();
-            locationResult.addOnCompleteListener((CreateActivity) context, new OnCompleteListener() {
+
+            locationResult.addOnCompleteListener(activity, new OnCompleteListener() {
                 Location mLastKnownLocation;
 
                 @Override
@@ -80,7 +88,7 @@ public class FetchUserLocation {
 
                         // Set the map's camera position to the current latLng of the device.
                         mLastKnownLocation = (Location) task.getResult();
-
+//                        Log.e("fetch", mLastKnownLocation.toString());
                         double mLatitude;
                         double mLongitude;
 
@@ -96,9 +104,14 @@ public class FetchUserLocation {
 
                             Log.e("fetchLoc", Double.toString(mLatitude) + " " + Double.toString(mLongitude));
 
-                            getAddress(mLatitude, mLongitude);
+                            if (editText != null) {
+                                getAddress(mLatitude, mLongitude);
+                            } else if (map != null) {
+                                showUserOnMap(mLatitude, mLongitude);
+                            }
                         } else {
                             Toast.makeText(context, "Error defining latLng", Toast.LENGTH_LONG).show();
+                            Log.e("fetch", "error");
                         }
                     }
                 }
@@ -132,11 +145,17 @@ public class FetchUserLocation {
         pref.edit().putString("CurrentAddress", userAddress).apply();
         Log.e("get loc", userAddress);
 
-        updateUI(userAddress);
+        updateUIWithAddress(userAddress);
     }
 
-    private void updateUI(String address) {
+    private void updateUIWithAddress(String address) {
         editText.setText(address);
+    }
+
+    private void showUserOnMap(Double latitude, Double longitude) {
+        MapManager manager = new MapManager(context, null, map);
+        LatLng latlng = new LatLng(latitude, longitude);
+        manager.showUser(latlng);
     }
 
 }

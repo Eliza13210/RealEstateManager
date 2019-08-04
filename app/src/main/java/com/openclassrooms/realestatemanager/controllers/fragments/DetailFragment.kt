@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.fragments
+package com.openclassrooms.realestatemanager.controllers.fragments
 
 import android.os.Bundle
 import android.util.Log
