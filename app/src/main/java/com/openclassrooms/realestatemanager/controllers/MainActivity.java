@@ -10,19 +10,24 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static java.sql.DriverManager.println;
 
-public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener {
+public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener, NavigationView.OnNavigationItemSelectedListener {
 
 
     // Create static variable to identify Intent
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.activity_drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.main_nav_view)
+    NavigationView navigationView;
 
 
     @Override
@@ -46,26 +55,57 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         this.configureAndShowDetailFragment();
     }
 
-    // 3 - Create a new item
-    private void createRealEstate() {
-        startActivity(new Intent(this, CreateActivity.class));
+    private void checkIfTablet() {
+        Log.e("main", "portrait only " + getResources().getBoolean(R.bool.portrait_only));
+        // WILL BE FALSE IF TABLET
+        if (getResources().getBoolean(R.bool.portrait_only)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            setActionbarPhone();
+        }
+        //IF TABLET, SHOW DETAIL FRAGMENT AS WELL
+        if (findViewById(R.id.frame_layout_detail) != null) {
+            tablet = true;
+            setActionbarTablet();
+
+            // Get marker tag from intent if it comes from map activity
+            Intent intent = getIntent();
+            if (intent.hasExtra(EXTRA_TAG)) {
+                long tagFromMap = getIntent().getLongExtra(EXTRA_TAG, 0);
+                Log.e("main", "has extras " + tagFromMap);
+                // Update DetailFragment
+                detailFragment.updateDetails(tagFromMap);
+            } else {
+                Log.e("main", "has no  extras ");
+            }
+        }
     }
 
+
     private void setActionbarPhone() {
+        Log.e("main", "set phone");
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
+        configureDrawerLayout(bottomAppBar, null);
 
         fab.setImageResource(R.drawable.ic_action_add_dark);
         fab.setOnClickListener(v -> createRealEstate());
     }
 
+    //  Start create activity when click on fab
+    private void createRealEstate() {
+        startActivity(new Intent(this, CreateActivity.class));
+    }
+
     private void setActionbarTablet() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
+        configureDrawerLayout(null, toolbar);
+
         fab.setImageResource(R.drawable.ic_action_edit_dark);
         fab.setOnClickListener(v -> edit());
     }
 
+    //Start edit activity when click on fab
     private void edit() {
         if (tag != null) {
             Log.e("Detail", "edit clicked with tag " + tag);
@@ -78,30 +118,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     }
 
 
-    private void checkIfTablet() {
-        Log.e("main", "portrait only " + getResources().getBoolean(R.bool.portrait_only));
-        // WILL BE FALSE IF TABLET
-        if (getResources().getBoolean(R.bool.portrait_only)) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        //IF TABLET, SHOW DETAIL FRAGMENT AS WELL
-        if (findViewById(R.id.frame_layout_detail) != null) {
-            tablet = true;
-            setActionbarTablet();
-            // Get marker tag from intent if it comes from map activity
-            Intent intent = getIntent();
-            if (intent.hasExtra(EXTRA_TAG)) {
-                long tagFromMap = getIntent().getLongExtra(EXTRA_TAG, 0);
-                Log.e("main", "has extras " + tagFromMap);
-                // Update DetailFragment
-                detailFragment.updateDetails(tagFromMap);
-            } else {
-                Log.e("main", "has no  extras ");
-            }
-        } else {
-            setActionbarPhone();
-        }
-    }
 
     private void showMainFragment() {
         MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
@@ -114,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     }
 
     private void configureAndShowDetailFragment() {
+
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
 
         //only add DetailFragment in Tablet mode (If found frame_layout_detail)
@@ -128,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     // --------------
     // CallBack
+    // Handle click in list view to show real estate in detail fragment
     // --------------
     @Override
     public void onItemClick(long id) {
@@ -145,6 +163,10 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         }
     }
 
+
+    /**
+     * Handle click in action bar
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_app_bar_menu, menu);
@@ -159,13 +181,10 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
             case R.id.app_bar_search:
-                println("Fav menu item is clicked!");
+                println("Search menu item is clicked!");
                 return true;
 
             case R.id.app_bar_add:
@@ -173,5 +192,44 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Configure Drawer Layout
+    private void configureDrawerLayout(BottomAppBar bottomAppBar, Toolbar toolbar) {
+
+        Log.e("main", "config drawer");
+        ActionBarDrawerToggle toggle;
+        if (bottomAppBar == null) {
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close);
+        } else {
+            toggle = new ActionBarDrawerToggle(this, drawerLayout, bottomAppBar, R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close);
+        }
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_map:
+                //Start Map view
+                startActivity(new Intent(MainActivity.this, MapActivity.class));
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

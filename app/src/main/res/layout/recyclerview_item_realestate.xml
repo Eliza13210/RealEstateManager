@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/blue"
+    android:background="@color/lightGrey"
     android:orientation="horizontal">
 
     <ImageView
@@ -10,45 +10,52 @@
         android:layout_width="@dimen/photo_list_size_width"
         android:layout_height="@dimen/photo_list_size_height"
         android:layout_margin="1dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/photo_real_estate"
+        android:scaleType="centerCrop"
         android:src="@drawable/duplex_ny" />
 
     <LinearLayout
         android:layout_width="@dimen/text_list_size_width"
         android:layout_height="@dimen/text_list_size_height"
+        android:layout_marginStart="35dp"
         android:layout_alignBottom="@+id/photo_realestate"
-        android:gravity="center"
         android:layout_toRightOf="@+id/photo_realestate"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/item_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Duplex"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size_list" />
 
         <TextView
             android:id="@+id/item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Manhattan"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size_list" />
 
         <TextView
             android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="$23,000,000"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size_list" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="104dp"
-        android:background="?android:attr/listDivider"
-        android:layout_gravity="bottom"
         android:layout_alignBottom="@+id/photo_realestate"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="104dp"
+        android:layout_marginEnd="4dp"
+        android:background="?android:attr/listDivider"
         android:visibility="visible" />
 </RelativeLayout>

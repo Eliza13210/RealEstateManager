@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -155,25 +156,17 @@ class CreateActivity : BaseActivityUIInformation() {
                 rooms, bathrooms, address, false, startDate, null, agent, pointsOfInterest
         )
 
-        realEstateId = viewModel?.createRealEstate(realEstate)!!
+        AsyncTask.execute {
+            realEstateId = viewModel?.createRealEstate(realEstate)!!
 
-        for (photo in photos) {
-            photo.realEstateId = realEstateId
-            viewModel?.createPhoto(photo)
+            for (photo in photos) {
+                photo.realEstateId = realEstateId
+                viewModel?.createPhoto(photo)
+            }
+            Log.e("Create", "realEstateId=" + realEstateId)
+
         }
-
         Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show()
-
     }
-
-    private fun disposeWhenDestroy() {
-        if (this.disposable != null && !this.disposable.isDisposed) this.disposable.dispose()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposeWhenDestroy()
-    }
-
 
 }

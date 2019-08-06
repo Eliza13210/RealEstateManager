@@ -56,7 +56,6 @@ class DetailFragment : Fragment() {
     private fun configureViewModel() {
         val mViewModelFactory = Injection.provideViewModelFactory(activity)
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
-        // this.viewModel.init(realEstateId)
     }
 
     // 3 - Get Current User

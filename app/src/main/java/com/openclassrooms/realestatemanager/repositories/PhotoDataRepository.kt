@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.repositories
 
-import android.content.ClipData.Item
 import androidx.lifecycle.LiveData
 import com.openclassrooms.realestatemanager.database.dao.PhotoDao
 import com.openclassrooms.realestatemanager.models.Photo

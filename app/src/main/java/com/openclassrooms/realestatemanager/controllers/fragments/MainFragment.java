@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -89,6 +90,11 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     @Override
     public void onItemClick(long id) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
 

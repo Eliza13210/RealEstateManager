@@ -1,5 +1,7 @@
 package com.openclassrooms.realestatemanager.realEstateList;
 
+import android.util.Log;
+
 import com.openclassrooms.realestatemanager.models.Photo;
 import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.repositories.PhotoDataRepository;
@@ -50,11 +52,7 @@ public class RealEstateViewModel extends ViewModel {
     }
 
     public long createRealEstate(RealEstate realEstate) {
-        final long[] value = new long[1];
-        executor.execute(() -> {
-           value[0] = realEstateDataSource.createRealEstate(realEstate);
-        });
-        return value[0];
+        return realEstateDataSource.createRealEstate(realEstate);
     }
 
     public void updateRealEstate(RealEstate realEstate) {
