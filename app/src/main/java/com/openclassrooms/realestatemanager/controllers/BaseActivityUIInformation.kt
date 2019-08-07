@@ -137,7 +137,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
     // RecyclerView node initialized here
     private fun initRecyclerView() {
-        recyclerview_photos_info.apply {
+        recyclerview_photos.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             // set the custom adapter to the RecyclerView
             adapter = photoAdapter
@@ -393,42 +393,16 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     }
 
     /** Start pop up to add description to photo, and then add the photo object to list */
-    protected fun addPhotoToList(uri: String) {
+    private fun addPhotoToList(uri: String) {
         //Show pop up to get description of photo
         val photoPopUp = PhotoPopUp(this)
         photoPopUp.popUpDialog(uri)
-
+//TODO TEXT TAKES TO LONG TIME
         val text = pref?.getString("Photo text", "")
-        //TODO ALIGN PHOTOS!
-        //Save photo in list
+
         val photo = Photo(null, realEstateId, uri, text)
         photos.add(photo)
-
-        //Add imageview to show thumbnail in activity
-        val imageView = ImageView(this)
-        imageView.maxWidth = 50
-        imageView.maxHeight = 50
-        imageView.tag = uri
-
-        Picasso.get().load(uri).into(imageView)
-
-        //Delete photo on click
-        photo_layout.addView(imageView)
-        val remove = ArrayList<Photo>()
-
-        imageView.setOnClickListener { v ->
-            for (p in photos) {
-                if (p.url === imageView.tag) {
-                    Log.e("remove", "removed= " + photos.size + imageView.tag + p.url)
-                    remove.add(p)
-                }
-            }
-            photos.removeAll(remove)
-
-            photo_layout.removeView(imageView)
-            Log.e("remove", "removed= " + photos.size)
-        }
-
+        this.photoAdapter.updateData(photos)
         Log.e("Photo", photo.url + photo.text + text)
         Log.e("Photo", "photo list size" + photos.size)
         Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show()

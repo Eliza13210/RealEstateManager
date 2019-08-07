@@ -47,7 +47,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         setContentView(R.layout.activity_map)
         checkInternetConnexion()
         initToolbar()
-        initViewModel()
         //Show the google map
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
@@ -84,6 +83,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
                             android.Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
                 //If ok, initialize map to show user location and buttons to zoom user
 
+                Log.e("mapA", "access gps ok")
                 mMap!!.isMyLocationEnabled = true
                 mMap!!.uiSettings.isMyLocationButtonEnabled = true
                 mMap!!.setOnMyLocationButtonClickListener(this)
@@ -92,12 +92,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
                 mMap!!.mapType = GoogleMap.MAP_TYPE_NORMAL
                 mMap!!.uiSettings.isZoomControlsEnabled = true
 
-                //Adding markers to map if the list is not empty
-                mapManager = MapManager(this, list, mMap!!)
-                if (!list.isNullOrEmpty()) {
-                    mapManager!!.displayMarkersOnMap()
-                }
-
+                initViewModel()
             } else {
                 //If no permission, do not show user location, only map
                 mMap!!.isMyLocationEnabled = false
@@ -129,7 +124,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
         this.viewModel!!.fetchAllRealEstates().observe(this, Observer<List<RealEstate>> {
             list = it
-            Log.e("map", "list" + it!!.size)
+            //Adding markers to map if the list is not empty
+            mapManager = MapManager(this, list, mMap!!)
+            if (!list.isNullOrEmpty()) {
+                mapManager!!.displayMarkersOnMap()
+            }
         })
     }
 

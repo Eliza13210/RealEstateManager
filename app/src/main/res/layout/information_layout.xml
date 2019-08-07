@@ -176,8 +176,8 @@
                 android:id="@+id/spinner_bathrooms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:outlineAmbientShadowColor="@color/blue"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:outlineAmbientShadowColor="@color/blue" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -199,43 +199,36 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="0.3"
+            android:layout_weight="0.5"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/ic_camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="@dimen/margin_create_act"
                 android:background="@drawable/ic_camera"
                 android:clickable="true"
-                android:focusable="true"
-                android:padding="20dp" />
+                android:focusable="true" />
 
             <TextView
                 android:id="@+id/ic_gallery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_create_act"
                 android:background="@drawable/ic_pick_photo"
                 android:clickable="true"
-                android:focusable="true"
-                android:padding="20dp" />
+                android:focusable="true"/>
 
-            <RelativeLayout
-                android:id="@+id/photo_layout"
+            <!--PHOTOS-->
+            <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/recyclerview_photos"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/recyclerview_photos_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="20"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_create_act"
+                android:layout_marginEnd="@dimen/margin_create_act"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
 
@@ -262,6 +255,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="3"
                 android:hint="..."
+                android:inputType="textCapSentences|textMultiLine"
                 android:paddingLeft="10dp" />
         </LinearLayout>
 

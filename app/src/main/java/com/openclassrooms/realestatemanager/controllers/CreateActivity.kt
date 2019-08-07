@@ -47,7 +47,6 @@ class CreateActivity : BaseActivityUIInformation() {
         }
         //Geo latLng
         geo_loc.setOnClickListener {
-            Log.e("create", "clicked img")
             getUserLocation()
         }
 
@@ -60,12 +59,14 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = surface_tv.text.toString()
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
 
-        Log.e("check if", "is empty " + agent.isEmpty())
-
         if (agent.isNotEmpty()) {
-            createRealEstate()
+            if(address.isNotEmpty()){
+                createRealEstate()
+            }else{
+                Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(this, "You need to choose an agent for the object you want to create", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.warning_add_item_without_agent), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -94,12 +95,9 @@ class CreateActivity : BaseActivityUIInformation() {
 
 
     fun getPointsOfInterest() {
-
         //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
-
         address = address_tv.text.toString()
         latLng = Utils.getLatLngFromAddress(this, address)
-        Log.e("Create", address)
 
         if (latLng != null) {
             val locationForSearch = Utils.setLocationString(latLng)
@@ -114,11 +112,10 @@ class CreateActivity : BaseActivityUIInformation() {
                 }
 
                 override fun onComplete() {
-
                 }
             })
         } else {
-            Toast.makeText(this, "Enter a valid address", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.warning_address_not_valid), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -127,7 +124,6 @@ class CreateActivity : BaseActivityUIInformation() {
      * Get user latLng when clicking on geo latLng icon and update edit text with address
      */
     private fun getUserLocation() {
-        Log.e("create", "check permission")
         fetchUserLocation?.checkLocationPermission()
     }
 
@@ -168,5 +164,4 @@ class CreateActivity : BaseActivityUIInformation() {
         }
         Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show()
     }
-
 }
