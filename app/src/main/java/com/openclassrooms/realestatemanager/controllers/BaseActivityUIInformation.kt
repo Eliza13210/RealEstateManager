@@ -17,7 +17,6 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -29,10 +28,7 @@ import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.CircularRevealAnimation
-import com.openclassrooms.realestatemanager.view.PhotoAdapter
-import com.openclassrooms.realestatemanager.view.PhotoPopUp
-import com.squareup.picasso.Picasso
+import com.openclassrooms.realestatemanager.view.*
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -43,7 +39,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks {
+abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks, PhotoAdapter.PhotoViewHolder.OnItemClickedListener  {
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
     protected var pref: SharedPreferences? = null
@@ -65,7 +61,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var realEstateId: Long = 0
 
     // For creating real estate object
-    protected val photos = ArrayList<Photo>()
+    protected var photos = ArrayList<Photo>()
     protected var type = ""
     protected var price = ""
     protected var description = ""
@@ -395,18 +391,9 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     /** Start pop up to add description to photo, and then add the photo object to list */
     private fun addPhotoToList(uri: String) {
         //Show pop up to get description of photo
-        val photoPopUp = PhotoPopUp(this)
-        photoPopUp.popUpDialog(uri)
-//TODO TEXT TAKES TO LONG TIME
-        val text = pref?.getString("Photo text", "")
-
-        val photo = Photo(null, realEstateId, uri, text)
-        photos.add(photo)
-        this.photoAdapter.updateData(photos)
-        Log.e("Photo", photo.url + photo.text + text)
-        Log.e("Photo", "photo list size" + photos.size)
-        Toast.makeText(this, "Photo added", Toast.LENGTH_SHORT).show()
-    }
+        val photoPopUp = AddPhotoPopUp(this)
+        photoPopUp.popUpDialog(uri, photos, photoAdapter)
+ }
 
 
     /** get the uri for the photo the user took and save it as a photo in the list*/
@@ -448,7 +435,24 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         return image
     }
 
+    /**
+     * Handle click on photo in recyclerview
+     */
 
+    override fun onItemClick(id: Long?, position: Int?) {
+
+       val photoPopup=PhotoPopUp(this)
+        var photo: Photo?=null
+        if(id!=null) {
+            for (p in photos) {
+                if (p.id == id)
+                    photo = p
+            }
+        }else {
+            photo= photos[position!!]
+        }
+        photoPopup.popUp(photo!!.url, photos, photo, photoAdapter, position)
+    }
     /**
      * Select item in spinner
      */

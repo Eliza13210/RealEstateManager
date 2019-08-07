@@ -76,4 +76,7 @@
     <string name="warning_add_item_without_agent">You need to choose an agent for the object you want to create</string>
     <string name="warning_add_object_without_address">You need to enter a valid address for your object</string>
     <string name="warning_address_not_valid">Enter a valid address</string>
+    <string name="delete_photo">Delete photo</string>
+    <string name="deleted">Photo deleted</string>
+    <string name="close">Close</string>
 </resources>

@@ -25,6 +25,7 @@ class DetailFragment : Fragment() {
     // FOR DATA
     private lateinit var viewModel: RealEstateViewModel
     private var realEstateId: Long = 0
+    private var photos: List<Photo>? = null
 
     private val photoAdapter: PhotoAdapter = PhotoAdapter()
 
@@ -103,6 +104,7 @@ class DetailFragment : Fragment() {
 
     private fun updatePhotoList(list: List<Photo>) {
         Log.e("det fr", "list of photos=" + list.size)
+        this.photos = list
         this.photoAdapter.updateData(list)
     }
 }

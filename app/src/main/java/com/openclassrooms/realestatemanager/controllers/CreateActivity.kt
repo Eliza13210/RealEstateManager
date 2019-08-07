@@ -60,9 +60,9 @@ class CreateActivity : BaseActivityUIInformation() {
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
 
         if (agent.isNotEmpty()) {
-            if(address.isNotEmpty()){
+            if (address.isNotEmpty()) {
                 createRealEstate()
-            }else{
+            } else {
                 Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -157,7 +157,8 @@ class CreateActivity : BaseActivityUIInformation() {
 
             for (photo in photos) {
                 photo.realEstateId = realEstateId
-                viewModel?.createPhoto(photo)
+                if (!photo.text.equals("Deleted"))
+                    viewModel?.createPhoto(photo)
             }
             Log.e("Create", "realEstateId=" + realEstateId)
 

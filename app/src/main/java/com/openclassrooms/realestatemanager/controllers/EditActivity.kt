@@ -64,11 +64,14 @@ class EditActivity : BaseActivityUIInformation() {
 
     //  Get all photos
     private fun getPhotos(realEstateId: Long) {
-        this.viewModel?.getPhotos(realEstateId)?.observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
+        this.viewModel?.getPhotos(realEstateId)?.observe(this, Observer<List<Photo>> {
+            this.updatePhotoList(it)
+        })
     }
 
     private fun updatePhotoList(list: List<Photo>) {
         Log.e("edit act", "list of photos=" + list.size)
+        photos.addAll(list)
         this.photoAdapter.updateData(list)
     }
 
@@ -121,8 +124,20 @@ class EditActivity : BaseActivityUIInformation() {
         viewModel?.updateRealEstate(realEstate)
 
         for (photo in photos) {
-            photo.realEstateId = realEstateId
-            viewModel?.createPhoto(photo)
+
+            //If photo has been deleted, remove it from database
+            if (photo.text.equals("Deleted") && photo.id != null) {
+                viewModel?.deletePhoto(photo.id!!)
+                photos.remove(photo)
+            }else if(photo.text.equals("Deleted")){
+                photos.remove(photo)
+            }
+
+            //Id will be null if not yet added to database, that means that it is a new photo that needs to be added
+            if (photo.id == null && !photo.text.equals("Deleted")) {
+                photo.realEstateId = realEstateId
+                viewModel?.createPhoto(photo)
+            }
         }
     }
 

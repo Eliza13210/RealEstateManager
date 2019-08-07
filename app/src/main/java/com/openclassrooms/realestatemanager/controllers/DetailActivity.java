@@ -8,6 +8,8 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
+import com.openclassrooms.realestatemanager.view.MapPopUp;
+import com.openclassrooms.realestatemanager.view.PhotoAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,4 +89,5 @@ public class DetailActivity extends AppCompatActivity {
         detailFragment.updateDetails(tag);
         Log.e("Detail", "update det frag with" + tag);
     }
+
 }
