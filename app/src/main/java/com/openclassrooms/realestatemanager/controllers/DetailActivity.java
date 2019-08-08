@@ -3,17 +3,29 @@ package com.openclassrooms.realestatemanager.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
-import com.openclassrooms.realestatemanager.view.MapPopUp;
-import com.openclassrooms.realestatemanager.view.PhotoAdapter;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    @BindView(R.id.activity_drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.main_nav_view)
+    NavigationView navigationView;
+
 
     // 1 - Declare detail fragment
     private DetailFragment detailFragment;
@@ -34,7 +46,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        ButterKnife.bind(this);
         // 2 - Configure and show  fragment
         this.configureAndShowDetailFragment();
         setActionbar();
@@ -44,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
     private void setActionbar() {
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
+        configureDrawerLayout(bottomAppBar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_action_edit_dark);
         fab.setOnClickListener(v -> edit());
@@ -89,5 +102,39 @@ public class DetailActivity extends AppCompatActivity {
         detailFragment.updateDetails(tag);
         Log.e("Detail", "update det frag with" + tag);
     }
+
+    // Configure Drawer Layout
+    private void configureDrawerLayout(BottomAppBar bottomAppBar) {
+
+        ActionBarDrawerToggle toggle;
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, bottomAppBar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_map:
+                //Start Map view
+                startActivity(new Intent(DetailActivity.this, MapActivity.class));
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
 }

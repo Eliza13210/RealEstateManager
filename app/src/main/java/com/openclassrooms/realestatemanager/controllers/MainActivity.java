@@ -27,7 +27,8 @@ import butterknife.ButterKnife;
 
 import static java.sql.DriverManager.println;
 
-public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
 
     // Create static variable to identify Intent
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         fab.setOnClickListener(v -> createRealEstate());
     }
 
-    //  Start create activity when click on fab
+    //  Start create activity when click on fab if phone
     private void createRealEstate() {
         startActivity(new Intent(this, CreateActivity.class));
     }
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         fab.setOnClickListener(v -> edit());
     }
 
-    //Start edit activity when click on fab
+    //Start edit activity when click on fab if tablet
     private void edit() {
         if (tag != null) {
             Log.e("Detail", "edit clicked with tag " + tag);
@@ -116,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             Toast.makeText(this, "Choose an item to edit first", Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     private void showMainFragment() {
@@ -151,14 +151,11 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public void onItemClick(long id) {
         tag = String.valueOf(id);
         // Check if detail fragment is not created or if not visible, then open DetailActivity
-        Log.e("Main", "Clicked" + id);
         if (detailFragment == null) {
-            Log.e("Detail", "det frag null start act");
             Intent i = new Intent(this, DetailActivity.class);
             i.putExtra(DetailActivity.EXTRA_TAG, id);
             startActivity(i);
         } else {
-            Log.e("Detail", "det frag ej null start act");
             detailFragment.updateDetails(id);
         }
     }
@@ -171,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bottom_app_bar_menu, menu);
 
-        // REMOVE CREATE ITEM FROM TOOLBAR IF TABLET MODE
+        // REMOVE CREATE ITEM FROM TOOLBAR IF PHONE
         if (!tablet) {
             menu.removeItem(R.id.app_bar_add);
             supportInvalidateOptionsMenu();
@@ -197,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     // Configure Drawer Layout
     private void configureDrawerLayout(BottomAppBar bottomAppBar, Toolbar toolbar) {
 
-        Log.e("main", "config drawer");
         ActionBarDrawerToggle toggle;
         if (bottomAppBar == null) {
             toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,

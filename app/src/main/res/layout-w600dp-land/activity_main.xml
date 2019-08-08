@@ -1,38 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:fitsSystemWindows="true"
+    app:tabMode="scrollable"
+    tools:context=".controllers.MainActivity">
 
-    <include layout="@layout/toolbar" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/frame_layout_main"
-            android:layout_width="0px"
+        <include layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="30" />
+            android:orientation="horizontal">
 
-        <FrameLayout
-            android:id="@+id/frame_layout_detail"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="70" />
+            <FrameLayout
+                android:id="@+id/frame_layout_main"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_create_act"
-            android:backgroundTint="@color/blue"
-            android:elevation="4dp"
-            android:layout_gravity="bottom"
-            app:borderWidth="0dp" />
+            <FrameLayout
+                android:id="@+id/frame_layout_detail"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="70" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/margin_create_act"
+                android:backgroundTint="@color/blue"
+                android:elevation="4dp"
+                app:borderWidth="0dp" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <!-- Navigation Drawer View -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/main_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/blue"
+        android:fitsSystemWindows="true"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/activity_main_menu_drawer">
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
