@@ -28,36 +28,30 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment implements RealEstateViewHolder.OnItemClickedListener {
 
-    // 1 - FOR DATA
+    private RealEstateAdapter adapter;
     private RealEstateViewModel realEstateViewModel;
 
     @BindView(R.id.recyclerview_list_real_estates)
     RecyclerView recyclerView;
 
-    //For recyclerview
-    private RealEstateAdapter adapter;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //Inflate the layout of MainFragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
-        this.configureRecyclerview();
+        this.configureRecyclerView();
         this.configureViewModel();
         this.getItems();
         return view;
 
     }
 
-    private void configureRecyclerview() {
-        // Create adapter passing the list of news
+    private void configureRecyclerView() {
         this.adapter = new RealEstateAdapter(Objects.requireNonNull(getContext()));
-        // Attach the adapter to the recycler view to populate items
         this.recyclerView.setAdapter(this.adapter);
         //Check if portrait orientation
         int orientation = getResources().getConfiguration().orientation;
         if (!getResources().getBoolean(R.bool.portrait_only) && orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // Set layout manager to position the items horizontally if portrait
+            // Set layout manager to position the items horizontally if portrait in tablet
             this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         } else {
             // Set layout manager to position the items
@@ -65,8 +59,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         }
     }
 
-
-    // Configuring ViewModel
     private void configureViewModel() {
         ViewModelFactory mViewModelFactory = Injection.provideViewModelFactory(getActivity());
         this.realEstateViewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel.class);
@@ -75,7 +67,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        configureRecyclerview();
+        configureRecyclerView();
     }
 
     // - Get all real estates
@@ -89,9 +81,9 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     @Override
     public void onItemClick(long id) {
-
     }
 
+    //Click on real estate item in list will be handled by main activity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;

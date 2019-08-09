@@ -51,7 +51,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
     }
 
     private fun initToolbar() {
@@ -75,15 +74,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0
-
         getUserLocation()
-        Log.e("mapA", "map ready")
         try {   //Check permission to show user location
             if (ContextCompat.checkSelfPermission(this,
                             android.Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
                 //If ok, initialize map to show user location and buttons to zoom user
 
-                Log.e("mapA", "access gps ok")
                 mMap!!.isMyLocationEnabled = true
                 mMap!!.uiSettings.isMyLocationButtonEnabled = true
                 mMap!!.setOnMyLocationButtonClickListener(this)
@@ -97,7 +93,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
                 //If no permission, do not show user location, only map
                 mMap!!.isMyLocationEnabled = false
                 mMap!!.uiSettings.isMyLocationButtonEnabled = false
-                Log.e("Update Map", "permission not yet granted")
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message)

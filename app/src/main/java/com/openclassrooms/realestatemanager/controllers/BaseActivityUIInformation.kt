@@ -39,7 +39,9 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks, PhotoAdapter.PhotoViewHolder.OnItemClickedListener  {
+abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks,
+        PhotoAdapter.PhotoViewHolder.OnItemClickedListener  {
+
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
     protected var pref: SharedPreferences? = null
