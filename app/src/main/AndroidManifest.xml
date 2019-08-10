@@ -40,6 +40,9 @@
 
         </activity>
         <activity
+            android:name=".controllers.SearchActivity"
+            android:theme="@style/SearchTheme" />
+        <activity
             android:name=".controllers.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme" />
@@ -47,14 +50,14 @@
             android:name=".controllers.CreateActivity"
             android:label="Create new real estate"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".controllers.EditActivity"
             android:label="Edit item"
-            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent"
+            android:windowSoftInputMode="adjustPan" />
 
 
         <uses-library

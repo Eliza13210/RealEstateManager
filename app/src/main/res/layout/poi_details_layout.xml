@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/cb_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/school" />
+
+        <CheckBox
+            android:id="@+id/cb_train"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/train_station" />
+
+        <CheckBox
+            android:id="@+id/cb_supermarket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/super_market" />
+
+        <CheckBox
+            android:id="@+id/cb_airport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/airport" />
+
+        <CheckBox
+            android:id="@+id/cb_city_hall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/city_hall" />
+
+        <CheckBox
+            android:id="@+id/cb_hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hospital" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/cb_bus_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bus_station" />
+
+        <CheckBox
+            android:id="@+id/cb_restaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/restaurant" />
+
+        <CheckBox
+            android:id="@+id/cb_parc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amusement_parc" />
+
+        <CheckBox
+            android:id="@+id/cb_subway"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subway_station" />
+
+        <CheckBox
+            android:id="@+id/cb_pharmacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pharmacy" />
+
+        <CheckBox
+            android:id="@+id/cb_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doctor" />
+    </LinearLayout>
+
+</LinearLayout>

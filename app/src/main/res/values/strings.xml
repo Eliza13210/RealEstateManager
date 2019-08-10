@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Real Estate Manager</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- DETAILS STRINGS -->
     <string name="photo_real_estate">photo real estate</string>
     <string name="action_search">action search</string>
     <string name="action_add">action add</string>
@@ -20,21 +19,24 @@
     <string name="bathrooms">Bathrooms</string>
     <string name="description">Description</string>
     <string name="geo_location">Geo location</string>
-    <string name="address">Address</string>
     <string name="add">Add</string>
+    <string name="bedrooms">Bedrooms</string>
 
-
+    <!--ERROR MESSAGES-->
     <string name="service_not_available">service not available</string>
     <string name="invalid_lat_long_used">invalid lat and long used</string>
     <string name="no_address_found">no address found</string>
     <string name="address_found">address found</string>
+    <string name="toast_title_no_image_chosen">No image chosen</string>
+    <string name="warning_add_object_without_address">You need to enter a valid address for your object</string>
+    <string name="warning_address_not_valid">Enter a valid address</string>
+    <string name="warning_add_item_without_agent">You need to choose an agent for the object you want to create</string>
+
+    <!--PERMISSIONS-->
     <string name="popup_title_permission_files_access">Access photo gallery</string>
     <string name="popup_title_permission_camera_access">Access camera</string>
-    <string name="toast_title_no_image_chosen">No image chosen</string>
-    <string name="bedrooms">Bedrooms</string>
 
-
-    <!-- SPINNER ROOMS CREATE REALESTATE ACTIVITY-->
+    <!-- SPINNER ROOMS CREATE REAL ESTATE ACTIVITY-->
     <string-array name="rooms_array">
         <item>0</item>
         <item>1</item>
@@ -54,7 +56,7 @@
         <item>15</item>
     </string-array>
 
-    <!-- SPINNER BATHROOMS CREATE REALESTATE ACTIVITY-->
+    <!-- SPINNER BATHROOMS CREATE REAL ESTATE ACTIVITY-->
     <string-array name="bathrooms_array">
         <item>0</item>
         <item>1</item>
@@ -68,16 +70,42 @@
     </string-array>
 
 
+    <!--MAP-->
     <string name="map_url_start">https://maps.googleapis.com/maps/api/staticmap?center=</string>
     <string name="map_url_city_and_marker">&amp;zoom=13&amp;size=600x300&amp;maptype=roadmap
         &amp;markers=color:red%7Clabel:</string>
+
+    <!--NAVIGATION DRAWER-->
     <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="navigation_drawer_open">navigation_drawer_open</string>
-    <string name="warning_add_item_without_agent">You need to choose an agent for the object you want to create</string>
-    <string name="warning_add_object_without_address">You need to enter a valid address for your object</string>
-    <string name="warning_address_not_valid">Enter a valid address</string>
+
+    <!--SEARCH ACTIVITY-->
     <string name="delete_photo">Delete photo</string>
     <string name="deleted">Photo deleted</string>
     <string name="close">Close</string>
     <string name="sold">SOLD</string>
+    <string name="min">min</string>
+    <string name="max">max</string>
+    <string name="post_code">Post code</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="search">Search</string>
+    <string name="address">Address</string>
+
+    <!--POINTS OF INTERESTS-->
+    <string name="doctor">Doctor</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="subway_station">Subway station</string>
+    <string name="amusement_parc">Amusement parc</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="bus_station">Bus station</string>
+    <string name="city_hall">City hall</string>
+    <string name="hospital">Hospital</string>
+    <string name="super_market">Super market</string>
+    <string name="airport">Airport</string>
+    <string name="school">School</string>
+    <string name="train_station">Train station</string>
+    <string name="points_of_interest">Points of interest</string>
+
+
 </resources>

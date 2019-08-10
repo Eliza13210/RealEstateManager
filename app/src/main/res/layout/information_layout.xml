@@ -35,60 +35,12 @@
                 android:maxLength="30" />
         </LinearLayout>
 
-        <!--TYPE -->
-        <LinearLayout
+        <!--TYPE-->
+        <include
+            layout="@layout/type_details_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/house_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:clickable="true"
-                android:drawableTop="@drawable/ic_icon_home"
-                android:focusable="true"
-                android:padding="2dp"
-                android:text="@string/house"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size_ic" />
-
-
-            <TextView
-                android:id="@+id/apartement_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:clickable="true"
-                android:drawableTop="@drawable/ic_apartement"
-                android:focusable="true"
-                android:padding="2dp"
-                android:text="@string/flat"
-                android:textAlignment="center"
-                android:textSize="@dimen/text_size_ic" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:text="@string/other"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/type_tv"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:hint="..." />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_weight="0.5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,49 +100,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!--ROOM DETAILS -->
-        <LinearLayout
+        <!--ROOM SPINNERS-->
+        <include
+            layout="@layout/room_details_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rooms" />
-
-            <Spinner
-                android:id="@+id/spinner_rooms"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bathrooms" />
-
-            <Spinner
-                android:id="@+id/spinner_bathrooms"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:outlineAmbientShadowColor="@color/blue" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/bedrooms" />
-
-            <Spinner
-                android:id="@+id/spinner_bedrooms"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
+            android:layout_weight="0.5" />
 
 
         <!--CAMERA OR GALLERY -->
@@ -218,7 +133,7 @@
                 android:layout_marginEnd="@dimen/margin_create_act"
                 android:background="@drawable/ic_pick_photo"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true" />
 
             <!--PHOTOS-->
             <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"

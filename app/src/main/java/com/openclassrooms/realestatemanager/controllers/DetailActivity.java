@@ -136,5 +136,15 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.app_bar_search:
+                startActivity(new Intent(DetailActivity.this, SearchActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

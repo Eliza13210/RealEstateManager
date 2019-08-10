@@ -16,6 +16,13 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <!--SEARCH ACTIVITY -->
+    <style name="SearchTheme" parent="Theme.AppCompat.DayNight">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
     <!-- FOR FAB ANIMATION TO ACTIVITY -->
     <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>

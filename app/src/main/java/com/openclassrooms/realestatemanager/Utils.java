@@ -164,7 +164,7 @@ public class Utils {
         List<Result> matchedList = new ArrayList<>();
 
         String[] types = {"restaurant", "amusement_parc", "bus_station", "school", "train_station", "supermarket", "airport", "city_hall",
-                "hospital", "store", "subway_station", "pharmacy", "doctor"};
+                "hospital", "subway_station", "pharmacy", "doctor"};
 
         List<String> listOfTypes = Arrays.asList(types);
 

@@ -11,6 +11,8 @@ import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
+import kotlinx.android.synthetic.main.room_details_layout.*
+import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 
 

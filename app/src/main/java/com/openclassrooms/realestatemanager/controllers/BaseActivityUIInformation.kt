@@ -31,7 +31,9 @@ import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.*
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
+import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.type_details_layout.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File

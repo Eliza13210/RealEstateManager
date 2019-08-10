@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
 
     private DetailFragment detailFragment;
-    private long tag= -1;
+    private long tag = -1;
     private Boolean tablet = false;
 
     @BindView(R.id.fab)
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         int id = item.getItemId();
         switch (id) {
             case R.id.app_bar_search:
-                println("Search menu item is clicked!");
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 return true;
 
             case R.id.app_bar_add:
