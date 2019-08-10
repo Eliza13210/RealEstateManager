@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
 
     private DetailFragment detailFragment;
-    private String tag;
+    private long tag= -1;
     private Boolean tablet = false;
 
     @BindView(R.id.fab)
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     //Start edit activity when click on fab if tablet
     private void edit() {
-        if (tag != null) {
+        if (tag != -1) {
             Log.e("Detail", "edit clicked with tag " + tag);
             Intent i = new Intent(this, EditActivity.class);
             i.putExtra("RealEstateId", tag);
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     // --------------
     @Override
     public void onItemClick(long id) {
-        tag = String.valueOf(id);
+        tag = id;
         // Check if detail fragment is not created or if not visible, then open DetailActivity
         if (detailFragment == null) {
             Intent i = new Intent(this, DetailActivity.class);

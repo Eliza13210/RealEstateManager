@@ -41,6 +41,7 @@ class EditActivity : BaseActivityUIInformation() {
 
 
     private fun updateDetails(realEstate: RealEstate) {
+        Log.e("edit", realEstate.agent)
         agent_et.setText(realEstate.agent)
         type_tv.setText(realEstate.type)
         surface_tv.setText(realEstate.surface)
