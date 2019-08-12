@@ -13,6 +13,7 @@ import java.util.concurrent.Executor;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 public class RealEstateViewModel extends ViewModel {
 
@@ -49,6 +50,11 @@ public class RealEstateViewModel extends ViewModel {
 
     public LiveData<List<RealEstate>> fetchAllRealEstates() {
         return realEstateDataSource.getAllRealEstates();
+    }
+
+    //HANDLE SEARCH QUERY
+    public LiveData<List<RealEstate>> searchRealEstates(String query) {
+        return realEstateDataSource.searchRealEstates(query);
     }
 
     public long createRealEstate(RealEstate realEstate) {

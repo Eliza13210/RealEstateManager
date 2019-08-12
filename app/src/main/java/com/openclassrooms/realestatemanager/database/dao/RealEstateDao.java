@@ -11,13 +11,20 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SimpleSQLiteQuery;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
 @Dao
 public interface RealEstateDao {
 
     @Query("SELECT * FROM RealEstate")
     LiveData<List<RealEstate>> getAllRealEstates();
+
+    //TELL WHICH TABLE TO BE OBSERVED IN ORDER TO GET LIVE DATA
+    @RawQuery(observedEntities = RealEstate.class)
+    LiveData<List<RealEstate>> searchRealEstates(SupportSQLiteQuery query);
 
     @Query("SELECT * FROM RealEstate WHERE id = :id")
     LiveData<RealEstate> getRealEstate(long id);
