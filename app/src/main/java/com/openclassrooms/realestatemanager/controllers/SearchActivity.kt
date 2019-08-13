@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,6 +19,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.poi_details_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
@@ -155,6 +157,30 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
     }
 
+    private fun getInfoFromCheckBox(): List<String> {
+
+        val result = ArrayList<String>()
+        val checkBoxList = ArrayList<CheckBox>()
+        checkBoxList.add(cb_airport)
+        checkBoxList.add(cb_bus_station)
+        checkBoxList.add(cb_city_hall)
+        checkBoxList.add(cb_doctor)
+        checkBoxList.add(cb_hospital)
+        checkBoxList.add(cb_parc)
+        checkBoxList.add(cb_pharmacy)
+        checkBoxList.add(cb_restaurant)
+        checkBoxList.add(cb_school)
+        checkBoxList.add(cb_subway)
+        checkBoxList.add(cb_supermarket)
+        checkBoxList.add(cb_train)
+        for (box in checkBoxList) {
+            if (box.isChecked) {
+                result.add(box.text.toString().toLowerCase())
+            }
+        }
+        return result
+    }
+
     private fun getType(tag: String) {
         type_tv.setText("")
         when (tag) {
@@ -183,24 +209,42 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun getQueryFromUI() {
-        var sb: StringBuilder = java.lang.StringBuilder()
+        val sb: StringBuilder = java.lang.StringBuilder()
+        var bindArgs = arrayListOf<String>()
 
         sb.append("SELECT * FROM RealEstate WHERE ")
-        sb.append("agent = ? AND ")
-        sb.append("sold = ? AND ")
-        sb.append("type =? ;")
+        if (agent_et.text.isNotEmpty()) {
+            sb.append("agent = ? AND ")
+            bindArgs.add(agent_et.text.toString())
+        }
+
+        if (type.isNotEmpty()) {
+            sb.append("type =? AND ")
+            bindArgs.add(type)
+        }
+
+        if (getInfoFromCheckBox().isNotEmpty()) {
+            val list = getInfoFromCheckBox()
+            for (box in list) {
+                sb.append("pointsOfInterest LIKE ? AND ")
+                bindArgs.add("%$box%")
+
+                Log.e("search ", "poi is not empty $box")
+            }
+        }
+
+        sb.append("sold = ? ")
+        bindArgs.add(sold.toString())
+
+        //END STRING
+        sb.append(";")
 
         query = sb.toString()
 
-        Log.e("search", query)
+        Log.e("search", query + bindArgs)
 
-        //ARRAY
-        var array: Array<String> = arrayOf(agent_et.text.toString(), sold.toString(), type)
-        Log.e("search", array[0])
-
-        search(query!!, array)
+        search(query!!, bindArgs.toTypedArray())
         //TODO GET INFO FROM UI
-
     }
 
     private fun search(query: String, arg: Array<String>) {
@@ -209,7 +253,7 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun showResult(realEstateList: List<RealEstate>) {
         println("result = " + realEstateList.size)
-        if (realEstateList.size > 0) {
+        if (realEstateList.isNotEmpty()) {
             println("result item = " + realEstateList[0].agent + realEstateList[0].sold + realEstateList[0].type)
         }
     }

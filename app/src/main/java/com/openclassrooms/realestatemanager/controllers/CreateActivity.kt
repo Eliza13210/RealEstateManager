@@ -9,10 +9,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
-import com.openclassrooms.realestatemanager.FetchUserLocation
-import com.openclassrooms.realestatemanager.JsonConverter
-import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.Utils
+import com.openclassrooms.realestatemanager.*
 import com.openclassrooms.realestatemanager.models.NearbySearchObject
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.network.NearbySearchStream
@@ -86,6 +83,7 @@ class CreateActivity : BaseActivityUIInformation() {
                             override fun onFinish() {
                                 //do what you wish
                                 getPointsOfInterest()
+                                Log.e("address", " fetch " +address_tv.text)
                             }
                         }.start()
                     }
@@ -105,7 +103,7 @@ class CreateActivity : BaseActivityUIInformation() {
 
             disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(object : DisposableObserver<NearbySearchObject>() {
                 override fun onNext(nearbySearchObject: NearbySearchObject) {
-                    listPoi = Utils.checkIfPointOfInterest(nearbySearchObject.results)
+                    listPoi = PointOfInterestsMatcher.checkIfPointOfInterest(nearbySearchObject.results)
                 }
 
                 override fun onError(e: Throwable) {
@@ -113,6 +111,7 @@ class CreateActivity : BaseActivityUIInformation() {
                 }
 
                 override fun onComplete() {
+                    Log.e("create", listPoi[0].name)
                 }
             })
         } else {
