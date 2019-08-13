@@ -83,10 +83,10 @@ class EditActivity : BaseActivityUIInformation() {
         btn_update.setOnClickListener { getInfoFromUI() }
         check_sold.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                sold = true
+                sold = "true"
                 startDatePicker()
             } else {
-                sold = false
+                sold = "false"
                 endDate = ""
                 end_date.text = ""
             }
@@ -106,7 +106,7 @@ class EditActivity : BaseActivityUIInformation() {
         Log.e("check if", "is sold " + sold + " " + endDate)
 
         //Check if end date is picked when object is sold before updating
-        if (sold) {
+        if (sold.equals("true")) {
             if (endDate.isNotEmpty()) {
                 createRealEstate()
             } else {
@@ -145,7 +145,7 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     private fun startDatePicker() {
-        sold = true
+        sold = "true"
 
         var cal = Calendar.getInstance()
 
@@ -159,7 +159,7 @@ class EditActivity : BaseActivityUIInformation() {
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
                 end_date.text = Utils.getTodayDate(cal.time)
             } else {
-                sold = false
+                sold = "false"
                 check_sold.isChecked = false
                 Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
             }

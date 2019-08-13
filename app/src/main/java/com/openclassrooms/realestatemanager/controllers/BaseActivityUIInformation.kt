@@ -73,7 +73,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var rooms = ""
     protected var bathrooms = ""
     protected var address = ""
-    protected var sold = false
+    protected var sold = "false"
     protected var startDate = ""
     protected var endDate = ""
     protected var agent = ""

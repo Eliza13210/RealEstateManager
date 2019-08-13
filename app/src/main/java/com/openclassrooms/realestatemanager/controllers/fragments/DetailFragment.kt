@@ -73,7 +73,7 @@ class DetailFragment : Fragment() {
         detail_address.text = realEstate.address
         detail_poi_tv.text = realEstate.pointsOfInterest
 
-        if (realEstate.sold)
+        if (realEstate.sold.equals("true"))
             isSold_tv.text = getString(R.string.sold) + realEstate.endDate
 
         //Show map with location

@@ -53,8 +53,8 @@ public class RealEstateViewModel extends ViewModel {
     }
 
     //HANDLE SEARCH QUERY
-    public LiveData<List<RealEstate>> searchRealEstates(String query) {
-        return realEstateDataSource.searchRealEstates(query);
+    public LiveData<List<RealEstate>> searchRealEstates(String query, String[] args) {
+        return realEstateDataSource.searchRealEstates(query, args);
     }
 
     public long createRealEstate(RealEstate realEstate) {

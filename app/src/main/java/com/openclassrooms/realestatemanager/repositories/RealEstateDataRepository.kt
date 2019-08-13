@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.openclassrooms.realestatemanager.database.dao.RealEstateDao
 import com.openclassrooms.realestatemanager.models.RealEstate
+import java.util.*
 
 
 class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
@@ -20,8 +21,9 @@ class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
         return this.realEstateDao.getAllRealEstates()
     }
 
-    fun searchRealEstates(query: String): LiveData<MutableList<RealEstate>>? {
-        return this.realEstateDao.searchRealEstates(SimpleSQLiteQuery(query))
+    fun searchRealEstates(query: String, args: Array<Any>): LiveData<MutableList<RealEstate>>? {
+        return this.realEstateDao.searchRealEstates(SimpleSQLiteQuery(query,
+                args))
     }
 
     // --- CREATE ---

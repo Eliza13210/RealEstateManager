@@ -9,12 +9,15 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
+import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
@@ -141,6 +144,15 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Log.e("type", type)
             }
         })
+
+        btn_search.setOnClickListener {
+            getQueryFromUI()
+            Log.e("search", "clicked button")
+        }
+
+        cb_sold.setOnClickListener {
+            sold = cb_sold.isChecked
+        }
     }
 
     private fun getType(tag: String) {
@@ -171,12 +183,34 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun getQueryFromUI() {
+        var sb: StringBuilder = java.lang.StringBuilder()
+
+        sb.append("SELECT * FROM RealEstate WHERE ")
+        sb.append("agent = ? AND ")
+        sb.append("sold = ? AND ")
+        sb.append("type =? ;")
+
+        query = sb.toString()
+
+        Log.e("search", query)
+
+        //ARRAY
+        var array: Array<String> = arrayOf(agent_et.text.toString(), sold.toString(), type)
+        Log.e("search", array[0])
+
+        search(query!!, array)
         //TODO GET INFO FROM UI
 
     }
 
-    private fun search(query: String) {
-        viewModel!!.searchRealEstates(query)
+    private fun search(query: String, arg: Array<String>) {
+        viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> { this.showResult(it) })
     }
 
+    private fun showResult(realEstateList: List<RealEstate>) {
+        println("result = " + realEstateList.size)
+        if (realEstateList.size > 0) {
+            println("result item = " + realEstateList[0].agent + realEstateList[0].sold + realEstateList[0].type)
+        }
+    }
 }

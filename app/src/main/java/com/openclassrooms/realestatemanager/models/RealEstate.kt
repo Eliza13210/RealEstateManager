@@ -17,7 +17,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var rooms: String? = null,
                       var bathrooms: String? = null,
                       var address: String,
-                      var sold: Boolean = false,
+                      var sold: String = "false",
                       var startDate: String? = null,
                       var endDate: String? = null,
                       var agent: String,
@@ -41,7 +41,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
             if (values.containsKey("bedrooms")) realEstate.bedrooms = values.getAsString("bedrooms")
             if (values.containsKey("rooms")) realEstate.rooms = values.getAsString("rooms")
             if (values.containsKey("bathrooms")) realEstate.bathrooms = values.getAsString("bathrooms")
-            if (values.containsKey("sold")) realEstate.sold = values.getAsBoolean("sold")
+            if (values.containsKey("sold")) realEstate.sold = values.getAsString("sold")
             if (values.containsKey("startDate")) realEstate.startDate = values.getAsString("startDate")
             if (values.containsKey("endDate")) realEstate.endDate = values.getAsString("endDate")
 

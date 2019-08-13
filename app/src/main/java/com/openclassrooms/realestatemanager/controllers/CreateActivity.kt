@@ -149,7 +149,7 @@ class CreateActivity : BaseActivityUIInformation() {
         Log.e("create", pointsOfInterest)
 
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, false, startDate, null, agent, pointsOfInterest
+                rooms, bathrooms, address, "false", startDate, null, agent, pointsOfInterest
         )
 
         AsyncTask.execute {
