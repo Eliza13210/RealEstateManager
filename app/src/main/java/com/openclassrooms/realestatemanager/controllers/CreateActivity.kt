@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.FetchUserLocation
+import com.openclassrooms.realestatemanager.JsonConverter
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.models.NearbySearchObject
@@ -137,19 +138,12 @@ class CreateActivity : BaseActivityUIInformation() {
         val latitude = lat.toString()
         val lon = latLng?.longitude
         val longitude = lon.toString()
+        val pointsOfInterests= JsonConverter.convertToJson(listPoi)
 
-        val sb = StringBuilder()
-
-        for (result in listPoi) {
-            sb.append(result.name + ", " + result.types[0].replace('_', ' '))
-            sb.append(System.getProperty("line.separator"))
-        }
-        val pointsOfInterest: String = sb.toString()
-
-        Log.e("create", pointsOfInterest)
+        Log.e("create", pointsOfInterests)
 
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, "false", startDate, null, agent, pointsOfInterest
+                rooms, bathrooms, address, "false", startDate, null, agent, pointsOfInterests
         )
 
         AsyncTask.execute {
