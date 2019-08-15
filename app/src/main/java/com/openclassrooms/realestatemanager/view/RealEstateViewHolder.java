@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.view;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -46,6 +48,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
     // Declare interface that will be implemented by any container activity
     public interface OnItemClickedListener {
         void onItemClick(long id);
+
         boolean onNavigationItemSelected(@NonNull MenuItem item);
     }
 
@@ -73,19 +76,19 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     private void updateWithPhoto(List<Photo> photoList) {
         String defaultImg = "https://image.freepik.com/free-vector/house-illustration_23-2147500295.jpg";
-             try {
-                 if (photoList.size() > 0) {
-                     String photoUrl = photoList.get(0).getUrl();
+        try {
+            if (photoList.size() > 0) {
+                String photoUrl = photoList.get(0).getUrl();
 
-                     Glide.with(context)
+                Glide.with(context)
                         .load(photoUrl)
                         .into(photo);
-                     }
-            } catch (Exception e) {
-                Glide.with(context)
-                        .load(defaultImg)
-                        .into(photo);
             }
+        } catch (Exception e) {
+            Glide.with(context)
+                    .load(defaultImg)
+                    .into(photo);
+        }
 
     }
 
@@ -95,8 +98,19 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
         getPhotos(realEstateItem.getId(), context);
         type.setText(realEstateItem.getType().toUpperCase());
-        location.setText(realEstateItem.getCity());
-        price.setText(realEstateItem.getPrice() + "$");
+        location.setText(realEstateItem.getCity().toUpperCase());
+
+        Log.e("holder ", realEstateItem.getCity());
+
+        int length = Objects.requireNonNull(realEstateItem.getPrice()).length();
+        StringBuilder sb = new StringBuilder(realEstateItem.getPrice());
+        for (int i = length - 3; i > 0; i = i - 3) {
+            sb.insert(i, ",");
+            Log.e("holder", sb.toString());
+        }
+        sb.append(" $");
+        price.setText(sb.toString());
+
         itemView.setOnClickListener(v -> {
             // Spread the click to the parent activity
             callback.onItemClick(realEstateItem.getId());

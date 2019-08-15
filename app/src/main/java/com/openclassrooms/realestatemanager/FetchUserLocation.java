@@ -134,7 +134,7 @@ public class FetchUserLocation {
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 userAddress = address.getAddressLine(0);
-                userCity = address.getLocality();
+                userCity = address.getLocality().toLowerCase().replace("-", " ");
             } else {
                 Log.e("Geocoder adress ", "address.size less than 0");
             }

@@ -140,6 +140,7 @@ class CreateActivity : BaseActivityUIInformation() {
         val pointsOfInterests = JsonConverter.convertToJson(listPoi)
 
         city = pref!!.getString("CurrentCity", "Unknown")
+        Log.e("create ", city)
 
         Log.e("create", pointsOfInterests)
 

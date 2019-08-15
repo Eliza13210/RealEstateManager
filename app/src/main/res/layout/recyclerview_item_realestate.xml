@@ -29,15 +29,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Duplex"
-            android:textSize="@dimen/text_size_list" />
+            android:text="DUPLEX"
+            android:textSize="@dimen/text_size" />
 
         <TextView
             android:id="@+id/item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Manhattan"
+            android:textStyle="italic|bold"
+            android:text="MANHATTAN"
             android:textSize="@dimen/text_size_list" />
 
         <TextView

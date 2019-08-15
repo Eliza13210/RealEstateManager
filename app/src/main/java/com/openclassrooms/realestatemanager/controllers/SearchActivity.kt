@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.SearchManager
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
@@ -189,125 +190,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun getQueryFromUI() {
-        val sb: StringBuilder = java.lang.StringBuilder()
-        val bindArgs = arrayListOf<String>()
-
-        sb.append("SELECT * FROM RealEstate WHERE ")
-
-        if (agent_et.text.isNotEmpty()) {
-            sb.append("agent = ? AND ")
-            bindArgs.add(agent_et.text.toString())
-        }
-
-        if (type.isNotEmpty()) {
-            sb.append("type =? AND ")
-            bindArgs.add(type)
-        }
-
-        //POI
-        if (getInfoFromCheckBox().isNotEmpty()) {
-            val list = getInfoFromCheckBox()
-            for (box in list) {
-                sb.append("pointsOfInterest LIKE ? AND ")
-                bindArgs.add("%$box%")
-
-                Log.e("search ", "poi is not empty $box")
-            }
-        }
-
-        //CITY
-        if (city_et.text.isNotEmpty()) {
-            sb.append("city =? AND ")
-            bindArgs.add(city_et.text.toString())
-        }
-
-
-        //SURFACE
-        if (surface_min.text.isNotEmpty() && surface_max.text.isNotEmpty()) {
-            sb.append("surface BETWEEN ? AND ? AND ")
-            bindArgs.add(surface_min.text.toString())
-            bindArgs.add(surface_max.text.toString())
-        } else if (surface_min.text.isNotEmpty()) {
-            sb.append("surface >= ? AND ")
-            bindArgs.add(surface_min.text.toString())
-        } else if (surface_max.text.isNotEmpty()) {
-            sb.append("surface <= ? AND ")
-            bindArgs.add(surface_max.text.toString())
-        }
-
-        //PRICE
-        if (price_min.text.isNotEmpty() && price_max.text.isNotEmpty()) {
-            sb.append("price BETWEEN ? AND ? AND ")
-            bindArgs.add(price_min.text.toString())
-            bindArgs.add(price_max.text.toString())
-        } else if (price_min.text.isNotEmpty()) {
-            sb.append("price >= ? AND ")
-            bindArgs.add(surface_min.text.toString())
-        } else if (price_max.text.isNotEmpty()) {
-            sb.append("price <= ? AND ")
-            bindArgs.add(price_max.text.toString())
-        }
-
-        //ROOMS
-        if (rooms_min.text.isNotEmpty() && rooms_max.text.isNotEmpty()) {
-            sb.append("rooms BETWEEN ? AND ? AND ")
-            bindArgs.add(rooms_min.text.toString())
-            bindArgs.add(rooms_max.text.toString())
-        } else if (rooms_min.text.isNotEmpty()) {
-            sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        } else if (rooms_max.text.isNotEmpty()) {
-            sb.append("rooms <= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        }
-
-        //DATES
-        if (start_date_et.text.isNotEmpty() && end_date_et.text.isNotEmpty()) {
-            sold = true
-
-            sb.append("startDate >= ? AND endDate <= ? AND ")
-            bindArgs.add(start_date_et.text.toString())
-            bindArgs.add(end_date_et.text.toString())
-
-        } else if (start_date_et.text.isNotEmpty()) {
-            if (!cb_sold.isChecked) sold = false
-            sb.append("startDate >= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        } else if (end_date_et.text.isNotEmpty()) {
-            sold = true
-            sb.append("endDate <= ? AND ")
-            bindArgs.add(end_date_et.text.toString())
-        }
-
-        //PHOTOS
-
-        //FIRST SEARCH REAL ESTATES AND THEN CHECK LIST WITH THIS AND CREATE NEW QUERY AND GET NEW LIST AND GET REAL ESTATE AND ADD TO A LIST
-        // OR SAVE AS JSON, GET JSON AND CHECK SIZE
-        if (photos_min_et.text.isNotEmpty() && photos_max_et.text.isNotEmpty()) {
-            sb.append("rooms BETWEEN ? AND ? AND ")
-            bindArgs.add(photos_min_et.text.toString())
-            bindArgs.add(photos_max_et.text.toString())
-        } else if (rooms_min.text.isNotEmpty()) {
-            sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        } else if (rooms_max.text.isNotEmpty()) {
-            sb.append("rooms <= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        }
-
-
-        sb.append("sold = ? ")
-        bindArgs.add(sold.toString())
-
-        //END STRING
-        sb.append(";")
-
-        query = sb.toString()
-
-        Log.e("search", query + bindArgs)
-
-        search(query!!, bindArgs.toTypedArray())
-        //TODO GET INFO FROM UI
+        val manageSearch = SearchManager()
+        manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max, rooms_min, rooms_max, start_date_et,
+                end_date_et, photos_min_et, photos_max_et, cb_sold)
+        search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 
     private fun search(query: String, arg: Array<String>) {

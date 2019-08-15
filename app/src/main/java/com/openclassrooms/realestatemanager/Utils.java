@@ -82,7 +82,7 @@ public class Utils {
 
     /**
      * Get latitude and longitude object from a latLng address
-     *And save city name to shared preferences
+     * And save city name to shared preferences
      *
      * @param context
      * @param strAddress
@@ -94,14 +94,14 @@ public class Utils {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
         LatLng latLng = null;
-        String userCity="";
+        String userCity = "";
 
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address.size() > 0) {
                 Address location = address.get(0);
-                userCity = location.getLocality();
+                userCity = location.getLocality().toLowerCase().replace("-", " ");
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
             } else {
                 Toast.makeText(context, "You must enter a valid address", Toast.LENGTH_SHORT).show();
