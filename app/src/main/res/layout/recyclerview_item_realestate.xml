@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="$23,000,000"
-            android:textSize="@dimen/text_size_list" />
+            android:textSize="@dimen/text_size_list"
+            android:textColor="@color/blue"/>
     </LinearLayout>
 
     <View

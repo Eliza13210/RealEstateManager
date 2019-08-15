@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
@@ -81,6 +82,7 @@ public class Utils {
 
     /**
      * Get latitude and longitude object from a latLng address
+     *And save city name to shared preferences
      *
      * @param context
      * @param strAddress
@@ -91,14 +93,16 @@ public class Utils {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;
-        LatLng p1 = null;
+        LatLng latLng = null;
+        String userCity="";
 
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address.size() > 0) {
                 Address location = address.get(0);
-                p1 = new LatLng(location.getLatitude(), location.getLongitude());
+                userCity = location.getLocality();
+                latLng = new LatLng(location.getLatitude(), location.getLongitude());
             } else {
                 Toast.makeText(context, "You must enter a valid address", Toast.LENGTH_SHORT).show();
                 return null;
@@ -107,8 +111,12 @@ public class Utils {
             Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
+        //Save user address
+        SharedPreferences pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
+        pref.edit().putString("CurrentCity", userCity).apply();
+        Log.e("utils lat lng ", userCity);
 
-        return p1;
+        return latLng;
     }
 
     /**

@@ -123,9 +123,10 @@ public class FetchUserLocation {
         }
     }
 
-    private void getAddress(double latitude, double longitude) {
+    public void getAddress(double latitude, double longitude) {
 
         String userAddress = "";
+        String userCity = "";
 
         try {
             Geocoder geocoder = new Geocoder(context, Locale.getDefault());
@@ -133,8 +134,8 @@ public class FetchUserLocation {
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 userAddress = address.getAddressLine(0);
+                userCity = address.getLocality();
             } else {
-
                 Log.e("Geocoder adress ", "address.size less than 0");
             }
         } catch (IOException e) {
@@ -142,8 +143,8 @@ public class FetchUserLocation {
         }
 
         //Save user address
-        pref.edit().putString("CurrentAddress", userAddress).apply();
-        Log.e("get loc", userAddress);
+        pref.edit().putString("CurrentAddress", userAddress).putString("CurrentCity", userCity).apply();
+        Log.e("get loc", userAddress + userCity);
 
         updateUIWithAddress(userAddress);
     }

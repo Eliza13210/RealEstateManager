@@ -17,6 +17,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
                       var rooms: String? = null,
                       var bathrooms: String? = null,
                       var address: String,
+                      var city: String,
                       var sold: String = "false",
                       var startDate: String? = null,
                       var endDate: String? = null,
@@ -30,6 +31,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
         fun fromContentValues(values: ContentValues): RealEstate {
             val realEstate = RealEstate(values.getAsLong("realEstateId"),
                     address = values.getAsString("address"),
+                    city = values.getAsString("city"),
                     agent = values.getAsString("agent"))
 
             if (values.containsKey("type")) realEstate.type = values.getAsString("type")

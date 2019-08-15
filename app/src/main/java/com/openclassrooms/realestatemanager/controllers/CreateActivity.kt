@@ -31,7 +31,7 @@ class CreateActivity : BaseActivityUIInformation() {
         initAddressTextView()
 
         fetchUserLocation = FetchUserLocation(this, address_tv, this, null)
-        pref = this.getSharedPreferences("RealEstate", Context.MODE_PRIVATE)
+        pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE)
     }
 
     override fun getLayoutView(): Int {
@@ -81,9 +81,9 @@ class CreateActivity : BaseActivityUIInformation() {
                             override fun onTick(millisUntilFinished: Long) {}
 
                             override fun onFinish() {
-                                //do what you wish
+                                //search points of interests
                                 getPointsOfInterest()
-                                Log.e("address", " fetch " +address_tv.text)
+                                Log.e("address", " fetch " + address_tv.text)
                             }
                         }.start()
                     }
@@ -99,6 +99,7 @@ class CreateActivity : BaseActivityUIInformation() {
         latLng = Utils.getLatLngFromAddress(this, address)
 
         if (latLng != null) {
+//            fetchUserLocation!!.getAddress(latLng!!.latitude, latLng!!.longitude)
             val locationForSearch = Utils.setLocationString(latLng)
 
             disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(object : DisposableObserver<NearbySearchObject>() {
@@ -111,7 +112,6 @@ class CreateActivity : BaseActivityUIInformation() {
                 }
 
                 override fun onComplete() {
-                    Log.e("create", listPoi[0].name)
                 }
             })
         } else {
@@ -137,12 +137,14 @@ class CreateActivity : BaseActivityUIInformation() {
         val latitude = lat.toString()
         val lon = latLng?.longitude
         val longitude = lon.toString()
-        val pointsOfInterests= JsonConverter.convertToJson(listPoi)
+        val pointsOfInterests = JsonConverter.convertToJson(listPoi)
+
+        city = pref!!.getString("CurrentCity", "Unknown")
 
         Log.e("create", pointsOfInterests)
 
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, "false", startDate, null, agent, pointsOfInterests
+                rooms, bathrooms, address, city!!, "false", startDate, null, agent, pointsOfInterests
         )
 
         AsyncTask.execute {

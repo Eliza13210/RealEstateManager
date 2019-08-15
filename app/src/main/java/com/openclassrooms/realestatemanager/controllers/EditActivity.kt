@@ -62,7 +62,7 @@ class EditActivity : BaseActivityUIInformation() {
         latitude = realEstate.latitude!!
         longitude = realEstate.longitude!!
         address = realEstate.address!!
-
+        city = realEstate.city
     }
 
     //  Get all photos
@@ -121,7 +121,7 @@ class EditActivity : BaseActivityUIInformation() {
     override fun createRealEstate() {
         Log.e("edit", "update clicket " + sold + endDate)
         val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, sold, startDate, endDate, agent
+                rooms, bathrooms, address, city!!, sold, startDate, endDate, agent
         )
 
         viewModel?.updateRealEstate(realEstate)
@@ -132,7 +132,7 @@ class EditActivity : BaseActivityUIInformation() {
             if (photo.text.equals("Deleted") && photo.id != null) {
                 viewModel?.deletePhoto(photo.id!!)
                 photos.remove(photo)
-            }else if(photo.text.equals("Deleted")){
+            } else if (photo.text.equals("Deleted")) {
                 photos.remove(photo)
             }
 

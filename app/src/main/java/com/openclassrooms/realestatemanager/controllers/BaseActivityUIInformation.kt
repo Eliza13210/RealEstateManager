@@ -42,7 +42,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks,
-        PhotoAdapter.PhotoViewHolder.OnItemClickedListener  {
+        PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
@@ -73,6 +73,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var rooms = ""
     protected var bathrooms = ""
     protected var address = ""
+    protected var city: String? = ""
     protected var sold = "false"
     protected var startDate = ""
     protected var endDate = ""
@@ -397,7 +398,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         //Show pop up to get description of photo
         val photoPopUp = AddPhotoPopUp(this)
         photoPopUp.popUpDialog(uri, photos, photoAdapter)
- }
+    }
 
 
     /** get the uri for the photo the user took and save it as a photo in the list*/
@@ -445,18 +446,19 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
     override fun onItemClick(id: Long?, position: Int?) {
 
-       val photoPopup=PhotoPopUp(this)
-        var photo: Photo?=null
-        if(id!=null) {
+        val photoPopup = PhotoPopUp(this)
+        var photo: Photo? = null
+        if (id != null) {
             for (p in photos) {
                 if (p.id == id)
                     photo = p
             }
-        }else {
-            photo= photos[position!!]
+        } else {
+            photo = photos[position!!]
         }
         photoPopup.popUp(photo!!.url, photos, photo, photoAdapter, position)
     }
+
     /**
      * Select item in spinner
      */

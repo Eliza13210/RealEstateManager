@@ -94,9 +94,9 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
 
         getPhotos(realEstateItem.getId(), context);
-        type.setText(realEstateItem.getType());
-        location.setText(realEstateItem.getAddress());
-        price.setText(realEstateItem.getPrice());
+        type.setText(realEstateItem.getType().toUpperCase());
+        location.setText(realEstateItem.getCity());
+        price.setText(realEstateItem.getPrice() + "$");
         itemView.setOnClickListener(v -> {
             // Spread the click to the parent activity
             callback.onItemClick(realEstateItem.getId());
