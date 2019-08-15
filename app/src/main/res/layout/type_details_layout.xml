@@ -55,6 +55,7 @@
                 android:id="@+id/type_tv"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_edit_text"
                 android:hint="..." />
         </LinearLayout>
     </LinearLayout>

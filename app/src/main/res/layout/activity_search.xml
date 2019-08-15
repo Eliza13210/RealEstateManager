@@ -10,8 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,21 +126,120 @@
                     android:text="@string/max" />
             </LinearLayout>
 
-            <!--ROOM SPINNERS-->
-            <include
-                layout="@layout/room_details_layout"
+            <!--ROOMS -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="10dp"
-                 />
+                android:layout_marginBottom="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.8"
+                    android:text="@string/rooms"
+                    android:textSize="@dimen/text_size_create_act"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/rooms_min"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/min" />
+
+                <EditText
+                    android:id="@+id/rooms_max"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/max" />
+            </LinearLayout>
+            <!--ROOMS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.8"
+                    android:text="@string/photos"
+                    android:textSize="@dimen/text_size_create_act"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/photos_min_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/min" />
+
+                <EditText
+                    android:id="@+id/photos_max_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:hint=""
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textAlignment="textEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/max" />
+            </LinearLayout>
+
 
             <!--TYPE-->
             <include
                 layout="@layout/type_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -156,15 +254,14 @@
                 layout="@layout/poi_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                 />
+                android:layout_marginBottom="10dp" />
 
             <!--AGENT REAL ESTATE-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
                 android:weightSum="100">
 
                 <TextView
@@ -184,23 +281,24 @@
                     android:inputType="text"
                     android:maxLength="30" />
 
-                <!--POST CODE-->
+                <!--CITY-->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="25"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/post_code"
+                    android:layout_weight="25"
+                    android:text="@string/city"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/post_code_et"
+                    android:id="@+id/city_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="30"
                     android:inputType="text"
-                    android:maxLength="30" />
+                    android:maxLength="30"
+                    android:textSize="@dimen/text_size_edit_text" />
 
             </LinearLayout>
 
@@ -219,9 +317,11 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/start_date_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:textSize="@dimen/text_size_edit_text"
                     android:layout_weight="20" />
 
                 <TextView
@@ -232,9 +332,11 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/end_date_et"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="20" />
+                    android:layout_weight="20"
+                    android:textSize="@dimen/text_size_edit_text" />
             </LinearLayout>
 
             <!-- SOLD -->
@@ -249,8 +351,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"

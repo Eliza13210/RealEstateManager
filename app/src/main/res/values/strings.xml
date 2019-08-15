@@ -86,11 +86,11 @@
     <string name="sold">SOLD</string>
     <string name="min">min</string>
     <string name="max">max</string>
-    <string name="post_code">Post code</string>
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="search">Search</string>
     <string name="address">Address</string>
+    <string name="photos">Photos</string>
 
     <!--POINTS OF INTERESTS-->
     <string name="doctor">Doctor</string>
@@ -106,6 +106,7 @@
     <string name="school">School</string>
     <string name="train_station">Train station</string>
     <string name="points_of_interest">Points of interest</string>
+    <string name="city">City</string>
 
 
 </resources>

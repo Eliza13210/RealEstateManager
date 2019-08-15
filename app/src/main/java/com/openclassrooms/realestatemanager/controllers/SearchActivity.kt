@@ -1,31 +1,32 @@
 package com.openclassrooms.realestatemanager.controllers
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.CheckBox
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.poi_details_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
-import java.util.ArrayList
+import java.util.*
 
-class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class SearchActivity : AppCompatActivity() {
 
 
     private var viewModel: RealEstateViewModel? = null
@@ -51,7 +52,6 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         initToolbar()
-        initSpinner()
         initClickableItems()
         initViewModel()
     }
@@ -64,66 +64,6 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         this.setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener { v -> startActivity(Intent(this, MainActivity::class.java)) }
-    }
-
-    private fun initSpinner() {
-        //Rooms spinner
-        val adapter = ArrayAdapter.createFromResource(this,
-                R.array.rooms_array, R.layout.spinner_item)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_rooms.adapter = adapter
-        spinner_rooms.onItemSelectedListener = this
-
-        //Bathrooms spinner
-        val adapterBathroom = ArrayAdapter.createFromResource(this,
-                R.array.bathrooms_array, android.R.layout.simple_spinner_item)
-
-        adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_bathrooms.adapter = adapterBathroom
-        spinner_bathrooms.onItemSelectedListener = this
-
-        //Bedrooms spinner
-        val adapterBedrooms = ArrayAdapter.createFromResource(this,
-                R.array.bathrooms_array, android.R.layout.simple_spinner_item)
-
-        adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_bedrooms.adapter = adapterBedrooms
-        spinner_bedrooms.onItemSelectedListener = this
-
-        //TODO PHOTO SPINNER
-    }
-
-    /**
-     * Select item in spinner
-     */
-
-    override fun onItemSelected(parent: AdapterView<*>, view: View,
-                                pos: Int, id: Long) {
-
-        when (parent.id) {
-            R.id.spinner_rooms -> {
-                rooms = parent.getItemAtPosition(pos).toString()
-                Log.e("Spinner", rooms)
-            }
-            R.id.spinner_bathrooms -> {
-                bathrooms = parent.getItemAtPosition(pos).toString()
-                Log.e("Spinner", bathrooms)
-            }
-            R.id.spinner_bedrooms -> {
-                bedrooms = parent.getItemAtPosition(pos).toString()
-                Log.e("Spinner", bedrooms)
-            }
-            else -> {
-            }
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        rooms = ""
-        bathrooms = ""
-        bedrooms = ""
-        Log.e("Spinner", rooms + bathrooms)
     }
 
     private fun initClickableItems() {
@@ -147,14 +87,44 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         })
 
+
+        //BUTTON SEARCH
         btn_search.setOnClickListener {
             getQueryFromUI()
             Log.e("search", "clicked button")
         }
 
+        //CHECKBOX SOLD
         cb_sold.setOnClickListener {
             sold = cb_sold.isChecked
         }
+
+        //DATE PICKER
+        start_date_et.setOnClickListener { startDatePicker(start_date_et) }
+        end_date_et.setOnClickListener { startDatePicker(end_date_et) }
+    }
+
+    private fun startDatePicker(editText: EditText) {
+        val cal = Calendar.getInstance()
+
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            Log.e("Search", " " + cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR))
+
+            if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
+                editText.setText(Utils.getTodayDate(cal.time))
+            } else {
+                Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        DatePickerDialog(this@SearchActivity, dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
     }
 
     private fun getInfoFromCheckBox(): List<String> {
@@ -185,17 +155,27 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         type_tv.setText("")
         when (tag) {
             "tag_house" -> {
-                type = "house"
-                //CHANGE COLOR TO SHOW CLICKED
-                house_tv.setBackgroundResource(R.drawable.rounded_corners)
-                apartement_tv.setBackgroundResource(R.color.white)
-                Log.e("Type ", type)
+                if (type == "house") {
+                    type = ""
+                    house_tv.setBackgroundResource(R.color.white)
+                } else {
+                    type = "house"
+                    //CHANGE COLOR TO SHOW CLICKED
+                    house_tv.setBackgroundResource(R.drawable.rounded_corners)
+                    apartement_tv.setBackgroundResource(R.color.white)
+                    Log.e("Type ", type)
+                }
             }
             "tag_apartement" -> {
-                type = "apartement"
-                Log.e("Type ", type)
-                house_tv.setBackgroundResource(R.color.white)
-                apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
+                if (type == "apartement") {
+                    type = ""
+                    apartement_tv.setBackgroundResource(R.color.white)
+                } else {
+                    type = "apartement"
+                    Log.e("Type ", type)
+                    house_tv.setBackgroundResource(R.color.white)
+                    apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
+                }
             }
             else -> {
             }
@@ -210,9 +190,10 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun getQueryFromUI() {
         val sb: StringBuilder = java.lang.StringBuilder()
-        var bindArgs = arrayListOf<String>()
+        val bindArgs = arrayListOf<String>()
 
         sb.append("SELECT * FROM RealEstate WHERE ")
+
         if (agent_et.text.isNotEmpty()) {
             sb.append("agent = ? AND ")
             bindArgs.add(agent_et.text.toString())
@@ -223,6 +204,7 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             bindArgs.add(type)
         }
 
+        //POI
         if (getInfoFromCheckBox().isNotEmpty()) {
             val list = getInfoFromCheckBox()
             for (box in list) {
@@ -232,6 +214,87 @@ class SearchActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 Log.e("search ", "poi is not empty $box")
             }
         }
+
+        //CITY
+        if (city_et.text.isNotEmpty()) {
+            sb.append("city =? AND ")
+            bindArgs.add(city_et.text.toString())
+        }
+
+
+        //SURFACE
+        if (surface_min.text.isNotEmpty() && surface_max.text.isNotEmpty()) {
+            sb.append("surface BETWEEN ? AND ? AND ")
+            bindArgs.add(surface_min.text.toString())
+            bindArgs.add(surface_max.text.toString())
+        } else if (surface_min.text.isNotEmpty()) {
+            sb.append("surface >= ? AND ")
+            bindArgs.add(surface_min.text.toString())
+        } else if (surface_max.text.isNotEmpty()) {
+            sb.append("surface <= ? AND ")
+            bindArgs.add(surface_max.text.toString())
+        }
+
+        //PRICE
+        if (price_min.text.isNotEmpty() && price_max.text.isNotEmpty()) {
+            sb.append("price BETWEEN ? AND ? AND ")
+            bindArgs.add(price_min.text.toString())
+            bindArgs.add(price_max.text.toString())
+        } else if (price_min.text.isNotEmpty()) {
+            sb.append("price >= ? AND ")
+            bindArgs.add(surface_min.text.toString())
+        } else if (price_max.text.isNotEmpty()) {
+            sb.append("price <= ? AND ")
+            bindArgs.add(price_max.text.toString())
+        }
+
+        //ROOMS
+        if (rooms_min.text.isNotEmpty() && rooms_max.text.isNotEmpty()) {
+            sb.append("rooms BETWEEN ? AND ? AND ")
+            bindArgs.add(rooms_min.text.toString())
+            bindArgs.add(rooms_max.text.toString())
+        } else if (rooms_min.text.isNotEmpty()) {
+            sb.append("rooms >= ? AND ")
+            bindArgs.add(rooms_max.text.toString())
+        } else if (rooms_max.text.isNotEmpty()) {
+            sb.append("rooms <= ? AND ")
+            bindArgs.add(rooms_max.text.toString())
+        }
+
+        //DATES
+        if (start_date_et.text.isNotEmpty() && end_date_et.text.isNotEmpty()) {
+            sold = true
+
+            sb.append("startDate >= ? AND endDate <= ? AND ")
+            bindArgs.add(start_date_et.text.toString())
+            bindArgs.add(end_date_et.text.toString())
+
+        } else if (start_date_et.text.isNotEmpty()) {
+            if (!cb_sold.isChecked) sold = false
+            sb.append("startDate >= ? AND ")
+            bindArgs.add(rooms_max.text.toString())
+        } else if (end_date_et.text.isNotEmpty()) {
+            sold = true
+            sb.append("endDate <= ? AND ")
+            bindArgs.add(end_date_et.text.toString())
+        }
+
+        //PHOTOS
+
+        //FIRST SEARCH REAL ESTATES AND THEN CHECK LIST WITH THIS AND CREATE NEW QUERY AND GET NEW LIST AND GET REAL ESTATE AND ADD TO A LIST
+        // OR SAVE AS JSON, GET JSON AND CHECK SIZE
+        if (photos_min_et.text.isNotEmpty() && photos_max_et.text.isNotEmpty()) {
+            sb.append("rooms BETWEEN ? AND ? AND ")
+            bindArgs.add(photos_min_et.text.toString())
+            bindArgs.add(photos_max_et.text.toString())
+        } else if (rooms_min.text.isNotEmpty()) {
+            sb.append("rooms >= ? AND ")
+            bindArgs.add(rooms_max.text.toString())
+        } else if (rooms_max.text.isNotEmpty()) {
+            sb.append("rooms <= ? AND ")
+            bindArgs.add(rooms_max.text.toString())
+        }
+
 
         sb.append("sold = ? ")
         bindArgs.add(sold.toString())

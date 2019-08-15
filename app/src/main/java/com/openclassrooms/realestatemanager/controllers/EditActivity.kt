@@ -106,7 +106,7 @@ class EditActivity : BaseActivityUIInformation() {
         Log.e("check if", "is sold " + sold + " " + endDate)
 
         //Check if end date is picked when object is sold before updating
-        if (sold.equals("true")) {
+        if (sold == "true") {
             if (endDate.isNotEmpty()) {
                 createRealEstate()
             } else {
