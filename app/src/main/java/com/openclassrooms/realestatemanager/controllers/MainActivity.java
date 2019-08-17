@@ -25,8 +25,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static java.sql.DriverManager.println;
-
 public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener,
         NavigationView.OnNavigationItemSelectedListener {
 

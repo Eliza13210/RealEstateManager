@@ -4,6 +4,12 @@
     <dimen name="head_text_size">20dp</dimen>
     <dimen name="text_size">16dp</dimen>
 
+
+    <dimen name="text_size_ic">12sp</dimen>
+
+    <dimen name="text_size_edit_text">15sp</dimen>
+    <dimen name="text_size_create_act">16sp</dimen>
+
     <!--RECYCLERVIEW LIST OF REAL ESTATES-->
     <dimen name="photo_list_size_width">100dp</dimen>
     <dimen name="photo_list_size_height">100dp</dimen>
@@ -14,4 +20,7 @@
     <dimen name="photo_item_size_width">100dp</dimen>
     <dimen name="photo_item_size_height">100dp</dimen>
     <dimen name="margin_create_act">20dp</dimen>
+
+
+    <dimen name="padding_add_btn">20dp</dimen>
 </resources>

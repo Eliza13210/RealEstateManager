@@ -8,7 +8,7 @@
             android:id="@+id/action_map"
             android:icon="@drawable/ic_map"
             android:orderInCategory="100"
-            android:title="Map view" />
+            android:title="@string/map_view" />
 
     </group>
 

@@ -107,6 +107,8 @@
     <string name="train_station">Train station</string>
     <string name="points_of_interest">Points of interest</string>
     <string name="city">City</string>
+    <string name="map_view">Map view</string>
+    <string name="update">Update</string>
 
 
 </resources>

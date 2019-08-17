@@ -33,6 +33,9 @@ class MapManager(var context: Context, var list: List<RealEstate>? = null, priva
 
             val lat = realEstate.latitude
             val lng = realEstate.longitude
+
+            Log.e("manager ", lat +lng)
+
             val latLng = LatLng(java.lang.Double.parseDouble(lat!!), java.lang.Double.parseDouble(lng!!))
 
             //Add marker to map

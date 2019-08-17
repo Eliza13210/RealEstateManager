@@ -43,7 +43,7 @@
             android:id="@+id/detail_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="25"
             android:text="Description here"
             android:textSize="@dimen/text_size" />
 
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
-            android:layout_weight="25"
+            android:layout_weight="35"
             android:orientation="horizontal"
             android:weightSum="3">
 

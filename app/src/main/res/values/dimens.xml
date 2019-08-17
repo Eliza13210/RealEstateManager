@@ -3,7 +3,7 @@
     <dimen name="margin_photo_realestate">5dp</dimen>
     <dimen name="head_text_size">20dp</dimen>
     <dimen name="text_size">12dp</dimen>
-    <dimen name="text_size_edit_text">10dp</dimen>
+    <dimen name="text_size_edit_text">10sp</dimen>
     <dimen name="text_size_create_act">15sp</dimen>
     <dimen name="text_size_ic">8sp</dimen>
 
@@ -23,4 +23,5 @@
 
     <!--INFORMATION LAYOUT-->
     <dimen name="margin_create_act">20dp</dimen>
+    <dimen name="padding_add_btn">10dp</dimen>
 </resources>

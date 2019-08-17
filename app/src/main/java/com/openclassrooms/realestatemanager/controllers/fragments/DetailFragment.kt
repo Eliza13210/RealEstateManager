@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.controllers.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,10 +98,12 @@ class DetailFragment : Fragment() {
     private fun getPoi(string: String?): String {
         var poi = JsonConverter.convertToList(string)
 
+        Log.e("detail", "list + " +poi.size)
         val builder = StringBuilder()
 
         for (result in poi) {
-            builder.append(result.name + ", " + result.types[0].replace('_', ' '))
+            builder.append(result.name)
+            builder.append(System.getProperty("line.separator"))
             builder.append(System.getProperty("line.separator"))
         }
         return builder.toString()

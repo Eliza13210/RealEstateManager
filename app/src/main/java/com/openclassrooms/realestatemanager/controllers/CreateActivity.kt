@@ -105,6 +105,7 @@ class CreateActivity : BaseActivityUIInformation() {
             disposable = NearbySearchStream.fetchNearbyPlacesStream(locationForSearch).subscribeWith(object : DisposableObserver<NearbySearchObject>() {
                 override fun onNext(nearbySearchObject: NearbySearchObject) {
                     listPoi = PointOfInterestsMatcher.checkIfPointOfInterest(nearbySearchObject.results)
+                    Log.e("create", "stream " + listPoi.size)
                 }
 
                 override fun onError(e: Throwable) {
@@ -137,6 +138,8 @@ class CreateActivity : BaseActivityUIInformation() {
         val latitude = lat.toString()
         val lon = latLng?.longitude
         val longitude = lon.toString()
+
+        Log.e("create", "list = " +listPoi.size)
         val pointsOfInterests = JsonConverter.convertToJson(listPoi)
 
         city = pref!!.getString("CurrentCity", "Unknown")

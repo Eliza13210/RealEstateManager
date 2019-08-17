@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface NearbySearchService {
     String API_KEY = BuildConfig.API_KEY;
-    String RADIUS = "1500";
+    String RADIUS = "50000";
     String NEARBY = "nearbysearch";
 
     @GET("{search}/json")

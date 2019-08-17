@@ -285,8 +285,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="25"
+                    android:layout_weight="15"
                     android:text="@string/city"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />

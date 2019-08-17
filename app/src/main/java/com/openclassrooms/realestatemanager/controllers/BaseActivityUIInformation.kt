@@ -182,7 +182,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
      * Select item in spinner
      */
 
-    override fun onItemSelected(parent: AdapterView<*>, view: View,
+    override fun onItemSelected(parent: AdapterView<*>, view: View?,
                                 pos: Int, id: Long) {
 
         when (parent.id) {
@@ -267,7 +267,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
                 Log.e("Type ", type)
             }
             "tag_apartement" -> {
-                type = "apartement"
+                type = "flat"
                 Log.e("Type ", type)
                 house_tv.setBackgroundResource(R.color.white)
                 apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
