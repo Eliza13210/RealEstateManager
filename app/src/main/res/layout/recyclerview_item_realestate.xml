@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="2dp"
             android:textStyle="italic|bold"
             android:text="MANHATTAN"
             android:textSize="@dimen/text_size_list" />
@@ -54,9 +55,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:backgroundTint="@color/grey"
         android:layout_alignBottom="@+id/photo_realestate"
         android:layout_gravity="bottom"
-        android:layout_marginStart="104dp"
         android:layout_marginEnd="4dp"
         android:background="?android:attr/listDivider"
         android:visibility="visible" />

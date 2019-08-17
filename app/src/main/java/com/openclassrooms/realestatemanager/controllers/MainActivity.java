@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-
     // Create static variable to identify Intent
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
 
@@ -43,19 +41,24 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     @BindView(R.id.main_nav_view)
     NavigationView navigationView;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Call update method here because we are sure that DetailFragment is visible
+        this.updateDetailFragmentWithIntentTag();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        this.configureAndShowDetailFragment();
         checkIfTablet();
         this.showMainFragment();
-        this.configureAndShowDetailFragment();
     }
 
     private void checkIfTablet() {
-        Log.e("main", "portrait only " + getResources().getBoolean(R.bool.portrait_only));
         // WILL BE FALSE IF TABLET
         if (getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -65,23 +68,10 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         if (findViewById(R.id.frame_layout_detail) != null) {
             tablet = true;
             setActionbarTablet();
-
-            // Get marker tag from intent if it comes from map activity
-            Intent intent = getIntent();
-            if (intent.hasExtra(EXTRA_TAG)) {
-                long tagFromMap = getIntent().getLongExtra(EXTRA_TAG, 0);
-                Log.e("main", "has extras " + tagFromMap);
-                // Update DetailFragment
-                detailFragment.updateDetails(tagFromMap);
-            } else {
-                Log.e("main", "has no  extras ");
-            }
         }
     }
 
-
     private void setActionbarPhone() {
-        Log.e("main", "set phone");
         BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
         configureDrawerLayout(bottomAppBar, null);
@@ -107,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     //Start edit activity when click on fab if tablet
     private void edit() {
         if (tag != -1) {
-            Log.e("Detail", "edit clicked with tag " + tag);
             Intent i = new Intent(this, EditActivity.class);
             i.putExtra("RealEstateId", tag);
             startActivity(i);
@@ -138,7 +127,19 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
                     .add(R.id.frame_layout_detail, detailFragment)
                     .commit();
         }
+    }
 
+    private void updateDetailFragmentWithIntentTag() {
+        // Get tag from intent
+        if (detailFragment != null) {
+            // Get marker tag from intent if it comes from map activity
+            Intent intent = getIntent();
+            if (intent.hasExtra(EXTRA_TAG)) {
+                long tagFromMap = getIntent().getLongExtra(EXTRA_TAG, 0);
+                // Update DetailFragment
+                detailFragment.updateDetails(tagFromMap);
+            }
+        }
     }
 
     // --------------
