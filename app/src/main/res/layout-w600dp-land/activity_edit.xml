@@ -62,7 +62,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_create_act"
                             android:clickable="true"
-                            android:hint="End date" />
+                            android:hint="@string/end_date" />
 
                     </LinearLayout>
 
