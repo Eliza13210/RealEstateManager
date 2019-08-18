@@ -7,6 +7,7 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.openclassrooms.realestatemanager.models.NearbySearchObject;
 import com.openclassrooms.realestatemanager.models.Result;
 import com.openclassrooms.realestatemanager.network.NearbySearchStream;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,9 +26,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+import kotlin.jvm.Throws;
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -128,12 +132,10 @@ public class Utils {
 
     public static String setLocationString(LatLng latLng) {
         //Build latLng string to fetch nearby restaurants
-        StringBuilder builder = new StringBuilder();
-        builder.append(latLng.latitude);
-        builder.append(",");
-        builder.append(latLng.longitude);
-
-        return builder.toString();
+        String builder = String.valueOf(latLng.latitude) +
+                "," +
+                latLng.longitude;
+        return builder;
     }
 
     /**
@@ -158,5 +160,4 @@ public class Utils {
         }
         return isBefore;
     }
-
 }

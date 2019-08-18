@@ -109,6 +109,9 @@
     <string name="city">City</string>
     <string name="map_view">Map view</string>
     <string name="update">Update</string>
+    <string name="choose_item_to_edit">Choose an item to edit first</string>
+    <string name="photo_not_taken">No photo was taken</string>
+    <string name="reset">Reset</string>
 
 
 </resources>

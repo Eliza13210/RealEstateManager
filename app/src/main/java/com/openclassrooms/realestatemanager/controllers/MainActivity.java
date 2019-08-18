@@ -60,11 +60,12 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     private void checkIfTablet() {
         // WILL BE FALSE IF TABLET
+        //IF PHONE SHOW BOTTOM APP BAR WITH FAB
         if (getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setActionbarPhone();
         }
-        //IF TABLET, SHOW DETAIL FRAGMENT AS WELL
+        //IF TABLET, SHOW TOOLBAR
         if (findViewById(R.id.frame_layout_detail) != null) {
             tablet = true;
             setActionbarTablet();
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             i.putExtra("RealEstateId", tag);
             startActivity(i);
         } else {
-            Toast.makeText(this, "Choose an item to edit first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.choose_item_to_edit, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -129,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         }
     }
 
+    //FOR TABLET ONLY - SHOW REAL ESTATE IN FRAGMENT IF STARTED FROM MAP ACTIVITY
     private void updateDetailFragmentWithIntentTag() {
-        // Get tag from intent
         if (detailFragment != null) {
             // Get marker tag from intent if it comes from map activity
             Intent intent = getIntent();
@@ -149,12 +150,13 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     @Override
     public void onItemClick(long id) {
         tag = id;
-        // Check if detail fragment is not created or if not visible, then open DetailActivity
+        // Check if phone, then open DetailActivity
         if (detailFragment == null) {
             Intent i = new Intent(this, DetailActivity.class);
             i.putExtra(DetailActivity.EXTRA_TAG, id);
             startActivity(i);
         } else {
+            //If tablet
             detailFragment.updateDetails(id);
         }
     }
@@ -192,12 +194,13 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     // Configure Drawer Layout
     private void configureDrawerLayout(BottomAppBar bottomAppBar, Toolbar toolbar) {
-
         ActionBarDrawerToggle toggle;
+        //TABLET
         if (bottomAppBar == null) {
             toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,
                     R.string.navigation_drawer_close);
         } else {
+            //PHONE
             toggle = new ActionBarDrawerToggle(this, drawerLayout, bottomAppBar, R.string.navigation_drawer_open,
                     R.string.navigation_drawer_close);
         }

@@ -1,12 +1,6 @@
 package com.openclassrooms.realestatemanager.view;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,7 +12,6 @@ import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.Photo;
 import com.squareup.picasso.Picasso;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,8 +35,6 @@ public class AddPhotoPopUp {
         builder.setView(customLayout);
         ImageView image = customLayout.findViewById(R.id.popup_image);
         Picasso.get().load(uri).into(image);
-
-        Log.e("uri", uri);
 
         // Set up the buttons
         builder.setPositiveButton("Add photo", (dialog, i) -> {

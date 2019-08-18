@@ -17,7 +17,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
-import java.lang.StringBuilder
+import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 
 class CreateActivity : BaseActivityUIInformation() {
@@ -25,11 +25,9 @@ class CreateActivity : BaseActivityUIInformation() {
     private var latLng: LatLng? = null
     private lateinit var disposable: Disposable
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAddressTextView()
-
         fetchUserLocation = FetchUserLocation(this, address_tv, this, null)
         pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE)
     }
@@ -43,11 +41,16 @@ class CreateActivity : BaseActivityUIInformation() {
         btn_send.setOnClickListener {
             getInfoFromUI()
         }
-        //Geo latLng
+
+        //Button reset
+        btn_reset.setOnClickListener {
+            resetUI()
+        }
+
+        //Geo locate user on click
         geo_loc.setOnClickListener {
             getUserLocation()
         }
-
     }
 
     override fun getInfoFromUI() {
@@ -139,7 +142,7 @@ class CreateActivity : BaseActivityUIInformation() {
         val lon = latLng?.longitude
         val longitude = lon.toString()
 
-        Log.e("create", "list = " +listPoi.size)
+        Log.e("create", "list = " + listPoi.size)
         val pointsOfInterests = JsonConverter.convertToJson(listPoi)
 
         city = pref!!.getString("CurrentCity", "Unknown")
@@ -148,7 +151,7 @@ class CreateActivity : BaseActivityUIInformation() {
         Log.e("create", pointsOfInterests)
 
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, city!!, "false", startDate, null, agent, pointsOfInterests
+                rooms, bathrooms, address, city, "false", startDate, null, agent, pointsOfInterests
         )
 
         AsyncTask.execute {
@@ -163,5 +166,35 @@ class CreateActivity : BaseActivityUIInformation() {
 
         }
         Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Reset all edit text
+     */
+
+    private fun resetUI() {
+        photos = ArrayList()
+        photoAdapter.updateData(photos)
+        type = ""
+        type_tv.setText("")
+        price = ""
+        price_tv.setText("")
+        description = ""
+        description_et.setText("")
+        surface = ""
+        surface_tv.setText("")
+        rooms = ""
+        bathrooms = ""
+        bedrooms = ""
+        address = ""
+        address_tv.setText("")
+        city = ""
+        sold = "false"
+        startDate = ""
+        agent = ""
+        agent_et.setText("")
+        listPoi = ArrayList()
+        latitude = ""
+        longitude = ""
     }
 }
