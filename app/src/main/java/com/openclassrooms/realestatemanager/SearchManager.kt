@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_search.*
 
 /**
  * Creates Query and arguments for raw query search in activity
@@ -96,21 +97,33 @@ class SearchManager {
         }
 
         //DATES
-        if (start_date_et!!.text.isNotEmpty() && end_date_et!!.text.isNotEmpty()) {
+        val startDate = if (start_date_et!!.text == "Click to pick a date") {
+            ""
+        } else {
+            start_date_et.text
+        }
+        val endDate = if (end_date_et!!.text == "Click to pick a date") {
+            ""
+        } else {
+            end_date_et.text
+        }
+
+        Log.e("searchManager", "dates = " + startDate + endDate)
+        if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
             sold = true
 
             sb.append("startDate >= ? AND endDate <= ? AND ")
-            bindArgs.add(start_date_et.text.toString())
-            bindArgs.add(end_date_et.text.toString())
+            bindArgs.add(startDate.toString())
+            bindArgs.add(endDate.toString())
 
-        } else if (start_date_et.text.isNotEmpty()) {
+        } else if (startDate.isNotEmpty()) {
             if (!cb_sold!!.isChecked) sold = false
             sb.append("startDate >= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        } else if (end_date_et!!.text.isNotEmpty()) {
+            bindArgs.add(startDate.toString())
+        } else if (endDate.isNotEmpty()) {
             sold = true
             sb.append("endDate <= ? AND ")
-            bindArgs.add(end_date_et.text.toString())
+            bindArgs.add(endDate.toString())
         }
 
         //PHOTOS

@@ -1,13 +1,15 @@
 package com.openclassrooms.realestatemanager.controllers
 
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,15 +19,13 @@ import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
-import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.poi_details_layout.*
-import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
+
 
 class SearchActivity : AppCompatActivity() {
 
@@ -46,7 +46,7 @@ class SearchActivity : AppCompatActivity() {
     protected var startDate = ""
     protected var endDate = ""
     protected var agent = ""
-    protected var listPoi: List<Result> = ArrayList()
+    protected var listPoi: List<String> = ArrayList()
     protected var bedrooms: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,10 +122,18 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        DatePickerDialog(this@SearchActivity, dateSetListener,
+        var dialog=DatePickerDialog(this@SearchActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH))
+
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", DialogInterface.OnClickListener { dialog, which ->
+            if (which == DialogInterface.BUTTON_NEGATIVE) {
+                editText.text=""
+            }
+        })
+
+        dialog.show()
     }
 
     private fun getInfoFromCheckBox(): List<String> {
@@ -191,7 +199,8 @@ class SearchActivity : AppCompatActivity() {
 
     private fun getQueryFromUI() {
         val manageSearch = SearchManager()
-        manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max, rooms_min, rooms_max, start_date_et,
+         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
+                rooms_min, rooms_max, start_date_et,
                 end_date_et, photos_min_et, photos_max_et, cb_sold)
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }

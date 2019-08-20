@@ -58,6 +58,4 @@ public class AddPhotoPopUp {
 
         dialog.show();
     }
-
-
 }

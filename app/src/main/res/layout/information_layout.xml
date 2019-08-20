@@ -149,6 +149,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/points_of_interest"
+                android:textSize="@dimen/text_size" />
+
+            <ImageView
+                android:id="@+id/ic_add_poi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_create_act"
+                android:src="@drawable/ic_action_add_dark" />
+
+            <TextView
+                android:id="@+id/poi_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_create_act"
+                android:textSize="@dimen/text_size" />
+
+        </LinearLayout>
+
         <!--DESCRIPTION -->
         <LinearLayout
             android:layout_width="match_parent"

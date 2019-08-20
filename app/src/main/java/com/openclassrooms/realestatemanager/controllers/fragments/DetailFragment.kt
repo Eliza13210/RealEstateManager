@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.BuildConfig
-import com.openclassrooms.realestatemanager.JsonConverter
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
@@ -73,10 +72,10 @@ class DetailFragment : Fragment() {
         detail_bathrooms.text = realEstate.bathrooms
         detail_bedrooms.text = realEstate.bedrooms
         detail_address.text = realEstate.address
-        detail_poi_tv.text = getPoi(realEstate.pointsOfInterest)
+        detail_poi_tv.text = realEstate.pointsOfInterest
 
-        if (realEstate.sold.equals("true"))
-            isSold_tv.text = getString(R.string.sold) + realEstate.endDate
+        if (realEstate.sold == "true")
+            isSold_tv.text = getString(R.string.sold) + " " + realEstate.endDate
 
         //Show map with location
         val sb: StringBuilder = java.lang.StringBuilder()
@@ -93,21 +92,6 @@ class DetailFragment : Fragment() {
             val mapPopUp = MapPopUp(mapUrl, context)
             mapPopUp.showPopUp()
         }
-    }
-
-    private fun getPoi(string: String?): String {
-        var poi = JsonConverter.convertToList(string)
-
-        Log.e("detail", "list + " +poi.size)
-        val builder = StringBuilder()
-
-        for (result in poi) {
-            builder.append(result.name)
-            builder.append(System.getProperty("line.separator"))
-            builder.append(System.getProperty("line.separator"))
-        }
-        return builder.toString()
-
     }
 
     //  Get all photos

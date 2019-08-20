@@ -105,7 +105,6 @@
     <string name="airport">Airport</string>
     <string name="school">School</string>
     <string name="train_station">Train station</string>
-    <string name="points_of_interest">Points of interest</string>
     <string name="city">City</string>
     <string name="map_view">Map view</string>
     <string name="update">Update</string>
@@ -115,6 +114,7 @@
     <string name="click_to_pick_a_date">Click to pick a date</string>
     <string name="convert_to_euro">Convert to Euro</string>
     <string name="convert_to_dollar">Convert to Dollar</string>
+    <string name="points_of_interest">Points of interest</string>
 
 
 </resources>

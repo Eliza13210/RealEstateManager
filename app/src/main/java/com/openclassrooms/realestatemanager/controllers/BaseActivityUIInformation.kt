@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
-
-import androidx.lifecycle.Observer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -26,10 +24,9 @@ import com.openclassrooms.realestatemanager.FetchUserLocation
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
-import com.openclassrooms.realestatemanager.models.RealEstate
-import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.AddPhotoPopUp
+import com.openclassrooms.realestatemanager.view.AddPoiPopUp
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.PhotoPopUp
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -81,7 +78,8 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var startDate = ""
     protected var endDate = ""
     protected var agent = ""
-    protected var listPoi: List<Result> = ArrayList()
+    protected var listPoi: List<String> = ArrayList()
+    protected var pointsOfInterest = ""
     protected var bedrooms = ""
     protected var latitude = ""
     protected var longitude = ""
@@ -229,6 +227,15 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
                         Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
+
+        ic_add_poi.setOnClickListener {
+            addPoi()
+        }
+    }
+
+    private fun addPoi() {
+        val popUp = AddPoiPopUp(this, listPoi, poi_tv)
+        popUp.popUpDialog()
     }
 
     private fun getType(tag: String) {
