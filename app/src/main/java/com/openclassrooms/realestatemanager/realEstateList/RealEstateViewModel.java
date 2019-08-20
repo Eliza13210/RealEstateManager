@@ -48,6 +48,10 @@ public class RealEstateViewModel extends ViewModel {
         return realEstateDataSource.getRealEstate(realEstateId);
     }
 
+    public LiveData<RealEstate> checkLatLng(String latitude, String longitude) {
+        return realEstateDataSource.checkLatLng(latitude, longitude);
+    }
+
     public LiveData<List<RealEstate>> fetchAllRealEstates() {
         return realEstateDataSource.getAllRealEstates();
     }

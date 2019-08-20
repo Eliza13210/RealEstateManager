@@ -5,6 +5,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
+
+import androidx.lifecycle.Observer
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
@@ -53,26 +55,9 @@ class CreateActivity : BaseActivityUIInformation() {
         }
     }
 
-    override fun getInfoFromUI() {
-        agent = agent_et.text.toString()
-        price = price_tv.text.toString()
-        description = description_et.text.toString()
-        surface = surface_tv.text.toString()
-        startDate = Utils.getTodayDate(Calendar.getInstance().time)
-
-        if (agent.isNotEmpty()) {
-            if (address.isNotEmpty()) {
-                createRealEstate()
-            } else {
-                Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            Toast.makeText(this, getString(R.string.warning_add_item_without_agent), Toast.LENGTH_SHORT).show()
-        }
-    }
 
     private fun initAddressTextView() {
-        //Address edit text
+        // User write address
         address_tv.addTextChangedListener(
                 object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -84,8 +69,7 @@ class CreateActivity : BaseActivityUIInformation() {
                             override fun onTick(millisUntilFinished: Long) {}
 
                             override fun onFinish() {
-                                //search points of interests
-                                getPointsOfInterest()
+                                checkAddress()
                                 Log.e("address", " fetch " + address_tv.text)
                             }
                         }.start()
@@ -95,12 +79,37 @@ class CreateActivity : BaseActivityUIInformation() {
                 })
     }
 
-
-    fun getPointsOfInterest() {
-        //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
+    /**
+     * Get LatLng from the address the user typed
+     */
+    private fun checkAddress() {
         address = address_tv.text.toString()
         latLng = Utils.getLatLngFromAddress(this, address)
+        if (latLng != null)
+            checkIfRealEstateExists(latLng!!)
+    }
 
+    /**
+     * Check if a real estate with the same LatLng exists already
+     */
+    private fun checkIfRealEstateExists(latLng: LatLng) {
+        val lat = latLng?.latitude
+        latitude = lat.toString()
+        val lon = latLng?.longitude
+        longitude = lon.toString()
+
+        this.viewModel?.checkLatLng(latitude, longitude)?.observe(this, Observer<RealEstate> {
+            if (it != null) {
+                realEstateExists = true
+                Toast.makeText(this, "There is already a real estate with the same address, are you sure you want to create a new item? ",
+                        Toast.LENGTH_SHORT).show()
+            }
+            getPointsOfInterest()
+        })
+    }
+
+    private fun getPointsOfInterest() {
+        //Fetch nearby search results from the latLng, this will also check that the user has entered a valid address
         if (latLng != null) {
 //            fetchUserLocation!!.getAddress(latLng!!.latitude, latLng!!.longitude)
             val locationForSearch = Utils.setLocationString(latLng)
@@ -132,15 +141,32 @@ class CreateActivity : BaseActivityUIInformation() {
     }
 
 
+    override fun getInfoFromUI() {
+        agent = agent_et.text.toString()
+        price = price_tv.text.toString()
+        description = description_et.text.toString()
+        surface = surface_tv.text.toString()
+        startDate = Utils.getTodayDate(Calendar.getInstance().time)
+
+        if (agent.isNotEmpty()) {
+            if (address.isNotEmpty()) {
+                createRealEstate()
+            } else {
+                Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.warning_add_item_without_agent), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     /**
      * Handling permissions to take photo, pick photo from gallery and geo locate user
      */
 
     override fun createRealEstate() {
-        val lat = latLng?.latitude
-        val latitude = lat.toString()
-        val lon = latLng?.longitude
-        val longitude = lon.toString()
+        if (type_tv.text.isNotEmpty()) {
+            type = type_tv.text.toString()
+        }
 
         Log.e("create", "list = " + listPoi.size)
         val pointsOfInterests = JsonConverter.convertToJson(listPoi)

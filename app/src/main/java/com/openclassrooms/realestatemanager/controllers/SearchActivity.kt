@@ -105,7 +105,7 @@ class SearchActivity : AppCompatActivity() {
         end_date_et.setOnClickListener { startDatePicker(end_date_et) }
     }
 
-    private fun startDatePicker(editText: EditText) {
+    private fun startDatePicker(editText: TextView) {
         val cal = Calendar.getInstance()
 
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -116,7 +116,7 @@ class SearchActivity : AppCompatActivity() {
             Log.e("Search", " " + cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR))
 
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
-                editText.setText(Utils.getTodayDate(cal.time))
+                editText.text = Utils.getTodayDate(cal.time)
             } else {
                 Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
             }

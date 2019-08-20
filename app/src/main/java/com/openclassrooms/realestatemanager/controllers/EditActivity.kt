@@ -34,7 +34,6 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     private fun initRealEstate(id: Long) {
-
         this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {
             if (it != null)
                 this.updateDetails(it)

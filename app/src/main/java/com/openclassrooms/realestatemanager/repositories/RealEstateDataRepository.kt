@@ -15,6 +15,10 @@ class RealEstateDataRepository(val realEstateDao: RealEstateDao) {
         return this.realEstateDao.getRealEstate(realEstateId)
     }
 
+    fun checkLatLng(latitude: String, longitude: String): LiveData<RealEstate> {
+        return this.realEstateDao.checkLatLng(latitude, longitude)
+    }
+
     // --- GET ALL DATA ---
 
     fun getAllRealEstates(): LiveData<MutableList<RealEstate>>? {

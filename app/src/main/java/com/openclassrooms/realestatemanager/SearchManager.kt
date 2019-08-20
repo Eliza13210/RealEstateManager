@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager
 import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 
 /**
  * Creates Query and arguments for raw query search in activity
@@ -18,7 +19,7 @@ class SearchManager {
                        surface_min: EditText?, surface_max: EditText?,
                        price_min: EditText?, price_max: EditText?,
                        rooms_min: EditText?, rooms_max: EditText?,
-                       start_date_et: EditText?, end_date_et: EditText?,
+                       start_date_et: TextView?, end_date_et: TextView?,
                        photos_min_et: EditText?, photos_max_et: EditText?,
                        cb_sold: CheckBox?) {
 

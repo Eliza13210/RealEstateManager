@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
+
+import androidx.lifecycle.Observer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -24,6 +26,7 @@ import com.openclassrooms.realestatemanager.FetchUserLocation
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
+import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.models.Result
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.AddPhotoPopUp
@@ -61,6 +64,8 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var viewModel: RealEstateViewModel? = null
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
     protected var realEstateId: Long = 0
+
+    protected var realEstateExists = false;
 
     // For creating real estate object
     protected var photos = ArrayList<Photo>()
@@ -200,7 +205,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
             }
 
             override fun afterTextChanged(s: Editable) {
-                type = type_tv.text.toString()
             }
         })
 
@@ -231,14 +235,26 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         type_tv.setText("")
         when (tag) {
             "tag_house" -> {
-                type = "house"
-                house_tv.setBackgroundResource(R.drawable.rounded_corners)
-                apartement_tv.setBackgroundResource(R.color.white)
+                if (type == "house") {
+                    type = ""
+                    house_tv.setBackgroundResource(R.color.white)
+                    apartement_tv.setBackgroundResource(R.color.white)
+                } else {
+                    type = "house"
+                    house_tv.setBackgroundResource(R.drawable.rounded_corners)
+                    apartement_tv.setBackgroundResource(R.color.white)
+                }
             }
             "tag_apartement" -> {
-                type = "flat"
-                house_tv.setBackgroundResource(R.color.white)
-                apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
+                if (type == "flat") {
+                    type = ""
+                    house_tv.setBackgroundResource(R.color.white)
+                    apartement_tv.setBackgroundResource(R.color.white)
+                } else {
+                    type = "flat"
+                    house_tv.setBackgroundResource(R.color.white)
+                    apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
+                }
             }
         }
     }

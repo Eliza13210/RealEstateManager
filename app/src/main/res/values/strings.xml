@@ -112,6 +112,7 @@
     <string name="choose_item_to_edit">Choose an item to edit first</string>
     <string name="photo_not_taken">No photo was taken</string>
     <string name="reset">Reset</string>
+    <string name="click_to_pick_a_date">Click to pick a date</string>
 
 
 </resources>
