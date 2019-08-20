@@ -79,6 +79,10 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         this.adapter.updateData(realEstateList);
     }
 
+    public void convertCurrency(String currency) {
+        this.adapter.convertCurrency(currency);
+    }
+
     @Override
     public void onItemClick(long id) {
     }

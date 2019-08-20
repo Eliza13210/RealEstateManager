@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
 
     private DetailFragment detailFragment;
+    private MainFragment mainFragment;
     private long tag = -1;
     private Boolean tablet = false;
 
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
 
     private void showMainFragment() {
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
         if (mainFragment == null) {
             mainFragment = new MainFragment();
             getSupportFragmentManager().beginTransaction()
@@ -207,6 +209,12 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        initDrawerHeader();
+    }
+
+    private void initDrawerHeader() {
+        //Inflate header layout
+        navigationView.inflateHeaderView(R.layout.drawer_header);
     }
 
     @Override
@@ -225,6 +233,12 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             case R.id.action_map:
                 //Start Map view
                 startActivity(new Intent(MainActivity.this, MapActivity.class));
+                break;
+            case R.id.action_euro:
+                mainFragment.convertCurrency("euro");
+                break;
+            case R.id.action_dollar:
+                mainFragment.convertCurrency("dollar");
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

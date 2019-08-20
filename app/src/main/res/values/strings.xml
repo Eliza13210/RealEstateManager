@@ -113,6 +113,8 @@
     <string name="photo_not_taken">No photo was taken</string>
     <string name="reset">Reset</string>
     <string name="click_to_pick_a_date">Click to pick a date</string>
+    <string name="convert_to_euro">Convert to Euro</string>
+    <string name="convert_to_dollar">Convert to Dollar</string>
 
 
 </resources>

@@ -11,6 +11,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 class RealEstateAdapter(val context: Context) : RecyclerView.Adapter<RealEstateViewHolder>() {
 
     var realEstateList= arrayListOf<RealEstate>()
+    var currency="dollar"
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RealEstateViewHolder {
         return RealEstateViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_realestate, p0, false))
@@ -19,7 +20,7 @@ class RealEstateAdapter(val context: Context) : RecyclerView.Adapter<RealEstateV
     override fun getItemCount() = this.realEstateList.size
 
     override fun onBindViewHolder(realEstateViewHolder: RealEstateViewHolder, i: Int) {
-        realEstateViewHolder.updateWithItem(this.realEstateList.get(i), context)
+        realEstateViewHolder.updateWithItem(this.realEstateList[i], context, currency)
     }
 
     fun updateData(items: List<RealEstate>) {
@@ -27,4 +28,8 @@ class RealEstateAdapter(val context: Context) : RecyclerView.Adapter<RealEstateV
         this.notifyDataSetChanged()
     }
 
+    fun convertCurrency(convertToCurrency: String){
+        this.currency=convertToCurrency
+        this.notifyDataSetChanged()
+    }
 }

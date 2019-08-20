@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.openclassrooms.realestatemanager.R;
+import com.openclassrooms.realestatemanager.Utils;
 import com.openclassrooms.realestatemanager.injections.Injection;
 import com.openclassrooms.realestatemanager.injections.ViewModelFactory;
 import com.openclassrooms.realestatemanager.models.Photo;
@@ -92,7 +93,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void updateWithItem(RealEstate realEstateItem, Context context) {
+    public void updateWithItem(RealEstate realEstateItem, Context context, String currency) {
         createCallbackToParentActivity(context);
         this.context = context;
 
@@ -100,15 +101,29 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         type.setText(realEstateItem.getType().toUpperCase());
         location.setText(realEstateItem.getCity().toUpperCase());
 
-        Log.e("holder ", realEstateItem.getCity());
-
         int length = Objects.requireNonNull(realEstateItem.getPrice()).length();
-        StringBuilder sb = new StringBuilder(realEstateItem.getPrice());
-        for (int i = length - 3; i > 0; i = i - 3) {
-            sb.insert(i, ",");
-            Log.e("holder", sb.toString());
+        StringBuilder sb = new StringBuilder();
+
+        if (currency.equals("dollar")) {
+            sb = new StringBuilder(realEstateItem.getPrice());
+            for (int i = length - 3; i > 0; i = i - 3) {
+                sb.insert(i, ",");
+            }
+            sb.append(" $");
+        } else if (currency.equals("euro")) {
+            if (!realEstateItem.getPrice().isEmpty()) {
+                int price = Integer.parseInt(realEstateItem.getPrice());
+                int eurosInt = Utils.convertDollarToEuro(price);
+                String euros = Integer.toString(eurosInt);
+
+                sb = new StringBuilder(euros);
+            }
+            for (int i = length - 3; i > 0; i = i - 3) {
+                sb.insert(i, ",");
+                Log.e("holder", sb.toString());
+            }
+            sb.append(" €");
         }
-        sb.append(" $");
         price.setText(sb.toString());
 
         itemView.setOnClickListener(v -> {

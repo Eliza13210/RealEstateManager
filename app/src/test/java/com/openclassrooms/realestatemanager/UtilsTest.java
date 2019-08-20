@@ -5,14 +5,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.ibm.icu.text.ComposedCharIter;
 import com.openclassrooms.realestatemanager.models.Result;
-
-import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -47,6 +43,16 @@ public class UtilsTest {
     public void convertEuroToDollar() {
 
         int value = Utils.convertEuroToDollar(500);
+        int expectedValue = 560;
+
+        assertEquals(expectedValue, value);
+    }
+
+
+    @Test
+    public void convertDollarToEuro() {
+
+        int value = Utils.convertDollarToEuro(500);
         int expectedValue = 560;
 
         assertEquals(expectedValue, value);
@@ -113,7 +119,7 @@ public class UtilsTest {
         result.setTypes(typesList);
         resultList.add(result);
 
-        List<Result> updatedList=Utils.checkIfPointOfInterest(resultList);
+        List<Result> updatedList=PointOfInterestsMatcher.checkIfPointOfInterest(resultList);
 
         assertTrue(updatedList.isEmpty());
     }
@@ -135,7 +141,7 @@ public class UtilsTest {
         result_two.setTypes(typesList);
         resultList.add(result_two);
 
-        List<Result> updatedList=Utils.checkIfPointOfInterest(resultList);
+        List<Result> updatedList=PointOfInterestsMatcher.checkIfPointOfInterest(resultList);
 
         assertEquals(2, updatedList.size());
 
