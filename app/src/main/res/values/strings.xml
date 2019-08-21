@@ -116,5 +116,9 @@
     <string name="convert_to_dollar">Convert to Dollar</string>
     <string name="points_of_interest">Points of interest</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_results">Search results</string>
+
 
 </resources>

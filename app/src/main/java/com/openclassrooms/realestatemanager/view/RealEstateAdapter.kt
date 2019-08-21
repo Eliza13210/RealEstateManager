@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.view
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class RealEstateAdapter(val context: Context) : RecyclerView.Adapter<RealEstateV
     fun updateData(items: List<RealEstate>) {
         this.realEstateList = items as ArrayList<RealEstate>
         this.notifyDataSetChanged()
+        Log.e("adapter", "updating with " + realEstateList.size)
     }
 
     fun convertCurrency(convertToCurrency: String){

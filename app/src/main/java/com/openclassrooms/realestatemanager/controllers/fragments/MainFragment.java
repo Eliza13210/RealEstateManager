@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +37,7 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_view, container, false);
         ButterKnife.bind(this, view);
         this.configureRecyclerView();
         this.configureViewModel();
@@ -75,8 +76,9 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         this.realEstateViewModel.fetchAllRealEstates().observe(this, this::updateItemsList);
     }
 
-    private void updateItemsList(List<RealEstate> realEstateList) {
+    public void updateItemsList(List<RealEstate> realEstateList) {
         this.adapter.updateData(realEstateList);
+        Log.e("mainfr", "update data");
     }
 
     public void convertCurrency(String currency) {
@@ -87,11 +89,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     public void onItemClick(long id) {
     }
 
-    //Click on real estate item in list will be handled by main activity
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
 }
 
 

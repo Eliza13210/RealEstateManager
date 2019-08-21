@@ -49,8 +49,6 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
     // Declare interface that will be implemented by any container activity
     public interface OnItemClickedListener {
         void onItemClick(long id);
-
-        boolean onNavigationItemSelected(@NonNull MenuItem item);
     }
 
     // Create callback to parent activity

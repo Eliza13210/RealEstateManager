@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.SearchManager
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
@@ -25,6 +24,9 @@ import kotlinx.android.synthetic.main.poi_details_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
+import kotlin.collections.ArrayList
+import com.google.gson.Gson
+import com.openclassrooms.realestatemanager.R
 
 
 class SearchActivity : AppCompatActivity() {
@@ -47,6 +49,7 @@ class SearchActivity : AppCompatActivity() {
     protected var endDate = ""
     protected var agent = ""
     protected var listPoi: List<String> = ArrayList()
+    var updatedList = ArrayList<RealEstate>()
     protected var bedrooms: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,14 +125,14 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        var dialog=DatePickerDialog(this@SearchActivity, dateSetListener,
+        var dialog = DatePickerDialog(this@SearchActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH))
 
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", DialogInterface.OnClickListener { dialog, which ->
             if (which == DialogInterface.BUTTON_NEGATIVE) {
-                editText.text=""
+                editText.text = ""
             }
         })
 
@@ -199,20 +202,60 @@ class SearchActivity : AppCompatActivity() {
 
     private fun getQueryFromUI() {
         val manageSearch = SearchManager()
-         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
+        manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
                 rooms_min, rooms_max, start_date_et,
                 end_date_et, photos_min_et, photos_max_et, cb_sold)
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 
     private fun search(query: String, arg: Array<String>) {
-        viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> { this.showResult(it) })
+        viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> {
+            if (photos_min_et.text.isNotEmpty() || photos_max_et.text.isNotEmpty())
+                this.searchOnPhotos(it)
+            else {
+                showResult(it)
+            }
+        })
     }
 
-    private fun showResult(realEstateList: List<RealEstate>) {
-        println("result = " + realEstateList.size)
-        if (realEstateList.isNotEmpty()) {
-            println("result item = " + realEstateList[0].agent + realEstateList[0].sold + realEstateList[0].type)
+    private fun searchOnPhotos(list: List<RealEstate>) {
+        updatedList = ArrayList()
+        var isLast = false
+
+        for (item in list) {
+            viewModel!!.getPhotos(item.id!!).observe(this, Observer<List<Photo>> {
+                if (item.id == list[list.size - 1].id) {
+                    //THIS IS THE LAST ITEM
+                    isLast = true
+                }
+                upDateListIfPhotos(it, item, isLast)
+            })
         }
+    }
+
+    private fun upDateListIfPhotos(listPhoto: List<Photo>, realEstate: RealEstate, isLast: Boolean) {
+        val max = if (photos_max_et.text.isNotEmpty()) Integer.parseInt(photos_max_et.text.toString()) else 20
+        val min = if (photos_min_et.text.isNotEmpty()) Integer.parseInt(photos_min_et.text.toString()) else 0
+
+        if (listPhoto.size in min!!..max!!) {
+            updatedList.add(realEstate)
+        }
+        if (isLast) {
+            showResult(updatedList)
+        }
+    }
+
+
+    private fun showResult(realEstateList: List<RealEstate>) {
+
+        println("result = " + realEstateList.size)
+
+        //START RESULT ACTIVITY WITH THE LIST OF REAL ESTATES
+        val gson = Gson()
+        val jsonList = gson.toJson(realEstateList)
+        Log.e("searchA", jsonList)
+        val intent = Intent(this, SearchResultActivity::class.java)
+        intent.putExtra("SearchResultList", jsonList)
+        startActivity(intent)
     }
 }

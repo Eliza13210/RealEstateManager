@@ -320,10 +320,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:textStyle="italic"
+                    android:layout_weight="20"
                     android:text="@string/click_to_pick_a_date"
                     android:textSize="@dimen/text_size"
-                    android:layout_weight="20" />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -337,9 +337,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
-                    android:textStyle="italic"
                     android:text="@string/click_to_pick_a_date"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="italic" />
             </LinearLayout>
 
             <!-- SOLD -->
@@ -349,25 +349,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="@string/sold" />
-
-            <!--PHOTOS-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Photos" />
-
-                <Spinner
-                    android:id="@+id/spinner_photos"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
 
             <!--BUTTON-->
             <Button

@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_search.*
 
 /**
@@ -126,23 +127,6 @@ class SearchManager {
             bindArgs.add(endDate.toString())
         }
 
-        //PHOTOS
-
-        //FIRST SEARCH REAL ESTATES AND THEN CHECK LIST WITH THIS AND CREATE NEW QUERY AND GET NEW LIST AND GET REAL ESTATE AND ADD TO A LIST
-        // OR SAVE AS JSON, GET JSON AND CHECK SIZE
-        if (photos_min_et!!.text.isNotEmpty() && photos_max_et!!.text.isNotEmpty()) {
-            sb.append("rooms BETWEEN ? AND ? AND ")
-            bindArgs.add(photos_min_et.text.toString())
-            bindArgs.add(photos_max_et.text.toString())
-        } else if (rooms_min.text.isNotEmpty()) {
-            sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        } else if (rooms_max.text.isNotEmpty()) {
-            sb.append("rooms <= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
-        }
-
-
         sb.append("sold = ? ")
         bindArgs.add(sold.toString())
 
@@ -162,4 +146,5 @@ class SearchManager {
     fun getArgs(): Array<String> {
         return bindArgs.toTypedArray()
     }
+
 }
