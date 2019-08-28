@@ -70,7 +70,7 @@ class EditActivity : BaseActivityUIInformation() {
         description_et.setText(realEstate.description)
         latitude = realEstate.latitude!!
         longitude = realEstate.longitude!!
-        address = realEstate.address!!
+        address = realEstate.address
         city = realEstate.city
     }
 
@@ -126,9 +126,8 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     override fun createRealEstate() {
-        Log.e("edit", "update clicket " + sold + endDate)
         val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, city!!, sold, startDate, endDate, agent
+                rooms, bathrooms, address, city, sold, startDate, endDate, agent
         )
 
         viewModel?.updateRealEstate(realEstate)
@@ -137,7 +136,7 @@ class EditActivity : BaseActivityUIInformation() {
 
             //If photo has been deleted, remove it from database
             if (photo.text.equals("Deleted") && photo.id != null) {
-                viewModel?.deletePhoto(photo.id!!)
+                viewModel?.deletePhoto(photo.id)
                 photos.remove(photo)
             } else if (photo.text.equals("Deleted")) {
                 photos.remove(photo)
@@ -154,9 +153,9 @@ class EditActivity : BaseActivityUIInformation() {
     private fun startDatePicker() {
         sold = "true"
 
-        var cal = Calendar.getInstance()
+        val cal = Calendar.getInstance()
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
