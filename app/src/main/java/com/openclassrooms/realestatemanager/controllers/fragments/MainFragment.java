@@ -76,9 +76,8 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         this.realEstateViewModel.fetchAllRealEstates().observe(this, this::updateItemsList);
     }
 
-    public void updateItemsList(List<RealEstate> realEstateList) {
+    private void updateItemsList(List<RealEstate> realEstateList) {
         this.adapter.updateData(realEstateList);
-        Log.e("mainfr", "update data");
     }
 
     public void convertCurrency(String currency) {

@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.controllers.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.MapPopUp
+import com.openclassrooms.realestatemanager.view.PopUps.MapPopUp
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*

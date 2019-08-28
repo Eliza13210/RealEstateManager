@@ -56,7 +56,7 @@ public class DetailActivity extends AppCompatActivity {
     private void edit() {
         Log.e("Detail", "edit clicked with tag " + tag);
         Intent i = new Intent(this, EditActivity.class);
-        i.putExtra("RealEstateId", tag);
+        i.putExtra(EXTRA_TAG, tag);
         startActivity(i);
 
     }

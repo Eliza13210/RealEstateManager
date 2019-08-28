@@ -27,7 +27,6 @@ class RealEstateAdapter(val context: Context) : RecyclerView.Adapter<RealEstateV
     fun updateData(items: List<RealEstate>) {
         this.realEstateList = items as ArrayList<RealEstate>
         this.notifyDataSetChanged()
-        Log.e("adapter", "updating with " + realEstateList.size)
     }
 
     fun convertCurrency(convertToCurrency: String){

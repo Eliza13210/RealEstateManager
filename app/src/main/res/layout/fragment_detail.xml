@@ -18,8 +18,7 @@
         <TextView
             android:id="@+id/title_media"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:text="Media"
             android:textSize="@dimen/head_text_size" />
 
@@ -34,8 +33,7 @@
         <TextView
             android:id="@+id/title_description"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:text="Description"
             android:textSize="@dimen/head_text_size" />
 

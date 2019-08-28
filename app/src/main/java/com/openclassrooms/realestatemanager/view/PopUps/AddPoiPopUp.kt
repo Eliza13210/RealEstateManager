@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.view
+package com.openclassrooms.realestatemanager.view.PopUps
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -28,7 +28,7 @@ class AddPoiPopUp(var context: Context, private var listOfPoi: List<String>, var
             val sb = StringBuilder()
             for (string in listOfPoi) {
                 sb.append(string)
-                sb.append(System.getProperty("line.separator"))
+                sb.append(", ")
             }
             poi_tv.text = sb.toString()
 

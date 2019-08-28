@@ -25,10 +25,10 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.AddPhotoPopUp
-import com.openclassrooms.realestatemanager.view.AddPoiPopUp
+import com.openclassrooms.realestatemanager.view.PopUps.AddPhotoPopUp
+import com.openclassrooms.realestatemanager.view.PopUps.AddPoiPopUp
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
-import com.openclassrooms.realestatemanager.view.PhotoPopUp
+import com.openclassrooms.realestatemanager.view.PopUps.PhotoPopUp
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*

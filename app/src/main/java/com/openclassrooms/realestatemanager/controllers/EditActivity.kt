@@ -1,12 +1,13 @@
 package com.openclassrooms.realestatemanager.controllers
 
 import android.app.DatePickerDialog
-import android.os.Bundle
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.Utils
+import com.openclassrooms.realestatemanager.controllers.MainActivity.EXTRA_TAG
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -18,16 +19,21 @@ import java.util.*
 
 class EditActivity : BaseActivityUIInformation() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var startDatePicker=true
 
-        val bundle: Bundle? = intent.extras
-        if (bundle != null) {
-            realEstateId = bundle.getLong("RealEstateId", 0)
-            initRealEstate(realEstateId)
-            getPhotos(realEstateId)
-        }
+    override fun onNewIntent(intent: Intent?) {
+        if (intent != null)
+            setIntent(intent)
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Get tag from intent
+        realEstateId = intent.getLongExtra(EXTRA_TAG, 0)
+        initRealEstate(realEstateId)
+        getPhotos(realEstateId)
+    }
+
 
     override fun getLayoutView(): Int {
         return R.layout.activity_edit
@@ -42,11 +48,15 @@ class EditActivity : BaseActivityUIInformation() {
 
 
     private fun updateDetails(realEstate: RealEstate) {
-        Log.e("edit", realEstate.agent)
         agent_et.setText(realEstate.agent)
         type_tv.setText(realEstate.type)
         surface_tv.setText(realEstate.surface)
         price_tv.setText(realEstate.price)
+        poi_tv.text = realEstate.pointsOfInterest
+        description_et.setText(realEstate.description)
+        if(realEstate.sold=="true") startDatePicker=false
+        check_sold.isChecked=(realEstate.sold=="true")
+        end_date.text=if(realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
 
         var roomsNb: Int? = realEstate.rooms?.toIntOrNull()
         if (roomsNb != null) spinner_rooms.setSelection(roomsNb) else spinner_rooms.setSelection(0)
@@ -72,7 +82,6 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     private fun updatePhotoList(list: List<Photo>) {
-        Log.e("edit act", "list of photos=" + list.size)
         photos.addAll(list)
         this.photoAdapter.updateData(list)
     }
@@ -80,14 +89,15 @@ class EditActivity : BaseActivityUIInformation() {
 
     override fun initButtons() {
         btn_update.setOnClickListener { getInfoFromUI() }
-        check_sold.setOnCheckedChangeListener { buttonView, isChecked ->
+        check_sold.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sold = "true"
-                startDatePicker()
+                if(startDatePicker)startDatePicker()
             } else {
                 sold = "false"
                 endDate = ""
                 end_date.text = ""
+                startDatePicker=true
             }
         }
     }
@@ -101,8 +111,6 @@ class EditActivity : BaseActivityUIInformation() {
         description = description_et.text.toString()
         surface = surface_tv.text.toString()
         endDate = end_date.text.toString()
-
-        Log.e("check if", "is sold " + sold + " " + endDate)
 
         //Check if end date is picked when object is sold before updating
         if (sold == "true") {

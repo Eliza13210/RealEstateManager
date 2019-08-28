@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.view;
+package com.openclassrooms.realestatemanager.view.PopUps;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.models.Photo;
+import com.openclassrooms.realestatemanager.view.PhotoAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

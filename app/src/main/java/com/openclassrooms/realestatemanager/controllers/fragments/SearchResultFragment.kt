@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.controllers.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,17 +25,15 @@ class SearchResultFragment : Fragment(),  RealEstateViewHolder.OnItemClickedList
     }
 
     private fun configureRecyclerView() {
-        realEstateAdapter=RealEstateAdapter(context!!)
+        realEstateAdapter= RealEstateAdapter(context!!)
         recyclerview_list_real_estates.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = realEstateAdapter
-            Log.e("init adapter", "adapter")
         }
     }
 
     fun updateItemsList(realEstateList: List<RealEstate>) {
         this.realEstateAdapter!!.updateData(realEstateList)
-        Log.e("mainfr", "update data")
     }
 
     override fun onItemClick(id: Long) {}
