@@ -11,7 +11,6 @@
     <string name="house">House</string>
     <string name="flat">Flat</string>
     <string name="other">Other:</string>
-    <string name="surface">Surface</string>
     <string name="m2">m2</string>
     <string name="price">Price</string>
     <string name="dollar">$</string>
@@ -107,18 +106,27 @@
     <string name="train_station">Train station</string>
     <string name="city">City</string>
     <string name="map_view">Map view</string>
-    <string name="update">Update</string>
     <string name="choose_item_to_edit">Choose an item to edit first</string>
     <string name="photo_not_taken">No photo was taken</string>
     <string name="reset">Reset</string>
     <string name="click_to_pick_a_date">Click to pick a date</string>
     <string name="convert_to_euro">Convert to Euro</string>
     <string name="convert_to_dollar">Convert to Dollar</string>
+
+    <string name="update">Update</string>
     <string name="points_of_interest">Points of interest</string>
+    <string name="surface">Surface</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_results">Search results</string>
+    <string name="description_popup_title">Description</string>
+    <string name="cancel">Cancel</string>
+    <string name="photo_added">Photo added</string>
+    <string name="type_tag_house">tag_house</string>
+    <string name="type_tag_appartement">tag_apartement</string>
+    <string name="no_video_saved">No video saved</string>
+    <string name="bathroom">Bathroom</string>
 
 
 </resources>

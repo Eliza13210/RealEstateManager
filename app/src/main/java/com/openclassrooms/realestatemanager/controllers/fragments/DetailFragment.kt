@@ -14,14 +14,15 @@ import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.PopUps.MapPopUp
+import com.openclassrooms.realestatemanager.view.popUps.MapPopUp
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
+import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
+import java.util.ArrayList
 
 
-class DetailFragment : Fragment() {
-
+class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     private lateinit var viewModel: RealEstateViewModel
     private var realEstateId: Long = 0
@@ -51,17 +52,14 @@ class DetailFragment : Fragment() {
         }
     }
 
-    // Configuring ViewModel a
     private fun configureViewModel() {
         val mViewModelFactory = Injection.provideViewModelFactory(activity)
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
     }
 
-    // Get Current real estate
     private fun getCurrentRealEstate(id: Long) {
         this.viewModel.getRealEstate(id).observe(this, Observer<RealEstate> { this.updateDetails(it) }
         )
-
     }
 
     private fun updateDetails(realEstate: RealEstate) {
@@ -93,14 +91,31 @@ class DetailFragment : Fragment() {
         }
     }
 
-    //  Get all photos
     private fun getPhotos() {
         this.viewModel.getPhotos(realEstateId).observe(this, Observer<List<Photo>> { this.updatePhotoList(it) })
     }
 
-    //Show photos in recyclerview
+    //Show photos in recycler view
     private fun updatePhotoList(list: List<Photo>) {
         this.photos = list
         this.photoAdapter.updateData(list)
+    }
+
+    // --------------
+    // CallBack
+    // Handle click in photo recycler view to show photo or video in popup
+    // --------------
+    override fun onItemClick(id: Long?, position: Int?) {
+        val photoPopup = PhotoPopUp(context!!)
+        var photo: Photo? = null
+        if (id != null) {
+            for (p in photos!!) {
+                if (p.id == id)
+                    photo = p
+            }
+        } else {
+            photo = photos?.get(position!!)
+        }
+        photoPopup.popUp(photo!!.url, photos as ArrayList<Photo>, photo.type!!, photoAdapter, position)
     }
 }

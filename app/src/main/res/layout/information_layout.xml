@@ -2,207 +2,211 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_create_act"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
+    <!--AGENT REAL ESTATE-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_create_act"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
 
-        <!--AGENT REAL ESTATE-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agent"
+            android:textSize="@dimen/text_size_create_act"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/agent_et"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="30"
+            android:textSize="@dimen/text_size_edit_text"
+            android:autofillHints="@string/agent" />
+    </LinearLayout>
+
+    <!--TYPE-->
+    <include
+        layout="@layout/type_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <!--SURFACE -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/agent"
+                android:text="@string/surface"
                 android:textSize="@dimen/text_size_create_act"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/agent_et"
+                android:id="@+id/surface_tv"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLength="30"
+                android:hint="@string/m2"
+                android:inputType="number"
+                android:maxLength="8"
+                android:textAlignment="textEnd"
                 android:textSize="@dimen/text_size_edit_text" />
         </LinearLayout>
 
-        <!--TYPE-->
-        <include
-            layout="@layout/type_details_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
 
+        <!--PRICE -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <!--SURFACE -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Surface"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/surface_tv"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/m2"
-                    android:inputType="number"
-                    android:maxLength="8"
-                    android:textAlignment="textEnd"
-                    android:textSize="@dimen/text_size_edit_text" />
-            </LinearLayout>
-
-
-            <!--PRICE -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/price_tv"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/dollar"
-                    android:inputType="number"
-                    android:maxLength="10"
-                    android:textAlignment="textEnd"
-                    android:textSize="@dimen/text_size_edit_text" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!--ROOM SPINNERS-->
-        <include
-            layout="@layout/room_details_layout"
-            android:layout_width="300dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.5" />
-
-
-        <!--CAMERA OR GALLERY -->
-        <LinearLayout
-            android:id="@+id/gallery_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="0.3"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/ic_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_create_act"
-                android:background="@drawable/ic_camera"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/ic_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_create_act"
-                android:background="@drawable/ic_pick_photo"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <!--PHOTOS-->
-            <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/recyclerview_photos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_create_act"
-                android:layout_marginEnd="@dimen/margin_create_act"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/points_of_interest"
-                android:textSize="@dimen/text_size" />
-
-            <ImageView
-                android:id="@+id/ic_add_poi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_create_act"
-                android:src="@drawable/ic_action_add_dark" />
-
-            <TextView
-                android:id="@+id/poi_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_create_act"
-                android:textSize="@dimen/text_size" />
-
-        </LinearLayout>
-
-        <!--DESCRIPTION -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.6"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/description"
+                android:text="@string/price"
                 android:textSize="@dimen/text_size_create_act"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/description_et"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="3"
-                android:hint="..."
-                android:inputType="textCapSentences|textMultiLine"
-                android:paddingLeft="10dp"
+                android:id="@+id/price_tv"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/dollar"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textAlignment="textEnd"
                 android:textSize="@dimen/text_size_edit_text" />
         </LinearLayout>
+    </LinearLayout>
+
+    <!--ROOM SPINNERS-->
+    <include
+        layout="@layout/room_details_layout"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.5" />
+
+
+    <!--VIDEO OR CAMERA OR GALLERY -->
+    <LinearLayout
+        android:id="@+id/gallery_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ic_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_create_act"
+            android:background="@drawable/ic_action_video"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/ic_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_create_act"
+            android:background="@drawable/ic_camera"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/ic_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_create_act"
+            android:background="@drawable/ic_pick_photo"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!--PHOTOS-->
+        <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/recyclerview_photos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_create_act"
+            android:layout_marginEnd="@dimen/margin_create_act"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/points_of_interest"
+            android:textSize="@dimen/text_size" />
+
+        <ImageView
+            android:id="@+id/ic_add_poi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_create_act"
+            android:src="@drawable/ic_action_add_dark" />
+
+        <TextView
+            android:id="@+id/poi_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_create_act"
+            android:textSize="@dimen/text_size" />
+
+    </LinearLayout>
+
+    <!--DESCRIPTION -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.6"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/description"
+            android:textSize="@dimen/text_size_create_act"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/description_et"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="3"
+            android:hint="..."
+            android:inputType="textCapSentences|textMultiLine"
+            android:paddingLeft="10dp"
+            android:textSize="@dimen/text_size_edit_text" />
     </LinearLayout>
 </LinearLayout>

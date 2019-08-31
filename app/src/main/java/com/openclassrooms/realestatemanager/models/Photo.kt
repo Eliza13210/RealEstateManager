@@ -12,14 +12,18 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["realEstateId"],
             onDelete = CASCADE)])
-data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null, var realEstateId: Long, var url: String, var text: String? = "") {
+data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null,
+                 var realEstateId: Long,
+                 var url: String,
+                 var text: String? = "",
+                 var type: String? = null) {
 
     companion object {
         // --- UTILS ---
         fun fromContentValues(values: ContentValues): Photo {
             val photo = Photo(null, values.getAsLong("realEstateId"), values.getAsString("url"))
-
             if (values.containsKey("text")) photo.text = values.getAsString("text")
+            if (values.containsKey("type")) photo.type = values.getAsString("type")
             return photo
         }
     }

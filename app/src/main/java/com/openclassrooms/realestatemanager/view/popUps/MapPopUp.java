@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.view.PopUps;
+package com.openclassrooms.realestatemanager.view.popUps;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +13,10 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 import androidx.appcompat.app.AlertDialog;
+
+/**
+ * Popup dialog showing map
+ */
 
 public class MapPopUp {
 

@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.view.PopUps
+package com.openclassrooms.realestatemanager.view.popUps
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,21 +10,26 @@ import androidx.appcompat.app.AlertDialog
 import com.openclassrooms.realestatemanager.R
 import java.util.*
 
-class AddPoiPopUp(var context: Context, private var listOfPoi: List<String>, var poi_tv: TextView) {
+/**
+ * Popup dialog allowing user to add points of interests to real estate object. The points of interests will be shown in the text view
+ * in the activity
+ */
+
+class AddPoiPopUp(var context: Context, private var listOfPoi: List<String>, private var poi_tv: TextView) {
 
     fun popUpDialog() {
         val builder = AlertDialog.Builder(context, R.style.Theme_AppCompat_Light_Dialog_Alert)
-        builder.setTitle("Points of interest")
+        builder.setTitle(context.getString(R.string.points_of_interest))
 
         // set the custom layout
         val customLayout = LayoutInflater.from(context).inflate(R.layout.popup_poi, null)
         builder.setView(customLayout)
 
         // Set up the buttons
-        builder.setPositiveButton("Update") { dialog, i ->
+        builder.setPositiveButton(context.getString(R.string.update)) { dialog, _ ->
 
             //When user validate
-             listOfPoi = getInfoFromCheckBox(customLayout)
+            listOfPoi = getInfoFromCheckBox(customLayout)
             val sb = StringBuilder()
             for (string in listOfPoi) {
                 sb.append(string)
@@ -34,7 +39,7 @@ class AddPoiPopUp(var context: Context, private var listOfPoi: List<String>, var
 
             dialog.dismiss()
         }
-        builder.setNegativeButton("Annuler") { dialog, _ -> dialog.cancel() }
+        builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.cancel() }
         val dialog = builder.create()
         Objects.requireNonNull(dialog.window).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
@@ -64,5 +69,4 @@ class AddPoiPopUp(var context: Context, private var listOfPoi: List<String>, var
         }
         return result
     }
-
 }
