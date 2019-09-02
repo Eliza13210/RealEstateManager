@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.view
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +31,11 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
         holder.bindPhoto(itemPhoto, context!!, position)
     }
 
-    fun updateData(items: List<Photo>) {
-        this.listOfPhotos = items as ArrayList<Photo>
+    fun updateData(items: List<Photo>?, photo: Photo?) {
+       if(items !=null) this.listOfPhotos = items as ArrayList<Photo>
+        if(photo!=null)this.listOfPhotos.add(photo)
+
+        Log.e("popup", "delete photo "  + listOfPhotos.size)
         this.notifyDataSetChanged()
     }
 

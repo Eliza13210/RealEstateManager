@@ -40,6 +40,8 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
     TextView location;
     @BindView(R.id.item_price)
     TextView price;
+    @BindView(R.id.item_sold)
+    TextView sold;
 
     //Declare callback
     private OnItemClickedListener callback;
@@ -123,6 +125,9 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
             sb.append(" €");
         }
         price.setText(sb.toString());
+        if (realEstateItem.getSold().equals("true")) {
+            sold.setVisibility(View.VISIBLE);
+        }
 
         itemView.setOnClickListener(v -> {
             // Spread the click to the parent activity

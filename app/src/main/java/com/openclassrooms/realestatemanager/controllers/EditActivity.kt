@@ -2,6 +2,8 @@ package com.openclassrooms.realestatemanager.controllers
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.AsyncTask
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -19,15 +21,15 @@ import java.util.*
 
 class EditActivity : BaseActivityUIInformation() {
 
-    private var startDatePicker=true
+    private var startDatePicker = true
 
     override fun onNewIntent(intent: Intent?) {
         if (intent != null)
             setIntent(intent)
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         // Get tag from intent
         realEstateId = intent.getLongExtra(EXTRA_TAG, 0)
         initRealEstate(realEstateId)
@@ -54,18 +56,18 @@ class EditActivity : BaseActivityUIInformation() {
         price_tv.setText(realEstate.price)
         poi_tv.text = realEstate.pointsOfInterest
         description_et.setText(realEstate.description)
-        if(realEstate.sold=="true") startDatePicker=false
-        check_sold.isChecked=(realEstate.sold=="true")
-        end_date.text=if(realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
+        if (realEstate.sold == "true") startDatePicker = false
+        check_sold.isChecked = (realEstate.sold == "true")
+        end_date.text = if (realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
 
         var roomsNb: Int? = realEstate.rooms?.toIntOrNull()
         if (roomsNb != null) spinner_rooms.setSelection(roomsNb) else spinner_rooms.setSelection(0)
 
         roomsNb = realEstate.bathrooms?.toIntOrNull()
-        if (roomsNb != null) spinner_rooms.setSelection(roomsNb) else spinner_rooms.setSelection(0)
+        if (roomsNb != null) spinner_bathrooms.setSelection(roomsNb) else spinner_bathrooms.setSelection(0)
 
         roomsNb = realEstate.bedrooms?.toIntOrNull()
-        if (roomsNb != null) spinner_rooms.setSelection(roomsNb) else spinner_rooms.setSelection(0)
+        if (roomsNb != null) spinner_bedrooms.setSelection(roomsNb) else spinner_bedrooms.setSelection(0)
 
         description_et.setText(realEstate.description)
         latitude = realEstate.latitude!!
@@ -82,8 +84,10 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     private fun updatePhotoList(list: List<Photo>) {
+        photos.clear()
         photos.addAll(list)
-        this.photoAdapter.updateData(list)
+        Log.e("edit", "how many photos " + photos.size)
+        this.photoAdapter.updateData(list, null)
     }
 
 
@@ -92,20 +96,18 @@ class EditActivity : BaseActivityUIInformation() {
         check_sold.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sold = "true"
-                if(startDatePicker)startDatePicker()
+                if (startDatePicker) startDatePicker()
             } else {
                 sold = "false"
                 endDate = ""
                 end_date.text = ""
-                startDatePicker=true
+                startDatePicker = true
             }
         }
     }
 
 
     override fun getInfoFromUI() {
-
-        Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
         agent = agent_et.text.toString()
         price = price_tv.text.toString()
         description = description_et.text.toString()
@@ -122,32 +124,29 @@ class EditActivity : BaseActivityUIInformation() {
         } else {
             createRealEstate()
         }
-
     }
 
     override fun createRealEstate() {
         val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, city, sold, startDate, endDate, agent
-        )
+                rooms, bathrooms, address, city, sold, startDate, endDate, agent)
 
-        viewModel?.updateRealEstate(realEstate)
-
-        for (photo in photos) {
-
-            //If photo has been deleted, remove it from database
-            if (photo.text.equals("Deleted") && photo.id != null) {
-                viewModel?.deletePhoto(photo.id)
-                photos.remove(photo)
-            } else if (photo.text.equals("Deleted")) {
-                photos.remove(photo)
-            }
-
-            //Id will be null if not yet added to database, that means that it is a new photo that needs to be added
-            if (photo.id == null && !photo.text.equals("Deleted")) {
-                photo.realEstateId = realEstateId
-                viewModel?.createPhoto(photo)
+        AsyncTask.execute {
+            viewModel?.updateRealEstate(realEstate)
+            for (photo in photos) {
+                //If photo has been deleted, remove it from database
+                if (photo.text.equals("Deleted") && photo.id != null) {
+                    viewModel?.deletePhoto(photo.id)
+                    Log.e("edit", "delete photos " + photo.id + "size " + photos.size)
+                }
+                //Id will be null if not yet added to database, that means that it is a new photo that needs to be added
+                if (photo.id == null && !photo.text.equals("Deleted")) {
+                    photo.realEstateId = realEstateId
+                    viewModel?.createPhoto(photo)
+                    Log.e("edit", "create photos " + photo.realEstateId)
+                }
             }
         }
+        Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
     }
 
     private fun startDatePicker() {

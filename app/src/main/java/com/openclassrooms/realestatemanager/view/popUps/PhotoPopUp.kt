@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.view.popUps
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
@@ -33,7 +34,7 @@ class PhotoPopUp(var context: Context) {
         val customLayout = LayoutInflater.from(context).inflate(R.layout.popup_photo, null)
         builder.setView(customLayout)
         val imageView = customLayout.findViewById<ImageView>(R.id.popup_image)
-        imageView.popup_edit_tv.visibility = View.INVISIBLE
+        customLayout.popup_edit_tv.visibility = View.INVISIBLE
 
         //IF PHOTO
         if (type == "photo") {
@@ -63,7 +64,8 @@ class PhotoPopUp(var context: Context) {
                 //When user validate
                 photos[position!!].text = "Deleted"
 
-                photoAdapter.updateData(photos)
+                Log.e("popup", "delete photo " + position + " " + photos.size)
+                photoAdapter.updateData(photos,null)
 
                 Toast.makeText(context, context.getString(R.string.deleted), Toast.LENGTH_SHORT).show()
 

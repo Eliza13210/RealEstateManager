@@ -32,7 +32,7 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
         //Initiate toolbar to navigate back
         this.setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener { startActivity(Intent(this, SearchActivity::class.java)) }
     }
 
     private fun showListFragment() {

@@ -98,14 +98,11 @@ public class Utils {
                 return null;
             }
         } catch (IOException ex) {
-            Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
         }
         //Save user address
         SharedPreferences pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
         pref.edit().putString("CurrentCity", userCity).apply();
-        Log.e("utils lat lng ", userCity);
-
         return latLng;
     }
 

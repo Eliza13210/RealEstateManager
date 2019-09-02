@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.view.popUps;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,7 +58,10 @@ public class AddPhotoPopUp {
 
             Photo photo = new Photo(null, 1, uri, photoText, type);
             photos.add(photo);
-            photoAdapter.updateData(photos);
+
+            Log.e("popup", "add photo "  + photos.size());
+
+            photoAdapter.updateData(null, photo);
 
             Toast.makeText(context, R.string.photo_added, Toast.LENGTH_SHORT).show();
 

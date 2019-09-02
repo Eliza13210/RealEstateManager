@@ -22,10 +22,6 @@ public interface RealEstateDao {
     @Query("SELECT * FROM RealEstate")
     LiveData<List<RealEstate>> getAllRealEstates();
 
-    //CHECK IF REAL ESTATE ALREADY EXISTS
-    @Query("SELECT * FROM RealEstate WHERE latitude = :latitude AND longitude =:longitude")
-    LiveData<RealEstate> checkLatLng(String latitude, String longitude);
-
     //TELL WHICH TABLE TO BE OBSERVED IN ORDER TO GET LIVE DATA
     @RawQuery(observedEntities = RealEstate.class)
     LiveData<List<RealEstate>> searchRealEstates(SupportSQLiteQuery query);

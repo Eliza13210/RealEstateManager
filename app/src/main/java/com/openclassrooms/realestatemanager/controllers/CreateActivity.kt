@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.FetchUserLocation
 import com.openclassrooms.realestatemanager.R
@@ -16,6 +15,7 @@ import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
+import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 
@@ -80,30 +80,10 @@ class CreateActivity : BaseActivityUIInformation() {
      */
     private fun checkAddress() {
         address = address_tv.text.toString()
-        latLng = Utils.getLatLngFromAddress(this, address)
-
-        if (latLng != null)
-            checkIfRealEstateExists(latLng!!)
-    }
-
-    /**
-     * Check if a real estate with the same LatLng exists already
-     */
-    private fun checkIfRealEstateExists(latLng: LatLng) {
-        val lat = latLng.latitude
-        latitude = lat.toString()
-        val lon = latLng.longitude
-        longitude = lon.toString()
-
-        this.viewModel?.checkLatLng(latitude, longitude)?.observe(this, Observer<RealEstate> {
-            if (it != null) {
-
-                Log.e("exists", it.city + it.id)
-                realEstateExists = true
-                Toast.makeText(this, "There is already a real estate with the same address, are you sure you want to create a new item? ",
-                        Toast.LENGTH_SHORT).show()
-            }
-        })
+        AsyncTask.execute {
+            latLng = Utils.getLatLngFromAddress(this, address)
+            Log.e("create", latLng.toString())
+        }
     }
 
 
@@ -122,6 +102,8 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = surface_tv.text.toString()
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
+        latitude = latLng!!.latitude.toString()
+        longitude = latLng!!.longitude.toString()
 
         if (agent.isNotEmpty()) {
             if (address.isNotEmpty()) {
@@ -169,7 +151,7 @@ class CreateActivity : BaseActivityUIInformation() {
 
     private fun resetUI() {
         photos = ArrayList()
-        photoAdapter.updateData(photos)
+        photoAdapter.updateData(photos, null)
         type = ""
         type_tv.setText("")
         price = ""
@@ -191,5 +173,9 @@ class CreateActivity : BaseActivityUIInformation() {
         listPoi = ArrayList()
         latitude = ""
         longitude = ""
+        poi_tv.text = ""
+        spinner_bathrooms.setSelection(0)
+        spinner_bedrooms.setSelection(0)
+        spinner_rooms.setSelection(0)
     }
 }

@@ -98,7 +98,7 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
     //Show photos in recycler view
     private fun updatePhotoList(list: List<Photo>) {
         this.photos = list
-        this.photoAdapter.updateData(list)
+        this.photoAdapter.updateData(list,null)
     }
 
     // --------------

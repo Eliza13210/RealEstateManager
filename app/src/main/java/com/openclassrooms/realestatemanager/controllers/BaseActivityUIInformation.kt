@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -88,6 +89,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         setContentView(getLayoutView())
         initAnimation(savedInstanceState)
         initToolbar()
+        checkIfTablet()
         initRecyclerView()
         initViewModel()
         initButtons()
@@ -96,6 +98,14 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     }
 
     abstract fun getLayoutView(): Int
+
+    private fun checkIfTablet() {
+
+        // WILL BE FALSE IF TABLET
+        if (resources.getBoolean(R.bool.portrait_only)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+    }
 
     private fun initAnimation(savedInstanceState: Bundle?) {
         val animate = Animation()
@@ -187,6 +197,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 house_tv.setBackgroundResource(R.color.white)
                 apartement_tv.setBackgroundResource(R.color.white)
+                type=type_tv.text.toString()
             }
 
             override fun afterTextChanged(s: Editable) {
@@ -306,8 +317,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
                         applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
                         videoFile)
                 takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
-                takeVideoIntent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 15000000L)
-                takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 6)
                 startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
             }
         }

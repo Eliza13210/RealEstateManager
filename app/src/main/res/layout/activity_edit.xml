@@ -22,7 +22,8 @@
                 layout="@layout/information_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="8" />
+                android:layout_weight="8"
+                android:layout_margin="@dimen/margin_create_act"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

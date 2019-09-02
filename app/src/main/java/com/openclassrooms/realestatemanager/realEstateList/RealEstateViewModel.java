@@ -1,7 +1,5 @@
 package com.openclassrooms.realestatemanager.realEstateList;
 
-import android.util.Log;
-
 import com.openclassrooms.realestatemanager.models.Photo;
 import com.openclassrooms.realestatemanager.models.RealEstate;
 import com.openclassrooms.realestatemanager.repositories.PhotoDataRepository;
@@ -13,7 +11,6 @@ import java.util.concurrent.Executor;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.sqlite.db.SimpleSQLiteQuery;
 
 public class RealEstateViewModel extends ViewModel {
 
@@ -46,10 +43,6 @@ public class RealEstateViewModel extends ViewModel {
 
     public LiveData<RealEstate> getRealEstate(long realEstateId) {
         return realEstateDataSource.getRealEstate(realEstateId);
-    }
-
-    public LiveData<RealEstate> checkLatLng(String latitude, String longitude) {
-        return realEstateDataSource.checkLatLng(latitude, longitude);
     }
 
     public LiveData<List<RealEstate>> fetchAllRealEstates() {
