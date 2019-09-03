@@ -50,7 +50,7 @@ public class UtilsTest {
     public void convertDollarToEuro() {
 
         int value = Utils.convertDollarToEuro(500);
-        int expectedValue = 560;
+        int expectedValue = 406;
 
         assertEquals(expectedValue, value);
     }

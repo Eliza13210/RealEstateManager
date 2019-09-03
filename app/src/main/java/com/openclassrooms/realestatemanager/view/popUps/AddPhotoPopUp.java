@@ -61,7 +61,7 @@ public class AddPhotoPopUp {
 
             Log.e("popup", "add photo "  + photos.size());
 
-            photoAdapter.updateData(null, photo);
+            photoAdapter.updateData(photos, null);
 
             Toast.makeText(context, R.string.photo_added, Toast.LENGTH_SHORT).show();
 

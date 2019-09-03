@@ -102,11 +102,11 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = surface_tv.text.toString()
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
-        latitude = latLng!!.latitude.toString()
-        longitude = latLng!!.longitude.toString()
 
         if (agent.isNotEmpty()) {
             if (address.isNotEmpty()) {
+                latitude = latLng!!.latitude.toString()
+                longitude = latLng!!.longitude.toString()
                 createRealEstate()
             } else {
                 Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()

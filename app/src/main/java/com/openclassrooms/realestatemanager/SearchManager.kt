@@ -77,7 +77,7 @@ class SearchManager {
             bindArgs.add(price_max.text.toString())
         } else if (price_min.text.isNotEmpty()) {
             sb.append("price >= ? AND ")
-            bindArgs.add(surface_min.text.toString())
+            bindArgs.add(price_min.text.toString())
         } else if (price_max!!.text.isNotEmpty()) {
             sb.append("price <= ? AND ")
             bindArgs.add(price_max.text.toString())
@@ -90,7 +90,7 @@ class SearchManager {
             bindArgs.add(rooms_max.text.toString())
         } else if (rooms_min.text.isNotEmpty()) {
             sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_max!!.text.toString())
+            bindArgs.add(rooms_min!!.text.toString())
         } else if (rooms_max!!.text.isNotEmpty()) {
             sb.append("rooms <= ? AND ")
             bindArgs.add(rooms_max.text.toString())

@@ -33,22 +33,9 @@ class SearchActivity : AppCompatActivity() {
 
     private var viewModel: RealEstateViewModel? = null
 
-    // For creating real estate object
-    private var photos = ArrayList<Photo>()
     private var type = ""
-    private var price = ""
-    private var description = ""
-    private var surface = ""
-    private var rooms = ""
-    private var bathrooms = ""
-    private var address = ""
     private var sold = false
-    private var startDate = ""
-    private var endDate = ""
-    private var agent = ""
-    private var listPoi: List<String> = ArrayList()
     private var updatedList = ArrayList<RealEstate>()
-    private var bedrooms: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
         //Initiate toolbar to navigate back
         this.setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { v -> startActivity(Intent(this, MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
     }
 
     private fun initClickableItems() {
@@ -91,7 +78,6 @@ class SearchActivity : AppCompatActivity() {
         //BUTTON SEARCH
         btn_search.setOnClickListener {
             getQueryFromUI()
-            Log.e("search", "clicked button")
         }
 
         //CHECKBOX SOLD
@@ -121,22 +107,20 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        var dialog = DatePickerDialog(this@SearchActivity, dateSetListener,
+        val dialog = DatePickerDialog(this@SearchActivity, dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH))
 
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", DialogInterface.OnClickListener { dialog, which ->
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel") { _, which ->
             if (which == DialogInterface.BUTTON_NEGATIVE) {
                 editText.text = ""
             }
-        })
-
+        }
         dialog.show()
     }
 
     private fun getInfoFromCheckBox(): List<String> {
-
         val result = ArrayList<String>()
         val checkBoxList = ArrayList<CheckBox>()
         checkBoxList.add(cb_airport)
@@ -231,7 +215,7 @@ class SearchActivity : AppCompatActivity() {
         val max = if (photos_max_et.text.isNotEmpty()) Integer.parseInt(photos_max_et.text.toString()) else 20
         val min = if (photos_min_et.text.isNotEmpty()) Integer.parseInt(photos_min_et.text.toString()) else 0
 
-        if (listPhoto.size in min!!..max!!) {
+        if (listPhoto.size in min..max) {
             updatedList.add(realEstate)
         }
         if (isLast) {
