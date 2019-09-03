@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
@@ -64,10 +65,10 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
 
     private fun updateDetails(realEstate: RealEstate) {
         detail_description.text = realEstate.description
-        detail_surface.text = realEstate.surface
-        detail_rooms.text = realEstate.rooms
-        detail_bathrooms.text = realEstate.bathrooms
-        detail_bedrooms.text = realEstate.bedrooms
+        detail_surface.text = realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) }
+        detail_rooms.text =  realEstate.rooms?.toString()
+        detail_bathrooms.text =  realEstate.bathrooms?.toString()
+        detail_bedrooms.text =  realEstate.bedrooms?.toString()
         detail_address.text = realEstate.address
         detail_poi_tv.text = realEstate.pointsOfInterest
 

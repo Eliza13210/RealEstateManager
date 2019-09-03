@@ -158,11 +158,11 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
             "tag_apartement" -> {
-                if (type == "apartement") {
+                if (type == "flat") {
                     type = ""
                     apartement_tv.setBackgroundResource(R.color.white)
                 } else {
-                    type = "apartement"
+                    type = "flat"
                     house_tv.setBackgroundResource(R.color.white)
                     apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
                 }
@@ -182,7 +182,7 @@ class SearchActivity : AppCompatActivity() {
         val manageSearch = SearchManager()
         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
                 rooms_min, rooms_max, start_date_et,
-                end_date_et, photos_min_et, photos_max_et, cb_sold)
+                end_date_et, cb_sold)
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 

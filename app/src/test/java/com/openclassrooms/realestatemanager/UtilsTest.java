@@ -105,4 +105,17 @@ public class UtilsTest {
         assertTrue(isBefore);
     }
 
+    @Test
+
+    public void convertStringToInt(){
+        int converted=Utils.convertToIntAndMultiply("200.23");
+        assertEquals(20023, converted);
+    }
+
+    @Test
+    public void convertToIntAndMultiply(){
+        String converted=Utils.convertIntToStringAndDivide(20023);
+        assertEquals("200.23", converted);
+    }
+
 }

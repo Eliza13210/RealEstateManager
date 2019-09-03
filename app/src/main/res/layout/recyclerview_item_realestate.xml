@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="2dp"
-            android:text="MANHATTAN"
             android:textSize="@dimen/text_size_list"
             android:textStyle="italic|bold" />
 
@@ -47,7 +46,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="$23,000,000"
             android:textColor="@color/blue"
             android:textSize="@dimen/text_size_list" />
 

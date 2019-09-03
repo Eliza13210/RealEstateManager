@@ -98,33 +98,35 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
 
         getPhotos(realEstateItem.getId(), context);
-        type.setText(realEstateItem.getType().toUpperCase());
+        type.setText(Objects.requireNonNull(realEstateItem.getType()).toUpperCase());
         location.setText(realEstateItem.getCity().toUpperCase());
 
-        int length = Objects.requireNonNull(realEstateItem.getPrice()).length();
-        StringBuilder sb = new StringBuilder();
+        if (realEstateItem.getPrice() != null) {
+            int priceString = Objects.requireNonNull(realEstateItem.getPrice()).toString().length();
 
-        if (currency.equals("dollar")) {
-            sb = new StringBuilder(realEstateItem.getPrice());
-            for (int i = length - 3; i > 0; i = i - 3) {
-                sb.insert(i, ",");
-            }
-            sb.append(" $");
-        } else if (currency.equals("euro")) {
-            if (!realEstateItem.getPrice().isEmpty()) {
-                int price = Integer.parseInt(realEstateItem.getPrice());
-                int eurosInt = Utils.convertDollarToEuro(price);
-                String euros = Integer.toString(eurosInt);
+            StringBuilder sb = new StringBuilder();
 
-                sb = new StringBuilder(euros);
+            if (currency.equals("dollar")) {
+                sb = new StringBuilder(realEstateItem.getPrice().toString());
+                for (int i = 3; i < priceString; i = i + 4) {
+                    sb.insert(i, ",");
+                }
+                sb.append(" $");
+            } else if (currency.equals("euro")) {
+                if (realEstateItem.getPrice() != null) {
+                    int price = realEstateItem.getPrice();
+                    int eurosInt = Utils.convertDollarToEuro(price);
+                    String euros = Integer.toString(eurosInt);
+
+                    sb = new StringBuilder(euros);
+                }
+                for (int i = 3; i < priceString; i = i + 4) {
+                    sb.insert(i, ",");
+                }
+                sb.append(" €");
             }
-            for (int i = length - 3; i > 0; i = i - 3) {
-                sb.insert(i, ",");
-                Log.e("holder", sb.toString());
-            }
-            sb.append(" €");
+            price.setText(sb.toString());
         }
-        price.setText(sb.toString());
         if (realEstateItem.getSold().equals("true")) {
             sold.setVisibility(View.VISIBLE);
         }

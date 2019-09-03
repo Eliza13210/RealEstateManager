@@ -22,7 +22,6 @@ class SearchManager {
                        price_min: EditText?, price_max: EditText?,
                        rooms_min: EditText?, rooms_max: EditText?,
                        start_date_et: TextView?, end_date_et: TextView?,
-                       photos_min_et: EditText?, photos_max_et: EditText?,
                        cb_sold: CheckBox?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
@@ -57,17 +56,19 @@ class SearchManager {
             bindArgs.add(city_et.text.toString().toLowerCase())
         }
 
+        val minimum = Utils.convertToIntAndMultiply(surface_min?.text.toString())
+        val maximum = Utils.convertToIntAndMultiply(surface_max?.text.toString())
         //SURFACE
         if (surface_min!!.text.isNotEmpty() && surface_max!!.text.isNotEmpty()) {
             sb.append("surface BETWEEN ? AND ? AND ")
-            bindArgs.add(surface_min.text.toString())
-            bindArgs.add(surface_max.text.toString())
+            bindArgs.add(minimum.toString())
+            bindArgs.add(maximum.toString())
         } else if (surface_min.text.isNotEmpty()) {
             sb.append("surface >= ? AND ")
-            bindArgs.add(surface_min.text.toString())
+            bindArgs.add(minimum.toString())
         } else if (surface_max!!.text.isNotEmpty()) {
             sb.append("surface <= ? AND ")
-            bindArgs.add(surface_max.text.toString())
+            bindArgs.add(maximum.toString())
         }
 
         //PRICE

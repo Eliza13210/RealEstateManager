@@ -62,16 +62,16 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var viewModel: RealEstateViewModel? = null
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
     protected var realEstateId: Long = 0
-    protected var realEstateExists = false
 
     // For creating real estate object
     protected var photos = ArrayList<Photo>()
     protected var type = ""
-    protected var price = ""
+    protected var price: Int? = null
     protected var description = ""
-    protected var surface = ""
-    protected var rooms = ""
-    protected var bathrooms = ""
+    protected var surface: Int? = null
+    protected var rooms: Int? = null
+    protected var bathrooms: Int? = null
+    protected var bedrooms: Int? = null
     protected var address = ""
     protected var city = ""
     protected var sold = "false"
@@ -80,7 +80,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var agent = ""
     protected var listPoi: List<String> = ArrayList()
     protected var pointsOfInterest = ""
-    protected var bedrooms = ""
     protected var latitude = ""
     protected var longitude = ""
 
@@ -169,21 +168,21 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
                                 pos: Int, id: Long) {
         when (parent.id) {
             R.id.spinner_rooms -> {
-                rooms = parent.getItemAtPosition(pos).toString()
+                rooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
             }
             R.id.spinner_bathrooms -> {
-                bathrooms = parent.getItemAtPosition(pos).toString()
+                bathrooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
             }
             R.id.spinner_bedrooms -> {
-                bedrooms = parent.getItemAtPosition(pos).toString()
+                bedrooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
             }
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>) {
-        rooms = ""
-        bathrooms = ""
-        bedrooms = ""
+        rooms = null
+        bathrooms = null
+        bedrooms = null
     }
 
     private fun initClickableItems() {
@@ -197,7 +196,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 house_tv.setBackgroundResource(R.color.white)
                 apartement_tv.setBackgroundResource(R.color.white)
-                type=type_tv.text.toString()
+                type = type_tv.text.toString()
             }
 
             override fun afterTextChanged(s: Editable) {

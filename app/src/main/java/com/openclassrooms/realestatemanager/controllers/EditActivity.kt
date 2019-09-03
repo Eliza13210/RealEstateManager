@@ -52,22 +52,19 @@ class EditActivity : BaseActivityUIInformation() {
     private fun updateDetails(realEstate: RealEstate) {
         agent_et.setText(realEstate.agent)
         type_tv.setText(realEstate.type)
-        surface_tv.setText(realEstate.surface)
-        price_tv.setText(realEstate.price)
+        surface_tv.setText(realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) })
+        price_tv.setText(realEstate.price?.let { it.toString() })
         poi_tv.text = realEstate.pointsOfInterest
         description_et.setText(realEstate.description)
         if (realEstate.sold == "true") startDatePicker = false
         check_sold.isChecked = (realEstate.sold == "true")
         end_date.text = if (realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
 
-        var roomsNb: Int? = realEstate.rooms?.toIntOrNull()
-        if (roomsNb != null) spinner_rooms.setSelection(roomsNb) else spinner_rooms.setSelection(0)
+        if (realEstate.rooms != null) spinner_rooms.setSelection(realEstate.rooms!!) else spinner_rooms.setSelection(0)
 
-        roomsNb = realEstate.bathrooms?.toIntOrNull()
-        if (roomsNb != null) spinner_bathrooms.setSelection(roomsNb) else spinner_bathrooms.setSelection(0)
+        if (realEstate.bathrooms != null) spinner_bathrooms.setSelection(realEstate.bathrooms!!) else spinner_bathrooms.setSelection(0)
 
-        roomsNb = realEstate.bedrooms?.toIntOrNull()
-        if (roomsNb != null) spinner_bedrooms.setSelection(roomsNb) else spinner_bedrooms.setSelection(0)
+        if (realEstate.bedrooms != null) spinner_bedrooms.setSelection(realEstate.bedrooms!!) else spinner_bedrooms.setSelection(0)
 
         description_et.setText(realEstate.description)
         latitude = realEstate.latitude!!
@@ -109,9 +106,9 @@ class EditActivity : BaseActivityUIInformation() {
 
     override fun getInfoFromUI() {
         agent = agent_et.text.toString()
-        price = price_tv.text.toString()
+        price = Integer.parseInt(price_tv.text.toString())
         description = description_et.text.toString()
-        surface = surface_tv.text.toString()
+        surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         endDate = end_date.text.toString()
 
         //Check if end date is picked when object is sold before updating

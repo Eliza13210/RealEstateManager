@@ -97,14 +97,16 @@ class CreateActivity : BaseActivityUIInformation() {
 
     override fun getInfoFromUI() {
         agent = agent_et.text.toString()
-        price = price_tv.text.toString()
+        if (price_tv.text.isNotEmpty()) {
+            price = Integer.parseInt(price_tv.text.toString())
+        }
         description = description_et.text.toString()
-        surface = surface_tv.text.toString()
+        surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
 
         if (agent.isNotEmpty()) {
-            if (address.isNotEmpty()) {
+            if (address.isNotEmpty() && latLng != null) {
                 latitude = latLng!!.latitude.toString()
                 longitude = latLng!!.longitude.toString()
                 createRealEstate()
@@ -125,8 +127,9 @@ class CreateActivity : BaseActivityUIInformation() {
             type = type_tv.text.toString()
         }
 
-        city = pref!!.getString("CurrentCity", "Unknown")
+        city = pref!!.getString("CurrentCity", "Unknown")!!
 
+        Log.e("create", "price =" + price)
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, city, "false", startDate, null, agent, pointsOfInterest
         )
@@ -154,15 +157,15 @@ class CreateActivity : BaseActivityUIInformation() {
         photoAdapter.updateData(photos, null)
         type = ""
         type_tv.setText("")
-        price = ""
+        price = null
         price_tv.setText("")
         description = ""
         description_et.setText("")
-        surface = ""
+        surface = null
         surface_tv.setText("")
-        rooms = ""
-        bathrooms = ""
-        bedrooms = ""
+        rooms = null
+        bathrooms = null
+        bedrooms = null
         address = ""
         address_tv.setText("")
         city = ""
