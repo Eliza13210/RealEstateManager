@@ -70,7 +70,7 @@ public class RealEstateContentProviderTest {
             assertThat(cursor, notNullValue());
             assertEquals(cursor.getCount(), 1);
             assertTrue(cursor.moveToFirst());
-            assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("Visite cet endroit de rêve !"));
+            assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("Beautiful house!"));
         });
     }
 
@@ -78,7 +78,7 @@ public class RealEstateContentProviderTest {
 
     private ContentValues generateItem() {
         final ContentValues values = new ContentValues();
-        values.put("description", "Visite cet endroit de rêve !");
+        values.put("description", "Beautiful house!");
         values.put("address", "Killingevag 134");
         values.put("agent", "Theo");
         values.put("id", "1");

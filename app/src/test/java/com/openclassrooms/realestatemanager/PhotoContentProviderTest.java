@@ -80,6 +80,7 @@ public class PhotoContentProviderTest {
         values.put("realEstateId", 1);
         values.put("url", "//");
         values.put("text", "Garden");
+        values.put("type", "photo");
         values.put("id", 1);
         return values;
     }

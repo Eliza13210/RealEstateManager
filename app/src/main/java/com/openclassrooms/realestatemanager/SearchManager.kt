@@ -26,7 +26,7 @@ class SearchManager {
                        cb_sold: CheckBox?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
-        var sold = false
+        var sold = cb_sold!!.isChecked
 
         sb.append("SELECT * FROM RealEstate WHERE ")
 
@@ -56,7 +56,6 @@ class SearchManager {
             sb.append("city LIKE ? AND ")
             bindArgs.add(city_et.text.toString().toLowerCase())
         }
-
 
         //SURFACE
         if (surface_min!!.text.isNotEmpty() && surface_max!!.text.isNotEmpty()) {

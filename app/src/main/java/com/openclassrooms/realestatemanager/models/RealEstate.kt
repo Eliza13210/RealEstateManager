@@ -29,7 +29,7 @@ data class RealEstate(@PrimaryKey(autoGenerate = true) val id: Long? = null,
 
         // --- UTILS ---
         fun fromContentValues(values: ContentValues): RealEstate {
-            val realEstate = RealEstate(values.getAsLong("realEstateId"),
+            val realEstate = RealEstate(values.getAsLong("id"),
                     address = values.getAsString("address"),
                     city = values.getAsString("city"),
                     agent = values.getAsString("agent"))

@@ -31,26 +31,24 @@ import com.openclassrooms.realestatemanager.R
 
 class SearchActivity : AppCompatActivity() {
 
-
     private var viewModel: RealEstateViewModel? = null
-    private var query: String? = null
 
     // For creating real estate object
-    protected var photos = ArrayList<Photo>()
-    protected var type = ""
-    protected var price = ""
-    protected var description = ""
-    protected var surface = ""
-    protected var rooms = ""
-    protected var bathrooms = ""
-    protected var address = ""
-    protected var sold = false
-    protected var startDate = ""
-    protected var endDate = ""
-    protected var agent = ""
-    protected var listPoi: List<String> = ArrayList()
-    var updatedList = ArrayList<RealEstate>()
-    protected var bedrooms: String? = null
+    private var photos = ArrayList<Photo>()
+    private var type = ""
+    private var price = ""
+    private var description = ""
+    private var surface = ""
+    private var rooms = ""
+    private var bathrooms = ""
+    private var address = ""
+    private var sold = false
+    private var startDate = ""
+    private var endDate = ""
+    private var agent = ""
+    private var listPoi: List<String> = ArrayList()
+    private var updatedList = ArrayList<RealEstate>()
+    private var bedrooms: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +69,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initClickableItems() {
-
         // CHOOSE TYPE
         house_tv.setOnClickListener { getType("tag_house") }
         apartement_tv.setOnClickListener { getType("tag_apartement") }
@@ -90,7 +87,6 @@ class SearchActivity : AppCompatActivity() {
                 Log.e("type", type)
             }
         })
-
 
         //BUTTON SEARCH
         btn_search.setOnClickListener {
@@ -175,7 +171,6 @@ class SearchActivity : AppCompatActivity() {
                     //CHANGE COLOR TO SHOW CLICKED
                     house_tv.setBackgroundResource(R.drawable.rounded_corners)
                     apartement_tv.setBackgroundResource(R.color.white)
-                    Log.e("Type ", type)
                 }
             }
             "tag_apartement" -> {
@@ -184,7 +179,6 @@ class SearchActivity : AppCompatActivity() {
                     apartement_tv.setBackgroundResource(R.color.white)
                 } else {
                     type = "apartement"
-                    Log.e("Type ", type)
                     house_tv.setBackgroundResource(R.color.white)
                     apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
                 }
