@@ -4,8 +4,6 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
-import com.openclassrooms.realestatemanager.models.RealEstate
-import kotlinx.android.synthetic.main.activity_search.*
 
 /**
  * Creates Query and arguments for raw query search in activity
@@ -21,6 +19,8 @@ class SearchManager {
                        surface_min: EditText?, surface_max: EditText?,
                        price_min: EditText?, price_max: EditText?,
                        rooms_min: EditText?, rooms_max: EditText?,
+                       bedrooms_min: EditText?, bedrooms_max: EditText?,
+                       bathrooms_min: EditText?, bathrooms_max: EditText?,
                        start_date_et: TextView?, end_date_et: TextView?,
                        cb_sold: CheckBox?) {
 
@@ -46,7 +46,6 @@ class SearchManager {
             for (box in checkbox) {
                 sb.append("pointsOfInterest LIKE ? AND ")
                 bindArgs.add("%$box%")
-                Log.e("search ", "poi is not empty $box")
             }
         }
 
@@ -91,10 +90,36 @@ class SearchManager {
             bindArgs.add(rooms_max.text.toString())
         } else if (rooms_min.text.isNotEmpty()) {
             sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_min!!.text.toString())
+            bindArgs.add(rooms_min.text.toString())
         } else if (rooms_max!!.text.isNotEmpty()) {
             sb.append("rooms <= ? AND ")
             bindArgs.add(rooms_max.text.toString())
+        }
+
+        //BEDROOMS
+        if (bedrooms_min!!.text.isNotEmpty() && bedrooms_max!!.text.isNotEmpty()) {
+            sb.append("bedrooms BETWEEN ? AND ? AND ")
+            bindArgs.add(bedrooms_min.text.toString())
+            bindArgs.add(bedrooms_max.text.toString())
+        } else if (bedrooms_min.text.isNotEmpty()) {
+            sb.append("bedrooms >= ? AND ")
+            bindArgs.add(bedrooms_min.text.toString())
+        } else if (bedrooms_max!!.text.isNotEmpty()) {
+            sb.append("bedrooms <= ? AND ")
+            bindArgs.add(bedrooms_max.text.toString())
+        }
+
+        //BATHROOMS
+        if (bathrooms_min!!.text.isNotEmpty() && bathrooms_max!!.text.isNotEmpty()) {
+            sb.append("bathrooms BETWEEN ? AND ? AND ")
+            bindArgs.add(bathrooms_min.text.toString())
+            bindArgs.add(bathrooms_max.text.toString())
+        } else if (bathrooms_min.text.isNotEmpty()) {
+            sb.append("bathrooms >= ? AND ")
+            bindArgs.add(bathrooms_min.text.toString())
+        } else if (bathrooms_max!!.text.isNotEmpty()) {
+            sb.append("bathrooms <= ? AND ")
+            bindArgs.add(bathrooms_max.text.toString())
         }
 
         //DATES
@@ -109,8 +134,7 @@ class SearchManager {
             end_date_et.text
         }
 
-        Log.e("searchManager", "dates = " + startDate + endDate)
-        if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
+         if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
             sold = true
 
             sb.append("startDate >= ? AND endDate <= ? AND ")
@@ -118,7 +142,7 @@ class SearchManager {
             bindArgs.add(endDate.toString())
 
         } else if (startDate.isNotEmpty()) {
-            if (!cb_sold!!.isChecked) sold = false
+            if (!cb_sold.isChecked) sold = false
             sb.append("startDate >= ? AND ")
             bindArgs.add(startDate.toString())
         } else if (endDate.isNotEmpty()) {
@@ -135,7 +159,6 @@ class SearchManager {
 
         query = sb.toString()
 
-        Log.e("search", query + bindArgs)
 
     }
 

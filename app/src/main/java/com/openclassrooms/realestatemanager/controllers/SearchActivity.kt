@@ -181,7 +181,7 @@ class SearchActivity : AppCompatActivity() {
     private fun getQueryFromUI() {
         val manageSearch = SearchManager()
         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
-                rooms_min, rooms_max, start_date_et,
+                rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_et,
                 end_date_et, cb_sold)
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
