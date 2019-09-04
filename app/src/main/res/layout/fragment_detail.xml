@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
-            android:layout_weight="35"
+            android:layout_weight="55"
             android:orientation="horizontal"
             android:weightSum="3">
 
@@ -96,7 +96,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/detail_title_surface"
-                            android:text="750 sq m"
+                            android:text=""
                             android:textSize="@dimen/text_size" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -134,7 +134,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/detail_title_rooms"
-                            android:text="8"
                             android:textSize="@dimen/text_size" />
 
                     </RelativeLayout>
@@ -173,7 +172,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/detail_title_bathrooms"
-                            android:text="8"
                             android:textSize="@dimen/text_size" />
 
                     </RelativeLayout>
@@ -212,7 +210,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/detail_title_bedrooms"
-                            android:text="3"
                             android:textSize="@dimen/text_size" />
 
                     </RelativeLayout>
@@ -221,7 +218,6 @@
             </LinearLayout>
 
             <!--INFO LOCATION-->
-
             <LinearLayout
                 android:id="@+id/location_divider_horizontal"
                 android:layout_width="0dp"
@@ -255,7 +251,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_create_act"
-                        android:text="Address goes here"
                         android:textSize="@dimen/text_size" />
 
                     <!--POINTS OF INTEREST-->
@@ -271,10 +266,7 @@
                         android:id="@+id/detail_poi_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Poi"
                         android:textSize="@dimen/text_size" />
-
-
                 </LinearLayout>
 
 
@@ -306,8 +298,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="@dimen/head_text_size"
-                android:textColor="@color/red" />
+                android:textColor="@color/red"
+                android:textSize="@dimen/head_text_size" />
         </LinearLayout>
 
         <LinearLayout

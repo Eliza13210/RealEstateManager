@@ -2,13 +2,11 @@ package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
-import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment
 import com.openclassrooms.realestatemanager.controllers.fragments.SearchResultFragment
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder
@@ -16,6 +14,9 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemClickedListener {
 
+    companion object {
+        const val EXTRA_TAG_RESULT = "com.openclassrooms.myfragmentapp.Controllers.Activities.SearchResultActivity.EXTRA_TAG_RESULT"
+    }
 
     private var listFragment: SearchResultFragment? = null
     private var detailFragment: DetailFragment? = null
@@ -52,8 +53,7 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
     override fun onResume() {
         super.onResume()
         //GET THE LIST WITH RESULT FROM INTENT
-        val resultFromActivity = intent.getStringExtra("SearchResultList")
-        Log.e("result", resultFromActivity)
+        val resultFromActivity = intent.getStringExtra(EXTRA_TAG_RESULT)
         //RECONVERT TO LIST
         val gson = Gson()
 

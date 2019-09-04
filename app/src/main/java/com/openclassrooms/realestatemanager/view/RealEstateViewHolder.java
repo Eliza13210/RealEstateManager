@@ -108,7 +108,7 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
 
             if (currency.equals("dollar")) {
                 sb = new StringBuilder(realEstateItem.getPrice().toString());
-                for (int i = 3; i < priceString; i = i + 4) {
+                for (int i = priceString-3; i >0; i = i - 3) {
                     sb.insert(i, ",");
                 }
                 sb.append(" $");
@@ -117,10 +117,11 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
                     int price = realEstateItem.getPrice();
                     int eurosInt = Utils.convertDollarToEuro(price);
                     String euros = Integer.toString(eurosInt);
+                    priceString = Objects.requireNonNull(euros.length());
 
                     sb = new StringBuilder(euros);
                 }
-                for (int i = 3; i < priceString; i = i + 4) {
+                for (int i = priceString-3; i >0; i = i - 3) {
                     sb.insert(i, ",");
                 }
                 sb.append(" €");

@@ -32,6 +32,7 @@ class EditActivity : BaseActivityUIInformation() {
         super.onCreate(savedInstanceState)
         // Get tag from intent
         realEstateId = intent.getLongExtra(EXTRA_TAG, 0)
+        Log.e("edit", "extra tag=" + realEstateId)
         initRealEstate(realEstateId)
         getPhotos(realEstateId)
     }

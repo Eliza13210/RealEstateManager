@@ -64,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         // WILL BE FALSE IF TABLET
         //IF PHONE SHOW BOTTOM APP BAR WITH FAB
         if (getResources().getBoolean(R.bool.portrait_only)) {
+            Log.e("main", "phone");
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setActionbarPhone();
         }
         //IF TABLET, SHOW TOOLBAR
         if (findViewById(R.id.frame_layout_detail) != null) {
+            Log.e("main", "tablet");
             tablet = true;
             setActionbarTablet();
         }

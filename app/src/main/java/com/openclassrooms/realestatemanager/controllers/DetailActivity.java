@@ -23,7 +23,7 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
     private DetailFragment detailFragment;
 
     // Create static variable to identify Intent
-    public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
+    public static final String EXTRA_TAG = "com.openclassrooms.realestatemanager.controllers.DetailActivity.EXTRA_TAG";
     private long tag;
 
     @Override

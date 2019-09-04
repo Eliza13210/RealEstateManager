@@ -224,16 +224,12 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
+    //START RESULT ACTIVITY WITH THE LIST OF REAL ESTATES
     private fun showResult(realEstateList: List<RealEstate>) {
-
-        println("result = " + realEstateList.size)
-
-        //START RESULT ACTIVITY WITH THE LIST OF REAL ESTATES
         val gson = Gson()
         val jsonList = gson.toJson(realEstateList)
-        Log.e("searchA", jsonList)
         val intent = Intent(this, SearchResultActivity::class.java)
-        intent.putExtra("SearchResultList", jsonList)
+        intent.putExtra(SearchResultActivity.EXTRA_TAG_RESULT, jsonList)
         startActivity(intent)
     }
 }
