@@ -1,11 +1,9 @@
 package com.openclassrooms.realestatemanager.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.openclassrooms.realestatemanager.database.dao.RealEstateDao
 import com.openclassrooms.realestatemanager.models.RealEstate
-import java.util.*
 
 
 class RealEstateDataRepository(val realEstateDao: RealEstateDao) {

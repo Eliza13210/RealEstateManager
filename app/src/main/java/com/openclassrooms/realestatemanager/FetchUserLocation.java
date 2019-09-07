@@ -47,9 +47,6 @@ public class FetchUserLocation {
     }
 
     public void checkLocationPermission() {
-
-        Log.e("fetch", "check permission");
-
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
         /*
@@ -61,12 +58,10 @@ public class FetchUserLocation {
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             getDeviceLocation();
-            Log.e("Permission", "Granted");
         } else {
             ActivityCompat.requestPermissions(activity,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-            Log.e("Permission", "Request permission");
         }
     }
 
@@ -102,8 +97,6 @@ public class FetchUserLocation {
                             pref.edit().putString("CurrentLatitude", Double.toString(mLatitude)).apply();
                             pref.edit().putString("CurrentLongitude", Double.toString(mLongitude)).apply();
 
-                            Log.e("fetchLoc", Double.toString(mLatitude) + " " + Double.toString(mLongitude));
-
                             if (editText != null) {
                                 getAddress(mLatitude, mLongitude);
                             } else if (map != null) {
@@ -111,7 +104,6 @@ public class FetchUserLocation {
                             }
                         } else {
                             Toast.makeText(context, "Error defining latLng", Toast.LENGTH_LONG).show();
-                            Log.e("fetch", "error");
                         }
                     }
                 }
@@ -123,7 +115,7 @@ public class FetchUserLocation {
         }
     }
 
-    public void getAddress(double latitude, double longitude) {
+    private void getAddress(double latitude, double longitude) {
 
         String userAddress = "";
         String userCity = "";
@@ -135,8 +127,6 @@ public class FetchUserLocation {
                 Address address = addresses.get(0);
                 userAddress = address.getAddressLine(0);
                 userCity = address.getLocality().toLowerCase().replace("-", " ");
-            } else {
-                Log.e("Geocoder adress ", "address.size less than 0");
             }
         } catch (IOException e) {
             Log.e("tag", e.getMessage());
@@ -144,7 +134,6 @@ public class FetchUserLocation {
 
         //Save user address
         pref.edit().putString("CurrentAddress", userAddress).putString("CurrentCity", userCity).apply();
-        Log.e("get loc", userAddress + userCity);
 
         updateUIWithAddress(userAddress);
     }

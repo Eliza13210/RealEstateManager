@@ -118,4 +118,11 @@ public class UtilsTest {
         assertEquals("200.23", converted);
     }
 
+    @Test
+    public void replaceSpacesAndAccentLettersInString(){
+        String input=" para é è à";
+        String output=Utils.removeSpacesAndAccentLetters(input);
+        assertEquals("paraeea",output);
+    }
+
 }

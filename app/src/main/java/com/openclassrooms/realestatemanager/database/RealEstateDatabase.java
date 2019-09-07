@@ -22,7 +22,6 @@ public abstract class RealEstateDatabase extends RoomDatabase {
 
     public abstract PhotoDao mPhotoDao();
 
-
     // --- INSTANCE ---
     public static RealEstateDatabase getInstance(Context context) {
         if (INSTANCE == null) {
@@ -30,46 +29,10 @@ public abstract class RealEstateDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RealEstateDatabase.class, "MyDatabase.db")
-                           // .addCallback(prepopulateDatabase())
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
-
-    // ---
-/**
-    private static Callback prepopulateDatabase() {
-        return new Callback() {
-
-            @Override
-            public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                super.onCreate(db);
-
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("id", "1");
-                contentValues.put("agent", "Théo");
-                contentValues.put("type", "flat");
-                contentValues.put("price", "31000");
-                contentValues.put("description", "Beautiful flat");
-                contentValues.put("surface", "400");
-                contentValues.put("rooms", "8");
-                contentValues.put("bathrooms", "4");
-                contentValues.put("bedrooms", "4");
-                contentValues.put("address", "123 baker street, NY");
-
-                db.insert("RealEstate", OnConflictStrategy.IGNORE, contentValues);
-
-                contentValues = new ContentValues();
-                contentValues.put("realEstateId", 1);
-                contentValues.put("id", 1);
-                contentValues.put("url", "https://www.hommemaker.com/wp-content/uploads/2018/11/Kitchen_1_004_With_Food-OS.jpg");
-                contentValues.put("text", "kitchen;");
-
-                db.insert("Photo", OnConflictStrategy.IGNORE, contentValues);
-            }
-        };
-    }*/
-
 }

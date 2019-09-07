@@ -127,6 +127,10 @@
     <string name="type_tag_appartement">tag_apartement</string>
     <string name="no_video_saved">No video saved</string>
     <string name="bathroom">Bathroom</string>
+    <string name="authorize_gps">You need to authorize GPS function</string>
+    <string name="no_internet">No internet available</string>
+    <string name="grant_access_location">You need to grant permission to access your location</string>
+    <string name="add_photo">Add photo</string>
 
 
 </resources>

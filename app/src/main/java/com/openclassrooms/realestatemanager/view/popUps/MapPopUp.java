@@ -37,8 +37,6 @@ public class MapPopUp {
         ImageView image = customLayout.findViewById(R.id.popup_map_image);
         Picasso.get().load(uri).into(image);
 
-        Log.e("uri", uri);
-
         builder.setNegativeButton("Close", (dialog, i) -> dialog.cancel());
         AlertDialog dialog = builder.create();
         Objects.requireNonNull(dialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);

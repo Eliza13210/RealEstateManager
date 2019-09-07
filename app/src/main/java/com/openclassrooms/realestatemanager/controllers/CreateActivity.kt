@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.FetchUserLocation
@@ -66,7 +65,6 @@ class CreateActivity : BaseActivityUIInformation() {
 
                             override fun onFinish() {
                                 checkAddress()
-                                Log.e("address", " fetch " + address_tv.text)
                             }
                         }.start()
                     }
@@ -82,10 +80,8 @@ class CreateActivity : BaseActivityUIInformation() {
         address = address_tv.text.toString()
         AsyncTask.execute {
             latLng = Utils.getLatLngFromAddress(this, address)
-            Log.e("create", latLng.toString())
         }
     }
-
 
     /**
      * Get user latLng when clicking on geo latLng icon and update edit text with address
@@ -94,9 +90,8 @@ class CreateActivity : BaseActivityUIInformation() {
         fetchUserLocation?.checkLocationPermission()
     }
 
-
     override fun getInfoFromUI() {
-        agent = agent_et.text.toString()
+        agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString().toLowerCase())
         if (price_tv.text.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())
         }
@@ -104,6 +99,10 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
+        if (type_tv.text.isNotEmpty()) {
+            type = type_tv.text.toString().toLowerCase()
+        }
+        city = Utils.removeSpacesAndAccentLetters(pref!!.getString("CurrentCity", "Unknown")!!.toLowerCase())
 
         if (agent.isNotEmpty()) {
             if (address.isNotEmpty() && latLng != null) {
@@ -121,20 +120,11 @@ class CreateActivity : BaseActivityUIInformation() {
     /**
      * Create a new real estate and add to the database
      */
-
     override fun createRealEstate() {
-        if (type_tv.text.isNotEmpty()) {
-            type = type_tv.text.toString()
-        }
 
-        city = pref!!.getString("CurrentCity", "Unknown")!!
-
-        Log.e("create", "price =" + price)
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, city, "false", startDate, null, agent, pointsOfInterest
         )
-
-        Log.e("create", realEstate.toString())
 
         AsyncTask.execute {
             realEstateId = viewModel?.createRealEstate(realEstate)!!
@@ -151,7 +141,6 @@ class CreateActivity : BaseActivityUIInformation() {
     /**
      * Reset all edit text
      */
-
     private fun resetUI() {
         photos = ArrayList()
         photoAdapter.updateData(photos, null)

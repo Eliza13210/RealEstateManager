@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -64,13 +63,11 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         // WILL BE FALSE IF TABLET
         //IF PHONE SHOW BOTTOM APP BAR WITH FAB
         if (getResources().getBoolean(R.bool.portrait_only)) {
-            Log.e("main", "phone");
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             setActionbarPhone();
         }
         //IF TABLET, SHOW TOOLBAR
         if (findViewById(R.id.frame_layout_detail) != null) {
-            Log.e("main", "tablet");
             tablet = true;
             setActionbarTablet();
         }
@@ -104,14 +101,11 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         if (tag != -1) {
             Intent i = new Intent(this, EditActivity.class);
             i.putExtra(EXTRA_TAG, tag);
-
-            Log.e("main start edit", "tag =" +tag);
             startActivity(i);
         } else {
             Toast.makeText(this, R.string.choose_item_to_edit, Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void showMainFragment() {
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
@@ -124,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     }
 
     private void configureAndShowDetailFragment() {
-
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
 
         //only add DetailFragment in Tablet mode (If found frame_layout_detail)
@@ -156,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     @Override
     public void onItemClick(long id) {
         tag = id;
-        Log.e("main list clicked", "tag =" +tag);
         // Check if phone, then open DetailActivity
         if (detailFragment == null) {
             Intent i = new Intent(this, DetailActivity.class);
@@ -164,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
             startActivity(i);
         } else {
             //If tablet
-            Log.e("main update details", "tag =" + id);
             detailFragment.updateDetails(id);
         }
     }
@@ -200,7 +191,9 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         return super.onOptionsItemSelected(item);
     }
 
-    // Configure Drawer Layout
+    /**
+     * For Drawer Layout
+     */
     private void configureDrawerLayout(BottomAppBar bottomAppBar, Toolbar toolbar) {
         ActionBarDrawerToggle toggle;
         //TABLET

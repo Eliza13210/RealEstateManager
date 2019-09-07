@@ -34,8 +34,6 @@ class MapManager(var context: Context, var list: List<RealEstate>? = null, priva
             val lat = realEstate.latitude
             val lng = realEstate.longitude
 
-            Log.e("manager ", lat + "; " + lng)
-
             val latLng = LatLng(java.lang.Double.parseDouble(lat!!), java.lang.Double.parseDouble(lng!!))
 
             //Add marker to map
@@ -43,7 +41,6 @@ class MapManager(var context: Context, var list: List<RealEstate>? = null, priva
                     .title(description)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
             marker.tag = realEstate.id
-            Log.e("marker", "tag =" + realEstate.id)
         }
         showRealEstateWhenClickOnMarker()
     }
@@ -52,21 +49,17 @@ class MapManager(var context: Context, var list: List<RealEstate>? = null, priva
         //User click on marker will start function that fetch details about restaurant and start new activity
         map.setOnMarkerClickListener { marker ->
             val i = marker.tag as Long
-            Log.e("click", "get tag $i")
             when {
                 //CLICKED ON USER MARKER
                 i == 100L -> Log.e("Manager", "Clicked on user")
                 context.resources.getBoolean(R.bool.portrait_only) -> {
                     //CLICKED ON MARKER AND PHONE WILL START DETAIL ACTIVITY
-
-                    Log.e("click", "click phone get tag $i")
                     val intent = Intent(context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_TAG, i)
                     context.startActivity(intent)
                 }
                 else -> {
                     //CLICKED MARKER AND TABLET WILL START MAIN ACTIVITY AND SHOW REAL ESTATE IN FRAGMENT
-                    Log.e("click", "tablet get tag $i")
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra(MainActivity.EXTRA_TAG, i)
                     context.startActivity(intent)

@@ -15,7 +15,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     private final RealEstateDataRepository realEstateDataSource;
     private final Executor executor;
 
-    public ViewModelFactory(PhotoDataRepository photoDataSource, RealEstateDataRepository realEstateDataSource, Executor executor) {
+    ViewModelFactory(PhotoDataRepository photoDataSource, RealEstateDataRepository realEstateDataSource, Executor executor) {
         this.photoDataSource = photoDataSource;
         this.realEstateDataSource = realEstateDataSource;
         this.executor = executor;

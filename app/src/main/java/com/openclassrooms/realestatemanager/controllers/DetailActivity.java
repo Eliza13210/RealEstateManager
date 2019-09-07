@@ -59,11 +59,10 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
     }
 
     // --------------
-    // FRAGMENTS
+    // FRAGMENT
     // --------------
-
     private void configureAndShowDetailFragment() {
-        // A - Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
+        // Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
 
         if (detailFragment == null) {

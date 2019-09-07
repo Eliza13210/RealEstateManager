@@ -62,7 +62,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
 
     private fun checkInternetConnexion() {
         if (!Utils.isInternetAvailable(this)) {
-            Toast.makeText(this, "No internet available", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_internet), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -71,15 +71,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         location!!.checkLocationPermission()
     }
 
-
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0
         getUserLocation()
         try {   //Check permission to show user location
             if (ContextCompat.checkSelfPermission(this,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED) {
-                //If ok, initialize map to show user location and buttons to zoom user
+                            android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
+                //If ok, initialize map to show user location and buttons to zoom user
                 mMap!!.isMyLocationEnabled = true
                 mMap!!.uiSettings.isMyLocationButtonEnabled = true
                 mMap!!.setOnMyLocationButtonClickListener(this)
@@ -100,18 +99,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     override fun onMyLocationButtonClick(): Boolean {
-        val prefs = getSharedPreferences("Go4Lunch", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE)
 
         val mLatitude = java.lang.Double.parseDouble(Objects.requireNonNull(prefs.getString("CurrentLatitude", "1")))
         val mLongitude = java.lang.Double.parseDouble(Objects.requireNonNull(prefs.getString("CurrentLongitude", "1")))
         val latLng = LatLng(mLatitude,
                 mLongitude)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f))
-
-        Log.e("mapA", "my loc btn clicked")
         return false
     }
-
 
     // Configuring ViewModel
     private fun initViewModel() {
@@ -127,25 +123,20 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         })
     }
 
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // Forward results to EasyPermissions
-
-        Log.e("Activity", "Permission to easyperm$requestCode")
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            Toast.makeText(this, "You need to grant permission to access your location", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.grant_access_location), Toast.LENGTH_SHORT).show()
         } else if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        Log.e("Activity", "onPermissionsGranted:" + requestCode + ":" + perms.size)
         when (requestCode) {
             FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
                 location?.getDeviceLocation()

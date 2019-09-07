@@ -54,7 +54,7 @@ class EditActivity : BaseActivityUIInformation() {
         agent_et.setText(realEstate.agent)
         type_tv.setText(realEstate.type)
         surface_tv.setText(realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) })
-        price_tv.setText(realEstate.price?.let { it.toString() })
+        price_tv.setText(realEstate.price?.toString())
         poi_tv.text = realEstate.pointsOfInterest
         description_et.setText(realEstate.description)
         if (realEstate.sold == "true") startDatePicker = false
@@ -84,10 +84,8 @@ class EditActivity : BaseActivityUIInformation() {
     private fun updatePhotoList(list: List<Photo>) {
         photos.clear()
         photos.addAll(list)
-        Log.e("edit", "how many photos " + photos.size)
         this.photoAdapter.updateData(list, null)
     }
-
 
     override fun initButtons() {
         btn_update.setOnClickListener { getInfoFromUI() }
@@ -103,7 +101,6 @@ class EditActivity : BaseActivityUIInformation() {
             }
         }
     }
-
 
     override fun getInfoFromUI() {
         agent = agent_et.text.toString()
@@ -134,13 +131,11 @@ class EditActivity : BaseActivityUIInformation() {
                 //If photo has been deleted, remove it from database
                 if (photo.text.equals("Deleted") && photo.id != null) {
                     viewModel?.deletePhoto(photo.id)
-                    Log.e("edit", "delete photos " + photo.id + "size " + photos.size)
                 }
                 //Id will be null if not yet added to database, that means that it is a new photo that needs to be added
                 if (photo.id == null && !photo.text.equals("Deleted")) {
                     photo.realEstateId = realEstateId
                     viewModel?.createPhoto(photo)
-                    Log.e("edit", "create photos " + photo.realEstateId)
                 }
             }
         }
@@ -157,8 +152,6 @@ class EditActivity : BaseActivityUIInformation() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            Log.e("Edit", " " + cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR))
-
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
                 end_date.text = Utils.getTodayDate(cal.time)
             } else {
@@ -172,8 +165,5 @@ class EditActivity : BaseActivityUIInformation() {
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)).show()
-
-
     }
-
 }

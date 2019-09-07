@@ -50,7 +50,7 @@ public class AddPhotoPopUp {
                 .into(imageView); //imageview to set thumbnail to
 
         // Set up the buttons
-        builder.setPositiveButton("Add photo", (dialog, i) -> {
+        builder.setPositiveButton(context.getString(R.string.add_photo), (dialog, i) -> {
 
             //When user validate
             EditText input = customLayout.findViewById(R.id.popup_edit_tv);
@@ -58,8 +58,6 @@ public class AddPhotoPopUp {
 
             Photo photo = new Photo(null, 1, uri, photoText, type);
             photos.add(photo);
-
-            Log.e("popup", "add photo "  + photos.size());
 
             photoAdapter.updateData(photos, null);
 

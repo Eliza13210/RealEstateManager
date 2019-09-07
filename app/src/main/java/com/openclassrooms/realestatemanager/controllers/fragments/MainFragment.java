@@ -2,9 +2,7 @@ package com.openclassrooms.realestatemanager.controllers.fragments;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,7 +41,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
         this.configureViewModel();
         this.getItems();
         return view;
-
     }
 
     private void configureRecyclerView() {
@@ -87,7 +84,6 @@ public class MainFragment extends Fragment implements RealEstateViewHolder.OnIte
     @Override
     public void onItemClick(long id) {
     }
-
 }
 
 

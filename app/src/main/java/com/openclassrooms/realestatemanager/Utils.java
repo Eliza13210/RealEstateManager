@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -156,5 +157,14 @@ public class Utils {
 
     public static String convertIntToStringAndDivide(float value) {
         return String.valueOf(value / 100);
+    }
+
+    public static String removeSpacesAndAccentLetters(String input){
+        String output;
+        output = input.replace(" ", "").trim();
+        output= Normalizer
+                .normalize(output, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
+        return output;
     }
 }

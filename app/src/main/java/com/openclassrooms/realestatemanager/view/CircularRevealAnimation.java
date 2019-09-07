@@ -18,6 +18,7 @@ public class CircularRevealAnimation {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             circularReveal = ViewAnimationUtils.createCircularReveal(rootLayout, cx, cy, 0, finalRadius);
         }
+        assert circularReveal != null;
         circularReveal.setDuration(1000);
 
         // make the view visible and start the animation

@@ -99,7 +99,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     abstract fun getLayoutView(): Int
 
     private fun checkIfTablet() {
-
         // WILL BE FALSE IF TABLET
         if (resources.getBoolean(R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -321,7 +320,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         }
     }
 
-    /** Used in Take photo to create a file name to save the photo when camera intent launched */
+    /** in Take photo to create a file name to save the photo when camera intent launched */
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
@@ -337,6 +336,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         return image
     }
 
+    /** in Take video to create a file name to save the video when camera intent launched */
     private fun createVideoFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
         val imageFileName = "MP4_" + timeStamp + "_"
@@ -368,7 +368,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.authorize_gps), Toast.LENGTH_SHORT).show()
         } else if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }

@@ -8,7 +8,6 @@ import com.openclassrooms.realestatemanager.repositories.RealEstateDataRepositor
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,22 +18,10 @@ public class RealEstateViewModel extends ViewModel {
     private final PhotoDataRepository photoDataSource;
     private final Executor executor;
 
-    // DATA
-    @Nullable
-    private LiveData<RealEstate> currentRealEstate;
-
     public RealEstateViewModel(PhotoDataRepository photoDataSource, RealEstateDataRepository realEstateDataSource, Executor executor) {
         this.photoDataSource = photoDataSource;
         this.realEstateDataSource = realEstateDataSource;
         this.executor = executor;
-    }
-
-    public void init(Long realestateId) {
-
-        if (this.currentRealEstate != null) {
-            return;
-        }
-        currentRealEstate = realEstateDataSource.getRealEstate(realestateId);
     }
 
     // -------------
@@ -59,15 +46,7 @@ public class RealEstateViewModel extends ViewModel {
     }
 
     public void updateRealEstate(RealEstate realEstate) {
-        executor.execute(() -> {
-            realEstateDataSource.updateRealEstate(realEstate);
-        });
-    }
-
-    public void deleteRealEstate(long id) {
-        executor.execute(() -> {
-            realEstateDataSource.deleteRealEstate(id);
-        });
+        executor.execute(() -> realEstateDataSource.updateRealEstate(realEstate));
     }
 
     // -------------
@@ -79,22 +58,11 @@ public class RealEstateViewModel extends ViewModel {
     }
 
     public void createPhoto(Photo photo) {
-        executor.execute(() -> {
-            photoDataSource.createPhoto(photo);
-        });
+        executor.execute(() -> photoDataSource.createPhoto(photo));
     }
 
     public void deletePhoto(long photoId) {
-        executor.execute(() -> {
-            photoDataSource.deletePhoto(photoId);
-        });
+        executor.execute(() -> photoDataSource.deletePhoto(photoId));
     }
-
-    public void updatePhoto(Photo photo) {
-        executor.execute(() -> {
-            photoDataSource.updatePhoto(photo);
-        });
-    }
-
 }
 

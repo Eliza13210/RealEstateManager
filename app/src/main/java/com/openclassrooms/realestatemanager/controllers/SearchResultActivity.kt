@@ -2,6 +2,8 @@ package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -27,6 +29,7 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
         setContentView(R.layout.activity_search_result)
         initToolbar()
         showListFragment()
+        configureAndShowDetailFragment()
     }
 
     private fun initToolbar() {
@@ -44,7 +47,18 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
                     .add(R.id.frame_layout_result, listFragment!!)
                     .commit()
         }
+    }
 
+    private fun configureAndShowDetailFragment() {
+        detailFragment = supportFragmentManager.findFragmentById(R.id.frame_layout_detail) as DetailFragment?
+
+        //only add DetailFragment in Tablet mode (If found frame_layout_detail)
+        if (detailFragment == null && findViewById<View>(R.id.frame_layout_detail) != null) {
+            detailFragment = DetailFragment()
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.frame_layout_detail, detailFragment!!)
+                    .commit()
+        }
     }
 
     /**
@@ -56,12 +70,13 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
         val resultFromActivity = intent.getStringExtra(EXTRA_TAG_RESULT)
         //RECONVERT TO LIST
         val gson = Gson()
-
         val itemType = object : TypeToken<List<RealEstate>>() {}.type
-
         val listOfResult =
                 gson.fromJson<List<RealEstate>>(resultFromActivity, itemType)
+        //UPDATE FRAGMENT
         listFragment?.updateItemsList(listOfResult)
+
+        if (listOfResult.isNotEmpty()) Log.e("result", listOfResult.get(0).city + listOfResult.get(0).agent)
     }
 
 
@@ -69,7 +84,6 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
      * Handle click in list view
      */
     override fun onItemClick(id: Long) {
-
         // Check if phone, then open DetailActivity
         if (detailFragment == null) {
             val i = Intent(this, DetailActivity::class.java)

@@ -2,8 +2,6 @@ package com.openclassrooms.realestatemanager.view;
 
 
 import android.content.Context;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -90,7 +88,6 @@ public class RealEstateViewHolder extends RecyclerView.ViewHolder {
                     .load(defaultImg)
                     .into(photo);
         }
-
     }
 
     public void updateWithItem(RealEstate realEstateItem, Context context, String currency) {

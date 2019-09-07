@@ -6,13 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.gson.Gson
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.SearchManager
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
@@ -25,8 +26,6 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
-import com.google.gson.Gson
-import com.openclassrooms.realestatemanager.R
 
 
 class SearchActivity : AppCompatActivity() {
@@ -71,7 +70,6 @@ class SearchActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable) {
                 type = type_tv.text.toString()
-                Log.e("type", type)
             }
         })
 
@@ -97,8 +95,6 @@ class SearchActivity : AppCompatActivity() {
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-            Log.e("Search", " " + cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR))
 
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
                 editText.text = Utils.getTodayDate(cal.time)
@@ -167,8 +163,6 @@ class SearchActivity : AppCompatActivity() {
                     apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
                 }
             }
-            else -> {
-            }
         }
     }
 
@@ -183,6 +177,7 @@ class SearchActivity : AppCompatActivity() {
         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
                 rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_et,
                 end_date_et, cb_sold)
+
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 
@@ -222,7 +217,6 @@ class SearchActivity : AppCompatActivity() {
             showResult(updatedList)
         }
     }
-
 
     //START RESULT ACTIVITY WITH THE LIST OF REAL ESTATES
     private fun showResult(realEstateList: List<RealEstate>) {

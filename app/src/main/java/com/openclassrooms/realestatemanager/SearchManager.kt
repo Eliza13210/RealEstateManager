@@ -32,13 +32,13 @@ class SearchManager {
         //AGENT
         if (agent_et!!.text.isNotEmpty()) {
             sb.append("agent = ? AND ")
-            bindArgs.add(agent_et.text.toString())
+            bindArgs.add(Utils.removeSpacesAndAccentLetters(agent_et.text.toString().toLowerCase()))
         }
 
         //TYPE
         if (type!!.isNotEmpty()) {
             sb.append("type =? AND ")
-            bindArgs.add(type)
+            bindArgs.add(Utils.removeSpacesAndAccentLetters(type.toLowerCase()))
         }
 
         //POI
@@ -52,7 +52,7 @@ class SearchManager {
         //CITY
         if (city_et!!.text.isNotEmpty()) {
             sb.append("city LIKE ? AND ")
-            bindArgs.add(city_et.text.toString().toLowerCase())
+            bindArgs.add(Utils.removeSpacesAndAccentLetters(city_et.text.toString().toLowerCase()))
         }
 
         val minimum = Utils.convertToIntAndMultiply(surface_min?.text.toString())
@@ -134,7 +134,7 @@ class SearchManager {
             end_date_et.text
         }
 
-         if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
+        if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
             sold = true
 
             sb.append("startDate >= ? AND endDate <= ? AND ")
@@ -159,7 +159,7 @@ class SearchManager {
 
         query = sb.toString()
 
-
+        Log.e("searchman", query + agent_et.text.toString() + " city = " + city_et.text.toString())
     }
 
     fun getQuery(): String? {
@@ -169,5 +169,4 @@ class SearchManager {
     fun getArgs(): Array<String> {
         return bindArgs.toTypedArray()
     }
-
 }
