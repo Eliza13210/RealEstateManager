@@ -14,6 +14,7 @@
         app:titleTextColor="@color/white"
         app:backgroundTint="@color/grey"
         android:elevation="8dp"
+        app:hideOnScroll="true"
         app:fabAlignmentMode="center"
         />
 

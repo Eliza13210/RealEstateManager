@@ -76,7 +76,7 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
         //UPDATE FRAGMENT
         listFragment?.updateItemsList(listOfResult)
 
-        if (listOfResult.isNotEmpty()) Log.e("result", listOfResult.get(0).city + listOfResult.get(0).agent)
+        if (listOfResult.isNotEmpty()) detailFragment?.updateDetails(listOfResult[0].id!!)
     }
 
 

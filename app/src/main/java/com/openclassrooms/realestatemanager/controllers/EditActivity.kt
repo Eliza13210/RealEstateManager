@@ -23,20 +23,21 @@ class EditActivity : BaseActivityUIInformation() {
 
     private var startDatePicker = true
 
+
     override fun onNewIntent(intent: Intent?) {
+
         if (intent != null)
             setIntent(intent)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Get tag from intent
-        realEstateId = intent.getLongExtra(EXTRA_TAG, 0)
-        Log.e("edit", "extra tag=" + realEstateId)
-        initRealEstate(realEstateId)
-        getPhotos(realEstateId)
+    override fun onResume() {
+        super.onResume()
+        realEstateId = intent.getLongExtra(DetailActivity.EXTRA_TAG, 0)
+        if(!updated) {
+            initRealEstate(realEstateId)
+            getPhotos(realEstateId)
+        }
     }
-
 
     override fun getLayoutView(): Int {
         return R.layout.activity_edit
@@ -104,7 +105,7 @@ class EditActivity : BaseActivityUIInformation() {
 
     override fun getInfoFromUI() {
         agent = agent_et.text.toString()
-        price = Integer.parseInt(price_tv.text.toString())
+        if (price_tv.text.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
         description = description_et.text.toString()
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         endDate = end_date.text.toString()
@@ -122,6 +123,7 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     override fun createRealEstate() {
+
         val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, city, sold, startDate, endDate, agent)
 
@@ -140,6 +142,7 @@ class EditActivity : BaseActivityUIInformation() {
             }
         }
         Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
+        updated=false
     }
 
     private fun startDatePicker() {

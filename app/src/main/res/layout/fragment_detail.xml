@@ -38,6 +38,14 @@
             android:textSize="@dimen/head_text_size" />
 
         <TextView
+            android:id="@+id/isSold_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/head_text_size" />
+
+        <TextView
             android:id="@+id/detail_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -282,26 +290,12 @@
                 <ImageView
                     android:id="@+id/map_iv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart" />
 
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/isSold_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/red"
-                android:textSize="@dimen/head_text_size" />
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

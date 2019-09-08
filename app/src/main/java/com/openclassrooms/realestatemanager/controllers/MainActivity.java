@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.controllers;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         NavigationView.OnNavigationItemSelectedListener {
 
     // Create static variable to identify Intent
-    public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.DetailActivity.EXTRA_TAG";
+    public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.MainActivity.EXTRA_TAG";
 
     private DetailFragment detailFragment;
     private MainFragment mainFragment;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     private void edit() {
         if (tag != -1) {
             Intent i = new Intent(this, EditActivity.class);
-            i.putExtra(EXTRA_TAG, tag);
+            i.putExtra(DetailActivity.EXTRA_TAG, tag);
             startActivity(i);
         } else {
             Toast.makeText(this, R.string.choose_item_to_edit, Toast.LENGTH_SHORT).show();

@@ -54,12 +54,15 @@ class MapManager(var context: Context, var list: List<RealEstate>? = null, priva
                 i == 100L -> Log.e("Manager", "Clicked on user")
                 context.resources.getBoolean(R.bool.portrait_only) -> {
                     //CLICKED ON MARKER AND PHONE WILL START DETAIL ACTIVITY
+
+                    Log.e("click", "click phone get tag $i")
                     val intent = Intent(context, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_TAG, i)
                     context.startActivity(intent)
                 }
                 else -> {
                     //CLICKED MARKER AND TABLET WILL START MAIN ACTIVITY AND SHOW REAL ESTATE IN FRAGMENT
+                    Log.e("click", "tablet get tag $i")
                     val intent = Intent(context, MainActivity::class.java)
                     intent.putExtra(MainActivity.EXTRA_TAG, i)
                     context.startActivity(intent)

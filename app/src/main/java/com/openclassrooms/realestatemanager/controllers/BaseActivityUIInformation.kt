@@ -63,6 +63,8 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
     protected var realEstateId: Long = 0
 
+     var updated=false
+
     // For creating real estate object
     protected var photos = ArrayList<Photo>()
     protected var type = ""
@@ -114,7 +116,9 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         //Initiate toolbar to navigate back to main activity
         this.setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        toolbar.setNavigationOnClickListener {
+            updated=false
+            startActivity(Intent(this, MainActivity::class.java)) }
     }
 
     private fun initRecyclerView() {
@@ -204,6 +208,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
         //TAKE PHOTO
         ic_camera.setOnClickListener {
+            updated=true
             if (hasCameraPermission()) {
                 takePhoto()
             } else {
@@ -215,6 +220,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         }
         //PICK IN GALLERY
         ic_gallery.setOnClickListener {
+            updated=true
             if (hasReadExternalStoragePermission()) {
                 pickPhoto()
             } else {
@@ -226,6 +232,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         }
         //VIDEO
         ic_video.setOnClickListener {
+            updated=true
             if (hasCameraPermission())
                 takeVideo()
             else {
