@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -66,9 +68,8 @@ public class UtilsTest {
     @Test
     public void checkInternetConnexion() {
         boolean value = Utils.isInternetAvailable(context);
-        boolean expectedValue = true;
 
-        assertEquals(expectedValue, value);
+        Assert.assertTrue(value);
     }
 
     @Test
@@ -107,22 +108,22 @@ public class UtilsTest {
 
     @Test
 
-    public void convertStringToInt(){
-        int converted=Utils.convertToIntAndMultiply("200.23");
+    public void convertStringToInt() {
+        int converted = Utils.convertToIntAndMultiply("200.23");
         assertEquals(20023, converted);
     }
 
     @Test
-    public void convertToIntAndMultiply(){
-        String converted=Utils.convertIntToStringAndDivide(20023);
+    public void convertToIntAndMultiply() {
+        String converted = Utils.convertIntToStringAndDivide(20023);
         assertEquals("200.23", converted);
     }
 
     @Test
-    public void replaceSpacesAndAccentLettersInString(){
-        String input=" para é è à";
-        String output=Utils.removeSpacesAndAccentLetters(input);
-        assertEquals("paraeea",output);
+    public void replaceSpacesAndAccentLettersInString() {
+        String input = " para é è à";
+        String output = Utils.removeSpacesAndAccentLetters(input);
+        assertEquals("paraeea", output);
     }
 
 }
