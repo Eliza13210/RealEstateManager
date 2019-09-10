@@ -25,6 +25,9 @@
     <dimen name="margin_create_act">20dp</dimen>
     <dimen name="padding_add_btn">10dp</dimen>
 
+    <!--SEARCH LAYOUT-->
+    <dimen name="edit_text_width">100dp</dimen>
+
     <!--ALERT DIALOG -->
     <dimen name="alert_dialog_button_width">30dp</dimen>
     <dimen name="alert_dialog_button_height">15dp</dimen>
