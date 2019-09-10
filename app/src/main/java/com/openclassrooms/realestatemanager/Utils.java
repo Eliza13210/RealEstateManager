@@ -161,7 +161,7 @@ public class Utils {
 
     public static String removeSpacesAndAccentLetters(String input){
         String output;
-        output = input.replace(" ", "").trim();
+        output = input.trim();
         output= Normalizer
                 .normalize(output, Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "");

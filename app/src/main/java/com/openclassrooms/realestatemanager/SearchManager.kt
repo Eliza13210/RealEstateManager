@@ -21,7 +21,8 @@ class SearchManager {
                        rooms_min: EditText?, rooms_max: EditText?,
                        bedrooms_min: EditText?, bedrooms_max: EditText?,
                        bathrooms_min: EditText?, bathrooms_max: EditText?,
-                       start_date_et: TextView?, end_date_et: TextView?,
+                       start_date_before: TextView?, start_date_after: TextView?,
+                       sold_date_from: TextView?, sold_date_before: TextView?,
                        cb_sold: CheckBox?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
@@ -37,8 +38,8 @@ class SearchManager {
 
         //TYPE
         if (type!!.isNotEmpty()) {
-            sb.append("type =? AND ")
-            bindArgs.add(Utils.removeSpacesAndAccentLetters(type.toLowerCase()))
+            sb.append("type LIKE ? AND ")
+            bindArgs.add("%" + Utils.removeSpacesAndAccentLetters(type.toLowerCase()) + "%")
         }
 
         //POI
@@ -52,11 +53,12 @@ class SearchManager {
         //CITY
         if (city_et!!.text.isNotEmpty()) {
             sb.append("city LIKE ? AND ")
-            bindArgs.add(Utils.removeSpacesAndAccentLetters(city_et.text.toString().toLowerCase()))
+            bindArgs.add("%" + Utils.removeSpacesAndAccentLetters(city_et.text.toString().toLowerCase()) + "%")
         }
 
         val minimum = Utils.convertToIntAndMultiply(surface_min?.text.toString())
         val maximum = Utils.convertToIntAndMultiply(surface_max?.text.toString())
+
         //SURFACE
         if (surface_min!!.text.isNotEmpty() && surface_max!!.text.isNotEmpty()) {
             sb.append("surface BETWEEN ? AND ? AND ")
@@ -122,33 +124,62 @@ class SearchManager {
             bindArgs.add(bathrooms_max.text.toString())
         }
 
-        //DATES
-        val startDate = if (start_date_et!!.text == "Click to pick a date") {
-            ""
+        //SOLD DATES
+        //SOLD AFTER
+        val soldDateFrom: String?
+
+        if (sold_date_from!!.text == "Click to pick a date" || sold_date_from.text!!.isNotEmpty()) {
+            soldDateFrom = ""
         } else {
-            start_date_et.text
+            sold = true
+            soldDateFrom = sold_date_from.text.toString()
         }
-        val endDate = if (end_date_et!!.text == "Click to pick a date") {
-            ""
+
+        //SOLD BEFORE
+        val soldDateBefore: String?
+        if (sold_date_before!!.text == "Click to pick a date" || sold_date_before.text!!.isNotEmpty()) {
+            soldDateBefore = ""
         } else {
-            end_date_et.text
+            sold = true
+            soldDateBefore = sold_date_before.text.toString()
         }
 
-        if (startDate.isNotEmpty() && endDate.isNotEmpty()) {
-            sold = true
+        if (soldDateFrom.isNotEmpty() && soldDateBefore.isNotEmpty()) {
+            sb.append("endDate >= ? AND endDate <= ? AND ")
+            bindArgs.add(soldDateFrom.toString())
+            bindArgs.add(soldDateBefore.toString())
 
-            sb.append("startDate >= ? AND endDate <= ? AND ")
-            bindArgs.add(startDate.toString())
-            bindArgs.add(endDate.toString())
-
-        } else if (startDate.isNotEmpty()) {
-            if (!cb_sold.isChecked) sold = false
-            sb.append("startDate >= ? AND ")
-            bindArgs.add(startDate.toString())
-        } else if (endDate.isNotEmpty()) {
-            sold = true
+        } else if (soldDateFrom.isNotEmpty()) {
+            sb.append("endDate >= ? AND ")
+            bindArgs.add(soldDateFrom.toString())
+        } else if (soldDateBefore.isNotEmpty()) {
             sb.append("endDate <= ? AND ")
-            bindArgs.add(endDate.toString())
+            bindArgs.add(soldDateBefore.toString())
+        }
+
+        //START DATES
+        val beforeDate = if (start_date_before!!.text == "Click to pick a date") {
+            ""
+        } else {
+            start_date_before.text
+        }
+        val afterDate = if (start_date_after!!.text == "Click to pick a date") {
+            ""
+        } else {
+            start_date_after.text
+        }
+
+        if (beforeDate.isNotEmpty() && afterDate.isNotEmpty()) {
+            sb.append("startDate >= ? AND startDate <= ? AND ")
+            bindArgs.add(beforeDate.toString())
+            bindArgs.add(afterDate.toString())
+
+        } else if (afterDate.isNotEmpty()) {
+            sb.append("startDate >= ? AND ")
+            bindArgs.add(afterDate.toString())
+        } else if (beforeDate.isNotEmpty()) {
+            sb.append("startDate <= ? AND ")
+            bindArgs.add(beforeDate.toString())
         }
 
         sb.append("sold = ? ")
@@ -159,7 +190,6 @@ class SearchManager {
 
         query = sb.toString()
 
-        Log.e("searchman", query + agent_et.text.toString() + " city = " + city_et.text.toString())
     }
 
     fun getQuery(): String? {

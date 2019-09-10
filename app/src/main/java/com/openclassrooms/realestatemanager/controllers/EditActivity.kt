@@ -125,7 +125,7 @@ class EditActivity : BaseActivityUIInformation() {
     override fun createRealEstate() {
 
         val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, city, sold, startDate, endDate, agent)
+                rooms, bathrooms, address, city, sold, startDate, endDate, agent, poi_tv.text.toString())
 
         AsyncTask.execute {
             viewModel?.updateRealEstate(realEstate)

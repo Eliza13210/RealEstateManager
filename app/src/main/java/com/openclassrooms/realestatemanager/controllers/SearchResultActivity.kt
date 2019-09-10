@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -11,10 +10,11 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
 import com.openclassrooms.realestatemanager.controllers.fragments.SearchResultFragment
 import com.openclassrooms.realestatemanager.models.RealEstate
+import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder
 import kotlinx.android.synthetic.main.toolbar.*
 
-class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemClickedListener {
+class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemClickedListener, PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     companion object {
         const val EXTRA_TAG_RESULT = "com.openclassrooms.myfragmentapp.Controllers.Activities.SearchResultActivity.EXTRA_TAG_RESULT"
@@ -93,5 +93,12 @@ class SearchResultActivity : AppCompatActivity(), RealEstateViewHolder.OnItemCli
             //If tablet
             detailFragment!!.updateDetails(id)
         }
+    }
+
+    /**
+     * Handle click on photos in detail fragment*
+     */
+    override fun onItemClick(id: Long?, position: Int?) {
+        detailFragment!!.onItemClick(id, position)
     }
 }

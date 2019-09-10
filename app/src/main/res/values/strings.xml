@@ -79,7 +79,7 @@
     <string name="navigation_drawer_open">navigation_drawer_open</string>
 
     <!--SEARCH ACTIVITY-->
-    <string name="delete_photo">Delete photo</string>
+    <string name="delete_photo">Delete</string>
     <string name="deleted">Photo deleted</string>
     <string name="close">Close</string>
     <string name="sold">SOLD</string>
@@ -131,6 +131,9 @@
     <string name="no_internet">No internet available</string>
     <string name="grant_access_location">You need to grant permission to access your location</string>
     <string name="add_photo">Add photo</string>
+    <string name="channel_name">realestate</string>
+    <string name="channel_description">realestate_add</string>
+    <string name="real_estate_added">New real estate added !</string>
 
 
 </resources>

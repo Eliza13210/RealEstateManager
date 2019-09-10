@@ -4,20 +4,19 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.MediaController
-import android.widget.Toast
-import android.widget.VideoView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.controllers.BaseActivityUIInformation
+import com.openclassrooms.realestatemanager.controllers.DetailActivity
+import com.openclassrooms.realestatemanager.controllers.MainActivity
+import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.popup_photo.view.*
 import java.util.*
+
 
 /**
  * Pop up dialog showing the photo or video.
@@ -27,7 +26,7 @@ import java.util.*
 class PhotoPopUp(var context: Context) {
 
     fun popUp(uri: String, photos: ArrayList<Photo>, type: String, photoAdapter: PhotoAdapter, position: Int?) {
-        val builder = AlertDialog.Builder(context, R.style.Theme_AppCompat_Light_Dialog_Alert)
+        val builder = AlertDialog.Builder(context, R.style.AlertDialog)
 
         // set the custom layout
         val customLayout = LayoutInflater.from(context).inflate(R.layout.popup_photo, null)
@@ -70,8 +69,10 @@ class PhotoPopUp(var context: Context) {
         }
         builder.setNegativeButton(context.getString(R.string.close)
         ) { dialog, _ -> dialog.cancel() }
+
         val dialog = builder.create()
-        Objects.requireNonNull<Window>(dialog.window).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
         dialog.show()
+
     }
 }

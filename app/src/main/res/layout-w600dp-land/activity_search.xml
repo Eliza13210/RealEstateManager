@@ -416,7 +416,7 @@
                 android:layout_marginBottom="10dp" />
 
 
-            <!-- DATE -->
+            <!-- START DATE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -427,7 +427,56 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="15"
-                    android:text="@string/start_date"
+                    android:text="On the market from"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/start_date_after"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="20"
+                    android:text="@string/click_to_pick_a_date"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15"
+                    android:text="On the market before"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/start_date_before"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:text="@string/click_to_pick_a_date"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <!-- SOLD -->
+            <CheckBox
+                android:id="@+id/cb_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sold" />
+
+            <!-- SOLD DATE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:weightSum="70">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="15"
+                    android:text="Sold after"
                     android:textStyle="bold" />
 
                 <TextView
@@ -444,7 +493,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="15"
-                    android:text="@string/end_date"
+                    android:text="Sold before"
                     android:textStyle="bold" />
 
                 <TextView
@@ -457,13 +506,6 @@
                     android:textStyle="italic" />
             </LinearLayout>
 
-            <!-- SOLD -->
-            <CheckBox
-                android:id="@+id/cb_sold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/sold" />
 
             <!--BUTTON-->
             <Button

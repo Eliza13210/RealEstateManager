@@ -1,12 +1,16 @@
 package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.maps.model.LatLng
 import com.openclassrooms.realestatemanager.FetchUserLocation
 import com.openclassrooms.realestatemanager.R
@@ -128,6 +132,7 @@ class CreateActivity : BaseActivityUIInformation() {
 
         AsyncTask.execute {
             realEstateId = viewModel?.createRealEstate(realEstate)!!
+            createNotification()
 
             for (photo in photos) {
                 photo.realEstateId = realEstateId
@@ -135,7 +140,7 @@ class CreateActivity : BaseActivityUIInformation() {
                     viewModel?.createPhoto(photo)
             }
         }
-        Toast.makeText(this, "Real estate added succesfully", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     /**
@@ -169,5 +174,18 @@ class CreateActivity : BaseActivityUIInformation() {
         spinner_bathrooms.setSelection(0)
         spinner_bedrooms.setSelection(0)
         spinner_rooms.setSelection(0)
+    }
+
+    private fun createNotification() {
+        var builder = NotificationCompat.Builder(this, MainActivity.CHANNEL_ID)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle("Real Estate manager")
+                .setContentText(getString(R.string.real_estate_added))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(1, builder.build())
+        }
+
     }
 }

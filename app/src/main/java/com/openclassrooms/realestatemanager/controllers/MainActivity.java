@@ -1,9 +1,11 @@
 package com.openclassrooms.realestatemanager.controllers;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,7 +16,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.openclassrooms.realestatemanager.R;
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment;
 import com.openclassrooms.realestatemanager.controllers.fragments.MainFragment;
+import com.openclassrooms.realestatemanager.view.PhotoAdapter;
 import com.openclassrooms.realestatemanager.view.RealEstateViewHolder;
+
+import org.jetbrains.annotations.Nullable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,10 +31,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements RealEstateViewHolder.OnItemClickedListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener, PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     // Create static variable to identify Intent
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.MainActivity.EXTRA_TAG";
+    public static final String CHANNEL_ID = "com.openclassrooms.myfragmentapp.Controllers.Activities.MainActivity.CHANNEL_REAL_ESTATE";
 
     private DetailFragment detailFragment;
     private MainFragment mainFragment;
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         this.configureAndShowDetailFragment();
         checkIfTablet();
         this.showMainFragment();
+        createNotificationChannel();
     }
 
     private void checkIfTablet() {
@@ -243,5 +250,27 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    @Override
+    public void onItemClick(@Nullable Long id, @Nullable Integer position) {
+        detailFragment.onItemClick(id, position);
     }
 }

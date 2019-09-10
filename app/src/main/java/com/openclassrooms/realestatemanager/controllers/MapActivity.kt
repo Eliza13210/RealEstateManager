@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.controllers
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -47,10 +48,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
         setContentView(R.layout.activity_map)
         checkInternetConnexion()
         initToolbar()
+        checkIfTablet()
         //Show the google map
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+    private fun checkIfTablet() {
+        // WILL BE FALSE IF TABLET
+        if (resources.getBoolean(R.bool.portrait_only)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     private fun initToolbar() {

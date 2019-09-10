@@ -53,7 +53,12 @@ public class SearchManagerTest {
     @Mock
     TextView start_date;
     @Mock
+    TextView sold_date_from;
+    @Mock
+    TextView sold_date_before;
+    @Mock
     TextView end_date;
+
     @Mock
     CheckBox cb_sold;
 
@@ -83,21 +88,24 @@ public class SearchManagerTest {
 
         Mockito.when(start_date.getText()).thenReturn(new MockEditable("01/04/2019"));
         Mockito.when(end_date.getText()).thenReturn(new MockEditable(""));
-        Mockito.when(cb_sold.isChecked()).thenReturn(false);
 
+        Mockito.when(sold_date_from.getText()).thenReturn(new MockEditable(""));
+        Mockito.when(sold_date_before.getText()).thenReturn(new MockEditable(""));
+
+        Mockito.when(cb_sold.isChecked()).thenReturn(true);
 
         List<String> listCheckBox = new ArrayList<>();
         listCheckBox.add("school");
         listCheckBox.add("bus station");
 
         manager.getQueryFromUI(agent_et, "house", listCheckBox, city_et, surface_min, surface_max, price_min, price_max, rooms_min, rooms_max,
-                bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date, end_date, cb_sold);
+                bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date, end_date, sold_date_from, sold_date_before, cb_sold);
 
         String query = manager.getQuery();
 
         String[] args = manager.getArgs();
-        String[] expected = new String[]{"Liz", "house", "%school%", "%bus station%", "avignon", "10000", "20000", "200000", "400000", "5", "10", "5", "1",
-                "01/04/2019", "false"};
+        String[] expected = new String[]{"liz", "house", "%school%", "%bus station%", "%avignon%", "10000", "20000", "200000", "400000", "5", "10", "5", "1",
+                "01/04/2019", "true"};
 
 
         assertEquals("SELECT * FROM RealEstate WHERE agent = ? AND type =? AND pointsOfInterest LIKE ? AND pointsOfInterest LIKE ? " +
@@ -105,7 +113,7 @@ public class SearchManagerTest {
                 "AND price BETWEEN ? AND ? AND rooms BETWEEN ? AND ? " +
                 "AND bedrooms <= ? " +
                 "AND bathrooms >= ? " +
-                "AND startDate >= ? AND sold = ? ;", query);
+                "AND startDate <= ? AND sold = ? ;", query);
 
         assertEquals(Arrays.toString(expected), Arrays.toString(args));
     }

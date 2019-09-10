@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.controllers
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -42,6 +43,7 @@ class SearchActivity : AppCompatActivity() {
         initToolbar()
         initClickableItems()
         initViewModel()
+        checkIfTablet()
     }
 
     /**
@@ -86,6 +88,16 @@ class SearchActivity : AppCompatActivity() {
         //DATE PICKER
         start_date_et.setOnClickListener { startDatePicker(start_date_et) }
         end_date_et.setOnClickListener { startDatePicker(end_date_et) }
+
+        start_date_after.setOnClickListener { startDatePicker(start_date_after) }
+        start_date_before.setOnClickListener { startDatePicker(start_date_before) }
+    }
+
+    private fun checkIfTablet() {
+        // WILL BE FALSE IF TABLET
+        if (resources.getBoolean(R.bool.portrait_only)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     private fun startDatePicker(editText: TextView) {
@@ -175,7 +187,7 @@ class SearchActivity : AppCompatActivity() {
     private fun getQueryFromUI() {
         val manageSearch = SearchManager()
         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
-                rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_et,
+                rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_before, start_date_after, start_date_et,
                 end_date_et, cb_sold)
 
         search(manageSearch.getQuery()!!, manageSearch.getArgs())

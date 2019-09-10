@@ -1,10 +1,10 @@
 package com.openclassrooms.realestatemanager.view.popUps;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.openclassrooms.realestatemanager.R;
@@ -29,7 +29,7 @@ public class MapPopUp {
     }
 
     public void showPopUp() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.Theme_AppCompat_Light_Dialog_Alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.AlertDialog);
 
         // set the custom layout
         final View customLayout = LayoutInflater.from(context).inflate(R.layout.popup_map, null);
