@@ -14,8 +14,8 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -25,24 +25,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="Surface (m2)"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/surface_min"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
                     android:maxLength="8"
@@ -57,10 +54,9 @@
 
                 <EditText
                     android:id="@+id/surface_max"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
                     android:maxLength="8"
@@ -79,24 +75,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="Price ($)"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/price_min"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
                     android:maxLength="8"
@@ -111,10 +104,9 @@
 
                 <EditText
                     android:id="@+id/price_max"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
                     android:maxLength="8"
@@ -131,29 +123,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/rooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/rooms_min"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -165,13 +155,12 @@
 
                 <EditText
                     android:id="@+id/rooms_max"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -180,33 +169,31 @@
                     android:layout_gravity="center"
                     android:text="@string/max" />
             </LinearLayout>
+
             <!--BEDROOMS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/bedrooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/bedrooms_min"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -218,13 +205,12 @@
 
                 <EditText
                     android:id="@+id/bedrooms_max"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -244,23 +230,21 @@
                 android:weightSum="3">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/bathrooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/bathrooms_min"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -272,13 +256,12 @@
 
                 <EditText
                     android:id="@+id/bathrooms_max"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -294,27 +277,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/photos"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/photos_min_et"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -326,13 +306,12 @@
 
                 <EditText
                     android:id="@+id/photos_max_et"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/edit_text_width"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -348,12 +327,13 @@
                 layout="@layout/type_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
+               android:layout_marginTop="50dp" />
+
             <!--AGENT REAL ESTATE-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="25dp"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -395,10 +375,12 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- RIGHT SIDE OF LAYOUT-->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:weightSum="100"
             android:orientation="vertical">
 
             <!-- POINTS OF INTEREST-->
@@ -408,19 +390,22 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/points_of_interest"
+                android:textSize="@dimen/head_text_size"
                 android:textStyle="bold" />
+
             <include
                 layout="@layout/poi_details_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" />
+                android:layout_height="0dp"
+                android:layout_weight="70"
+                />
 
 
             <!-- START DATE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:weightSum="70">
 
                 <TextView
@@ -457,20 +442,11 @@
                     android:textStyle="italic" />
             </LinearLayout>
 
-            <!-- SOLD -->
-            <CheckBox
-                android:id="@+id/cb_sold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/sold" />
-
             <!-- SOLD DATE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:weightSum="70">
+                android:weightSum="80">
 
                 <TextView
                     android:layout_width="0dp"
@@ -505,6 +481,14 @@
                     android:textSize="@dimen/text_size"
                     android:textStyle="italic" />
             </LinearLayout>
+
+            <!-- SOLD -->
+            <CheckBox
+                android:id="@+id/cb_sold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/sold" />
 
 
             <!--BUTTON-->

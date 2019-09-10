@@ -20,7 +20,6 @@
     <dimen name="photo_item_size_width">100dp</dimen>
     <dimen name="photo_item_size_height">100dp</dimen>
     <dimen name="margin_create_act">20dp</dimen>
-
-
     <dimen name="padding_add_btn">20dp</dimen>
+
 </resources>

@@ -24,21 +24,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="Surface (m2)"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/surface_min"
-                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:hint=""
@@ -55,7 +53,7 @@
 
                 <EditText
                     android:id="@+id/surface_max"
-                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:hint=""
@@ -76,21 +74,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="Price ($)"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/price_min"
-                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:hint=""
@@ -107,7 +103,7 @@
 
                 <EditText
                     android:id="@+id/price_max"
-                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_width="@dimen/edit_text_width_long"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="2dp"
                     android:hint=""
@@ -129,13 +125,12 @@
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/rooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
@@ -147,7 +142,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -164,7 +159,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -181,13 +176,12 @@
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="3">
+              >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/bedrooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
@@ -199,7 +193,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -216,7 +210,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -232,14 +226,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/bathrooms"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
@@ -251,7 +243,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -268,7 +260,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -286,13 +278,12 @@
                 android:layout_marginBottom="10dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="3">
+               >
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/text_view_width"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
                     android:text="@string/photos"
                     android:textSize="@dimen/text_size_create_act"
                     android:textStyle="bold" />
@@ -304,7 +295,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView
@@ -321,7 +312,7 @@
                     android:layout_marginEnd="2dp"
                     android:hint=""
                     android:inputType="number"
-                    android:maxLength="8"
+                    android:maxLength="2"
                     android:textAlignment="textEnd" />
 
                 <TextView

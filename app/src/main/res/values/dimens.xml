@@ -26,7 +26,9 @@
     <dimen name="padding_add_btn">10dp</dimen>
 
     <!--SEARCH LAYOUT-->
-    <dimen name="edit_text_width">100dp</dimen>
+    <dimen name="edit_text_width">50dp</dimen>
+    <dimen name="edit_text_width_long">80dp</dimen>
+    <dimen name="text_view_width">80dp</dimen>
 
     <!--ALERT DIALOG -->
     <dimen name="alert_dialog_button_width">30dp</dimen>
