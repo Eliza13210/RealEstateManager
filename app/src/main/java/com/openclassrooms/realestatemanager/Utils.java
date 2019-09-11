@@ -92,10 +92,14 @@ public class Utils {
             address = coder.getFromLocationName(strAddress, 5);
             if (address.size() > 0) {
                 Address location = address.get(0);
-                userCity = location.getLocality().toLowerCase().replace("-", " ");
+                if (location.getLocality() != null) {
+                    userCity = location.getLocality().toLowerCase().replace("-", " ");
+                } else {
+                    userCity = location.getFeatureName().toLowerCase().replace("-", " ");
+                }
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
             } else {
-                Toast.makeText(context, "You must enter a valid address", Toast.LENGTH_SHORT).show();
                 return null;
             }
         } catch (IOException ex) {
@@ -159,10 +163,10 @@ public class Utils {
         return String.valueOf(value / 100);
     }
 
-    public static String removeSpacesAndAccentLetters(String input){
+    public static String removeSpacesAndAccentLetters(String input) {
         String output;
         output = input.trim();
-        output= Normalizer
+        output = Normalizer
                 .normalize(output, Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "");
         return output;

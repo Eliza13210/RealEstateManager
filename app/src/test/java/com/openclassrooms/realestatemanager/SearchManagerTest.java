@@ -104,11 +104,11 @@ public class SearchManagerTest {
         String query = manager.getQuery();
 
         String[] args = manager.getArgs();
-        String[] expected = new String[]{"liz", "house", "%school%", "%bus station%", "%avignon%", "10000", "20000", "200000", "400000", "5", "10", "5", "1",
+        String[] expected = new String[]{"liz", "%house%", "%school%", "%bus station%", "%avignon%", "10000", "20000", "200000", "400000", "5", "10", "5", "1",
                 "01/04/2019", "true"};
 
 
-        assertEquals("SELECT * FROM RealEstate WHERE agent = ? AND type =? AND pointsOfInterest LIKE ? AND pointsOfInterest LIKE ? " +
+        assertEquals("SELECT * FROM RealEstate WHERE agent = ? AND type LIKE ? AND pointsOfInterest LIKE ? AND pointsOfInterest LIKE ? " +
                 "AND city LIKE ? AND surface BETWEEN ? AND ? " +
                 "AND price BETWEEN ? AND ? AND rooms BETWEEN ? AND ? " +
                 "AND bedrooms <= ? " +
