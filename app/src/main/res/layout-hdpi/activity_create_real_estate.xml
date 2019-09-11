@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,6 +11,12 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,22 +26,22 @@
             <include
                 layout="@layout/information_layout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/margin_create_act"
-                android:layout_weight="4" />
+                android:layout_marginStart="@dimen/margin_create_act"
+                android:layout_height="500dp"
+                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/margin_create_act"
-                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_create_act"
                 android:orientation="vertical">
 
                 <!--ADDRESS -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address" />
+                    android:text="@string/address"
+                    android:textSize="@dimen/text_size_create_act"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +62,7 @@
 
                     <EditText
                         android:id="@+id/address_tv"
-                        android:layout_width="300dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:inputType="textCapSentences|textMultiLine"
                         android:textSize="@dimen/text_size" />
@@ -69,30 +74,30 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
-                    <!--BUTTON-->
-                    <Button
-                        android:id="@+id/btn_send"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_create_act"
-                        android:background="@drawable/rounded_button"
-                        android:padding="10dp"
-                        android:text="@string/add"
-                        android:textColor="@color/white" />
+                <!--BUTTON-->
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:padding="5dp"
+                    android:text="@string/add"
+                    android:textColor="@color/white" />
 
-                    <!--BUTTON-->
-                    <Button
-                        android:id="@+id/btn_reset"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_create_act"
-                        android:background="@drawable/rounded_button"
-                        android:padding="10dp"
-                        android:text="@string/reset"
-                        android:textColor="@color/white" />
+                <!--BUTTON-->
+                <Button
+                    android:id="@+id/btn_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/rounded_button"
+                    android:padding="5dp"
+                    android:text="@string/reset"
+                    android:textColor="@color/white" />
                 </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
+      </LinearLayout>
+        </ScrollView>
     </FrameLayout>
-
 </LinearLayout>
