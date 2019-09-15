@@ -234,6 +234,7 @@ class SearchActivity : AppCompatActivity() {
     private fun showResult(realEstateList: List<RealEstate>) {
         val gson = Gson()
         val jsonList = gson.toJson(realEstateList)
+
         val intent = Intent(this, SearchResultActivity::class.java)
         intent.putExtra(SearchResultActivity.EXTRA_TAG_RESULT, jsonList)
         startActivity(intent)

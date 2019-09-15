@@ -45,6 +45,8 @@ import java.util.*
 abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks,
         PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
+    protected var isTablet = false
+
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
     protected var pref: SharedPreferences? = null
@@ -64,7 +66,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
     protected var realEstateId: Long = 0
 
-     var updated=false
+    var updated = false
 
     // For creating real estate object
     protected var photos = ArrayList<Photo>()
@@ -87,13 +89,12 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var longitude = ""
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutView())
+        checkIfTablet()
         initAnimation(savedInstanceState)
         initToolbar()
-        checkIfTablet()
         initRecyclerView()
         initViewModel()
         initButtons()
@@ -107,12 +108,14 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         // WILL BE FALSE IF TABLET
         if (resources.getBoolean(R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else {
+            isTablet = true
         }
     }
 
     private fun initAnimation(savedInstanceState: Bundle?) {
         val animate = Animation()
-        animate.start(savedInstanceState, root_layout)
+        animate.start(savedInstanceState, root_layout, isTablet)
     }
 
     private fun initToolbar() {
@@ -120,8 +123,9 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         this.setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
-            updated=false
-            startActivity(Intent(this, MainActivity::class.java)) }
+            updated = false
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     private fun initRecyclerView() {
@@ -211,7 +215,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
 
         //TAKE PHOTO
         ic_camera.setOnClickListener {
-            updated=true
+            updated = true
             if (hasCameraPermission()) {
                 takePhoto()
             } else {
@@ -223,7 +227,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         }
         //PICK IN GALLERY
         ic_gallery.setOnClickListener {
-            updated=true
+            updated = true
             if (hasReadExternalStoragePermission()) {
                 pickPhoto()
             } else {
@@ -235,7 +239,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         }
         //VIDEO
         ic_video.setOnClickListener {
-            updated=true
+            updated = true
             if (hasCameraPermission())
                 takeVideo()
             else {

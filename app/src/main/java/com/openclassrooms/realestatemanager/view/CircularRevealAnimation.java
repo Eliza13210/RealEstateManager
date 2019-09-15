@@ -7,9 +7,18 @@ import android.widget.FrameLayout;
 
 public class CircularRevealAnimation {
 
-    public static void startAnimation(FrameLayout rootLayout){
-        int cx = rootLayout.getWidth() / 2;
-        int cy = rootLayout.getHeight() - 70;
+    public static void startAnimation(FrameLayout rootLayout, boolean isTablet) {
+
+        int cx;
+        int cy;
+        if (isTablet) {
+            cx = rootLayout.getWidth() - 40;
+            cy = rootLayout.getHeight() - 40;
+        } else {
+            cx = rootLayout.getWidth()/2 ;
+            cy = rootLayout.getHeight() - 150;
+        }
+
 
         float finalRadius = Math.max(rootLayout.getWidth(), rootLayout.getHeight());
 

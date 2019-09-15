@@ -11,7 +11,7 @@ class Animation {
     /**
      *  Start Activity with a circular reveal animation
      * **/
-    fun start(savedInstanceState: Bundle?, root_layout: FrameLayout) {
+    fun start(savedInstanceState: Bundle?, root_layout: FrameLayout, isTablet: Boolean) {
         if (savedInstanceState == null) {
 
             root_layout.visibility = View.INVISIBLE
@@ -21,7 +21,7 @@ class Animation {
                 viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                     @SuppressLint("ObsoleteSdkInt")
                     override fun onGlobalLayout() {
-                        circularRevealActivity(root_layout)
+                        circularRevealActivity(root_layout, isTablet)
                         root_layout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     }
                 })
@@ -29,7 +29,7 @@ class Animation {
         }
     }
 
-    private fun circularRevealActivity(root_layout: FrameLayout) {
-        CircularRevealAnimation.startAnimation(root_layout)
+    private fun circularRevealActivity(root_layout: FrameLayout, isTablet: Boolean) {
+        CircularRevealAnimation.startAnimation(root_layout, isTablet)
     }
 }
