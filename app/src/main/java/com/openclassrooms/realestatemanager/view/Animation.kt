@@ -1,12 +1,10 @@
 package com.openclassrooms.realestatemanager.view
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import com.openclassrooms.realestatemanager.view.CircularRevealAnimation
 
 class Animation {
 

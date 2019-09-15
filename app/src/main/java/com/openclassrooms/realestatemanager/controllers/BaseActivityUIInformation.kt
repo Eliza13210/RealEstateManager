@@ -86,6 +86,8 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var latitude = ""
     protected var longitude = ""
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutView())
