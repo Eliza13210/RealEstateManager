@@ -112,21 +112,6 @@ public class Utils {
     }
 
     /**
-     * Get adress from a latitude and longitude object
-     *
-     * @param latLng
-     * @return
-     */
-
-    public static String setLocationString(LatLng latLng) {
-        //Build latLng string to fetch nearby restaurants
-        String builder = String.valueOf(latLng.latitude) +
-                "," +
-                latLng.longitude;
-        return builder;
-    }
-
-    /**
      * Check that date is before today date
      */
 

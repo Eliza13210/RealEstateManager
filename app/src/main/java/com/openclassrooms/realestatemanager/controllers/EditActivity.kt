@@ -3,13 +3,10 @@ package com.openclassrooms.realestatemanager.controllers
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.AsyncTask
-import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.Utils
-import com.openclassrooms.realestatemanager.controllers.MainActivity.EXTRA_TAG
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_edit.*
@@ -25,7 +22,6 @@ class EditActivity : BaseActivityUIInformation() {
 
 
     override fun onNewIntent(intent: Intent?) {
-
         if (intent != null)
             setIntent(intent)
     }

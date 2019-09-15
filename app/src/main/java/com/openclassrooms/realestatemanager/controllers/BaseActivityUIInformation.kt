@@ -25,6 +25,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
+import com.openclassrooms.realestatemanager.view.Animation
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.AddPhotoPopUp
 import com.openclassrooms.realestatemanager.view.popUps.AddPoiPopUp

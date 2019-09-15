@@ -82,6 +82,7 @@ public class RealEstateContentProviderTest {
         values.put("address", "Killingevag 134");
         values.put("agent", "Theo");
         values.put("id", "1");
+        values.put("city", "Bronx");
         return values;
     }
 }

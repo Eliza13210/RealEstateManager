@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager
 
-import android.util.Log
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView

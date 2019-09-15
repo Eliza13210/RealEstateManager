@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.controllers
+package com.openclassrooms.realestatemanager.view
 
 import android.annotation.SuppressLint
 import android.os.Build

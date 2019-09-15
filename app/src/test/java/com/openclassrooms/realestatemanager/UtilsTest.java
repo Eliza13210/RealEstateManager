@@ -73,16 +73,6 @@ public class UtilsTest {
     }
 
     @Test
-    public void setLocationString() {
-        LatLng latLng = new LatLng(0.0, 0.0);
-        String result = Utils.setLocationString(latLng);
-
-        String expected = "0.0,0.0";
-        assertEquals(expected, result);
-
-    }
-
-    @Test
     public void checkBeforeTodayWhenFalse() {
 
         Calendar cal = Calendar.getInstance();
