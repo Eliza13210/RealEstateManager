@@ -79,11 +79,13 @@ public class RealEstateContentProviderTest {
 
     private ContentValues generateItem() {
         final ContentValues values = new ContentValues();
-        values.put("description", "Beautiful house!");
+        values.put("id", ID);
         values.put("address", "Killingevag 134");
-        values.put("agent", "Theo");
-        values.put("id", "1");
         values.put("city", "Bronx");
+        values.put("agent", "Theo");
+        values.put("description", "Beautiful house!");
+        values.put("sold", "false");
+
         return values;
     }
 }

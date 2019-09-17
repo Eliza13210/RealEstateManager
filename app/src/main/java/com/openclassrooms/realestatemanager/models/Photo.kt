@@ -21,7 +21,7 @@ data class Photo(@PrimaryKey(autoGenerate = true) val id: Long? = null,
     companion object {
         // --- UTILS ---
         fun fromContentValues(values: ContentValues): Photo {
-            val photo = Photo(null, values.getAsLong("realEstateId"), values.getAsString("url"))
+            val photo = Photo(values.getAsLong("id"), values.getAsLong("realEstateId"), values.getAsString("url"))
             if (values.containsKey("text")) photo.text = values.getAsString("text")
             if (values.containsKey("type")) photo.type = values.getAsString("type")
             return photo
