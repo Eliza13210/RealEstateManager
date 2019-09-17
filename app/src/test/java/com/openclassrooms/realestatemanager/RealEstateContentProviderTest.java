@@ -71,6 +71,7 @@ public class RealEstateContentProviderTest {
             assertEquals(cursor.getCount(), 1);
             assertTrue(cursor.moveToFirst());
             assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("Beautiful house!"));
+            cursor.close();
         });
     }
 

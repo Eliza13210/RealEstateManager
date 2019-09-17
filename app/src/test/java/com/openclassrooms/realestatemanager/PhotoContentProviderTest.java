@@ -70,6 +70,7 @@ public class PhotoContentProviderTest {
             assertEquals(cursor.getCount(), 1);
             assertTrue(cursor.moveToFirst());
             assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("text")), is("Garden"));
+            cursor.close();
         });
     }
 
