@@ -2,7 +2,6 @@ package com.openclassrooms.realestatemanager.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
