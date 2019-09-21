@@ -34,15 +34,17 @@ public class FetchUserLocation {
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     private Context context;
-    private EditText editText;
+    private EditText address;
+    private EditText city;
     private SharedPreferences pref;
     private Activity activity;
     private GoogleMap map;
 
-    public FetchUserLocation(Context context, EditText editText, Activity activity, GoogleMap map) {
+    public FetchUserLocation(Context context, EditText address, EditText city, Activity activity, GoogleMap map) {
         this.map = map;
         this.context = context;
-        this.editText = editText;
+        this.address = address;
+        this.city=city;
         this.activity = activity;
     }
 
@@ -83,7 +85,6 @@ public class FetchUserLocation {
 
                         // Set the map's camera position to the current latLng of the device.
                         mLastKnownLocation = (Location) task.getResult();
-//                        Log.e("fetch", mLastKnownLocation.toString());
                         double mLatitude;
                         double mLongitude;
 
@@ -97,7 +98,7 @@ public class FetchUserLocation {
                             pref.edit().putString("CurrentLatitude", Double.toString(mLatitude)).apply();
                             pref.edit().putString("CurrentLongitude", Double.toString(mLongitude)).apply();
 
-                            if (editText != null) {
+                            if (address != null) {
                                 getAddress(mLatitude, mLongitude);
                             } else if (map != null) {
                                 showUserOnMap(mLatitude, mLongitude);
@@ -135,11 +136,12 @@ public class FetchUserLocation {
         //Save user address
         pref.edit().putString("CurrentAddress", userAddress).putString("CurrentCity", userCity).apply();
 
-        updateUIWithAddress(userAddress);
+        updateUIWithAddress(userAddress,userCity);
     }
 
-    private void updateUIWithAddress(String address) {
-        editText.setText(address);
+    private void updateUIWithAddress(String userAddress, String userCity) {
+        address.setText(userAddress);
+        city.setText(userCity);
     }
 
     private void showUserOnMap(Double latitude, Double longitude) {

@@ -135,6 +135,13 @@
     <string name="channel_description">realestate_add</string>
     <string name="real_estate_added">New real estate added !</string>
     <string name="type">Type</string>
+    <string name="use_gps">Use GPS</string>
+    <string name="location">Location</string>
+    <string name="required">*Required</string>
+    <string name="media">Media</string>
+    <string name="photo">Photo</string>
+    <string name="pick">Pick</string>
+    <string name="video">Video</string>
 
 
 </resources>

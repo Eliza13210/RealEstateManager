@@ -24,7 +24,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:helperText="*Required"
+            app:helperText="@string/required"
             android:hint="@string/agent">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -158,73 +158,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-
-
-    <!--VIDEO OR CAMERA OR GALLERY -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/non_touch_target_dimen"
-        android:text="Media"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignBottom="@+id/photo_realestate"
-        android:layout_gravity="bottom"
-        android:layout_marginEnd="4dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/grey"
-        android:visibility="visible" />
-
-    <LinearLayout
-        android:id="@+id/gallery_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_top_media"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="3"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/ic_video"
-            android:layout_width="@dimen/touch_target_dimen"
-            android:layout_height="@dimen/touch_target_dimen"
-            android:layout_marginEnd="@dimen/margin_create_act"
-            android:background="@drawable/ic_action_video"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:id="@+id/ic_camera"
-            android:layout_width="@dimen/touch_target_dimen"
-            android:layout_height="@dimen/touch_target_dimen"
-            android:layout_marginEnd="@dimen/margin_create_act"
-            android:background="@drawable/ic_camera"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <TextView
-            android:id="@+id/ic_gallery"
-            android:layout_width="@dimen/touch_target_dimen"
-            android:layout_height="@dimen/touch_target_dimen"
-            android:layout_marginEnd="@dimen/margin_create_act"
-            android:background="@drawable/ic_pick_photo"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <!--PHOTOS-->
-        <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/recyclerview_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_create_act"
-            android:layout_marginEnd="@dimen/margin_create_act"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
-
-
 
 </LinearLayout>

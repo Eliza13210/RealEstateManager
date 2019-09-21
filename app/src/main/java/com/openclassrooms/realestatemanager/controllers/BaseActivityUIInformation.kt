@@ -12,9 +12,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -25,14 +22,13 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.Animation
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.AddPhotoPopUp
 import com.openclassrooms.realestatemanager.view.popUps.AddPoiPopUp
 import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
-import kotlinx.android.synthetic.main.activity_edit.*
+import kotlinx.android.synthetic.main.activity_create_real_estate.fab
 import kotlinx.android.synthetic.main.information_layout.*
-import kotlinx.android.synthetic.main.room_details_layout.*
+import kotlinx.android.synthetic.main.media_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -92,8 +88,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
         super.onCreate(savedInstanceState)
         setContentView(getLayoutView())
         checkIfTablet()
-        initAnimation(savedInstanceState)
-        initToolbar()
         initRecyclerView()
         initViewModel()
         initButtons()
@@ -106,14 +100,11 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
         // WILL BE FALSE IF TABLET
         if (resources.getBoolean(R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            fab.setOnClickListener{startActivity(Intent(this, MainActivity::class.java))}
         } else {
             isTablet = true
+            initToolbar()
         }
-    }
-
-    private fun initAnimation(savedInstanceState: Bundle?) {
-        val animate = Animation()
-        animate.start(savedInstanceState, root_layout, isTablet)
     }
 
     private fun initToolbar() {

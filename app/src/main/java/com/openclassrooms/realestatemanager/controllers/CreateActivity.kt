@@ -16,6 +16,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_create_real_estate.*
+import kotlinx.android.synthetic.main.address_layout.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.type_details_layout.*
@@ -28,7 +29,7 @@ class CreateActivity : BaseActivityUIInformation() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAddressTextView()
-        fetchUserLocation = FetchUserLocation(this, address_tv, this, null)
+        fetchUserLocation = FetchUserLocation(this, address_tv, city_tv, this, null)
         pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE)
     }
 
@@ -166,6 +167,7 @@ class CreateActivity : BaseActivityUIInformation() {
         address = ""
         address_tv.setText("")
         city = ""
+        city_tv.setText("")
         sold = "false"
         startDate = ""
         agent = ""

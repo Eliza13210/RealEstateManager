@@ -75,7 +75,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun getUserLocation() {
-        location = FetchUserLocation(this, null, this, mMap)
+        location = FetchUserLocation(this, null, null,this, mMap)
         location!!.checkLocationPermission()
     }
 
