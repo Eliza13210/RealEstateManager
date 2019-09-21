@@ -2,124 +2,194 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/margin_create_act"
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <!--AGENT REAL ESTATE-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/agent"
-            android:textSize="@dimen/text_size_create_act"
-            android:textStyle="bold" />
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_person" />
 
-        <EditText
-            android:id="@+id/agent_et"
-            android:layout_width="100dp"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLength="30"
-            android:textSize="@dimen/text_size_edit_text"
-            android:autofillHints="@string/agent" />
+            app:helperText="*Required"
+            android:hint="@string/agent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/agent_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <!--TYPE-->
     <include
         layout="@layout/type_details_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5" />
+        android:layout_height="wrap_content" />
 
+    <!--SURFACE -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <!--SURFACE -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_icon_surface" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/surface"
-                android:textSize="@dimen/text_size_create_act"
-                android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/surface">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/surface_tv"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/m2"
-                android:inputType="number"
-                android:maxLength="8"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/text_size_edit_text" />
-        </LinearLayout>
+                android:maxLength="5" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!--PRICE -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/price"
-                android:textSize="@dimen/text_size_create_act"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/price_tv"
-                android:layout_width="@dimen/edit_text_with_create"
-                android:layout_height="wrap_content"
-                android:hint="@string/dollar"
-                android:inputType="number"
-                android:maxLength="8"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/text_size_edit_text" />
-        </LinearLayout>
     </LinearLayout>
 
-    <!--ROOM SPINNERS-->
+
+    <!--PRICE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/round_money_black_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/price">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/price_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <!--DESCRIPTION -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_notes" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <!--POINTS OF INTEREST-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ic_add_poi"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/round_near_me_black_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/points_of_interest">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/poi_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <!--ROOMS-->
     <include
         layout="@layout/room_details_layout"
-        android:layout_width="300dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.5" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 
     <!--VIDEO OR CAMERA OR GALLERY -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/non_touch_target_dimen"
+        android:text="Media"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/photo_realestate"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="4dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/grey"
+        android:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/gallery_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_top_media"
         android:layout_marginBottom="5dp"
-        android:layout_weight="0.3"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/ic_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/touch_target_dimen"
+            android:layout_height="@dimen/touch_target_dimen"
             android:layout_marginEnd="@dimen/margin_create_act"
             android:background="@drawable/ic_action_video"
             android:clickable="true"
@@ -127,8 +197,8 @@
 
         <TextView
             android:id="@+id/ic_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/touch_target_dimen"
+            android:layout_height="@dimen/touch_target_dimen"
             android:layout_marginEnd="@dimen/margin_create_act"
             android:background="@drawable/ic_camera"
             android:clickable="true"
@@ -136,8 +206,8 @@
 
         <TextView
             android:id="@+id/ic_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/touch_target_dimen"
+            android:layout_height="@dimen/touch_target_dimen"
             android:layout_marginEnd="@dimen/margin_create_act"
             android:background="@drawable/ic_pick_photo"
             android:clickable="true"
@@ -155,59 +225,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.6"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/points_of_interest"
-            android:textSize="@dimen/text_size" />
 
-        <ImageView
-            android:id="@+id/ic_add_poi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_create_act"
-            android:src="@drawable/ic_action_add_dark" />
-
-        <TextView
-            android:id="@+id/poi_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_create_act"
-            android:textSize="@dimen/text_size" />
-
-    </LinearLayout>
-
-    <!--DESCRIPTION -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="0.6"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/description"
-            android:textSize="@dimen/text_size_create_act"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/description_et"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="3"
-            android:hint="..."
-            android:inputType="textCapSentences|textMultiLine"
-            android:paddingLeft="10dp"
-            android:textSize="@dimen/text_size_edit_text" />
-    </LinearLayout>
 </LinearLayout>

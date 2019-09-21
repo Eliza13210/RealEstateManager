@@ -42,7 +42,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnItemSelectedListener, EasyPermissions.PermissionCallbacks,
+abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.PermissionCallbacks,
         PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     protected var isTablet = false
@@ -88,7 +88,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
     protected var latitude = ""
     protected var longitude = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutView())
@@ -98,7 +97,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
         initRecyclerView()
         initViewModel()
         initButtons()
-        initSpinner()
         initClickableItems()
     }
 
@@ -145,73 +143,21 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
      */
     abstract fun initButtons()
 
-    private fun initSpinner() {
-        //Rooms spinner
-        val adapter = ArrayAdapter.createFromResource(this,
-                R.array.rooms_array, android.R.layout.simple_spinner_item)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_rooms.adapter = adapter
-        spinner_rooms.onItemSelectedListener = this
-
-        //Bathrooms spinner
-        val adapterBathroom = ArrayAdapter.createFromResource(this,
-                R.array.bathrooms_array, android.R.layout.simple_spinner_item)
-
-        adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_bathrooms.adapter = adapterBathroom
-        spinner_bathrooms.onItemSelectedListener = this
-
-        //Bedrooms spinner
-        val adapterBedrooms = ArrayAdapter.createFromResource(this,
-                R.array.bathrooms_array, android.R.layout.simple_spinner_item)
-
-        adapterBathroom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner_bedrooms.adapter = adapterBedrooms
-        spinner_bedrooms.onItemSelectedListener = this
-    }
-
-    /**
-     * Select item in spinner
-     */
-    override fun onItemSelected(parent: AdapterView<*>, view: View?,
-                                pos: Int, id: Long) {
-        when (parent.id) {
-            R.id.spinner_rooms -> {
-                rooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
-            }
-            R.id.spinner_bathrooms -> {
-                bathrooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
-            }
-            R.id.spinner_bedrooms -> {
-                bedrooms = Integer.parseInt(parent.getItemAtPosition(pos).toString())
-            }
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>) {
-        rooms = null
-        bathrooms = null
-        bedrooms = null
-    }
-
     private fun initClickableItems() {
-        // CHOOSE TYPE
-        house_tv.setOnClickListener { getType(getString(R.string.type_tag_house)) }
-        apartement_tv.setOnClickListener { getType(getString(R.string.type_tag_appartement)) }
-
         //Edit text type
         type_tv.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                house_tv.setBackgroundResource(R.color.white)
-                apartement_tv.setBackgroundResource(R.color.white)
+
                 type = type_tv.text.toString()
             }
 
             override fun afterTextChanged(s: Editable) {
             }
         })
+
+        //POINTS OF INTEREST
+        poi_tv.setOnClickListener { addPoi() }
 
         //TAKE PHOTO
         ic_camera.setOnClickListener {
@@ -249,43 +195,11 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), AdapterView.OnIt
                         Manifest.permission.CAMERA)
             }
         }
-        //POINTS OF INTEREST
-        ic_add_poi.setOnClickListener {
-            addPoi()
-        }
     }
 
     private fun addPoi() {
         val popUp = AddPoiPopUp(this, listPoi, poi_tv)
         popUp.popUpDialog()
-    }
-
-    private fun getType(tag: String) {
-        type_tv.setText("")
-        when (tag) {
-            "tag_house" -> {
-                if (type == "house") {
-                    type = ""
-                    house_tv.setBackgroundResource(R.color.white)
-                    apartement_tv.setBackgroundResource(R.color.white)
-                } else {
-                    type = "house"
-                    house_tv.setBackgroundResource(R.drawable.rounded_corners)
-                    apartement_tv.setBackgroundResource(R.color.white)
-                }
-            }
-            "tag_apartement" -> {
-                if (type == "flat") {
-                    type = ""
-                    house_tv.setBackgroundResource(R.color.white)
-                    apartement_tv.setBackgroundResource(R.color.white)
-                } else {
-                    type = "flat"
-                    house_tv.setBackgroundResource(R.color.white)
-                    apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
-                }
-            }
-        }
     }
 
     private fun pickPhoto() {

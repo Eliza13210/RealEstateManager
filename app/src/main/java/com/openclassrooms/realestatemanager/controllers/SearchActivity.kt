@@ -57,17 +57,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initClickableItems() {
-        // CHOOSE TYPE
-        house_tv.setOnClickListener { getType("tag_house") }
-        apartement_tv.setOnClickListener { getType("tag_apartement") }
-
         //Edit text type
         type_tv.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                house_tv.setBackgroundResource(R.color.white)
-                apartement_tv.setBackgroundResource(R.color.white)
             }
 
             override fun afterTextChanged(s: Editable) {
@@ -149,33 +143,6 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         return result
-    }
-
-    private fun getType(tag: String) {
-        type_tv.setText("")
-        when (tag) {
-            "tag_house" -> {
-                if (type == "house") {
-                    type = ""
-                    house_tv.setBackgroundResource(R.color.white)
-                } else {
-                    type = "house"
-                    //CHANGE COLOR TO SHOW CLICKED
-                    house_tv.setBackgroundResource(R.drawable.rounded_corners)
-                    apartement_tv.setBackgroundResource(R.color.white)
-                }
-            }
-            "tag_apartement" -> {
-                if (type == "flat") {
-                    type = ""
-                    apartement_tv.setBackgroundResource(R.color.white)
-                } else {
-                    type = "flat"
-                    house_tv.setBackgroundResource(R.color.white)
-                    apartement_tv.setBackgroundResource(R.drawable.rounded_corners)
-                }
-            }
-        }
     }
 
 

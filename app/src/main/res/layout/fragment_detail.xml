@@ -81,8 +81,8 @@
 
                     <ImageView
                         android:id="@+id/icon_surface"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/non_touch_target_dimen"
+                        android:layout_height="@dimen/non_touch_target_dimen"
                         android:layout_weight="1"
                         android:src="@drawable/ic_icon_surface" />
 
@@ -119,8 +119,8 @@
 
                     <ImageView
                         android:id="@+id/icon_rooms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/non_touch_target_dimen"
+                        android:layout_height="@dimen/non_touch_target_dimen"
                         android:layout_weight="1"
                         android:src="@drawable/ic_icon_home" />
 
@@ -157,8 +157,8 @@
 
                     <ImageView
                         android:id="@+id/icon_bathrooms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/non_touch_target_dimen"
+                        android:layout_height="@dimen/non_touch_target_dimen"
                         android:layout_weight="1"
                         android:src="@drawable/ic_icon_bathroom" />
 
@@ -195,8 +195,8 @@
 
                     <ImageView
                         android:id="@+id/icon_bedrooms"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/non_touch_target_dimen"
+                        android:layout_height="@dimen/non_touch_target_dimen"
                         android:layout_weight="1"
                         android:src="@drawable/ic_icon_bedroom" />
 
@@ -235,8 +235,8 @@
 
                 <ImageView
                     android:id="@+id/icon_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/non_touch_target_dimen"
+                    android:layout_height="@dimen/non_touch_target_dimen"
                     android:src="@drawable/ic_icon_location" />
 
                 <LinearLayout

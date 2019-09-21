@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_margin="@dimen/margin_create_act"
+                android:layout_margin="16dp"
                 android:backgroundTint="@color/blue"
                 android:elevation="4dp"
                 app:borderWidth="0dp" />

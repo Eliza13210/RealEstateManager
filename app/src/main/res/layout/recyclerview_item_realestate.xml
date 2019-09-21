@@ -21,7 +21,6 @@
         android:layout_alignBottom="@+id/photo_realestate"
         android:layout_marginStart="35dp"
         android:layout_toRightOf="@+id/photo_realestate"
-        android:gravity="center"
         android:orientation="vertical">
 
         <TextView

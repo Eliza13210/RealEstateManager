@@ -29,7 +29,7 @@ class EditActivity : BaseActivityUIInformation() {
     override fun onResume() {
         super.onResume()
         realEstateId = intent.getLongExtra(DetailActivity.EXTRA_TAG, 0)
-        if(!updated) {
+        if (!updated) {
             initRealEstate(realEstateId)
             getPhotos(realEstateId)
         }
@@ -52,17 +52,14 @@ class EditActivity : BaseActivityUIInformation() {
         type_tv.setText(realEstate.type)
         surface_tv.setText(realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) })
         price_tv.setText(realEstate.price?.toString())
-        poi_tv.text = realEstate.pointsOfInterest
+        poi_tv.setText(realEstate.pointsOfInterest)
         description_et.setText(realEstate.description)
         if (realEstate.sold == "true") startDatePicker = false
         check_sold.isChecked = (realEstate.sold == "true")
         end_date.text = if (realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
-
-        if (realEstate.rooms != null) spinner_rooms.setSelection(realEstate.rooms!!) else spinner_rooms.setSelection(0)
-
-        if (realEstate.bathrooms != null) spinner_bathrooms.setSelection(realEstate.bathrooms!!) else spinner_bathrooms.setSelection(0)
-
-        if (realEstate.bedrooms != null) spinner_bedrooms.setSelection(realEstate.bedrooms!!) else spinner_bedrooms.setSelection(0)
+        rooms_tv.setText(realEstate.rooms.toString())
+        bedroom_tv.setText(realEstate.bedrooms.toString())
+        bathroom_tv.setText(realEstate.bathrooms.toString())
 
         description_et.setText(realEstate.description)
         latitude = realEstate.latitude!!
@@ -100,8 +97,9 @@ class EditActivity : BaseActivityUIInformation() {
     }
 
     override fun getInfoFromUI() {
-        agent = agent_et.text.toString()
-        if (price_tv.text.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
+        //agent = agent_et.getText.toString()
+
+        if (price_tv.text!!.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
         description = description_et.text.toString()
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         endDate = end_date.text.toString()
@@ -138,7 +136,7 @@ class EditActivity : BaseActivityUIInformation() {
             }
         }
         Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
-        updated=false
+        updated = false
     }
 
     private fun startDatePicker() {

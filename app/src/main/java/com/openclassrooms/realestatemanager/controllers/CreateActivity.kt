@@ -94,18 +94,22 @@ class CreateActivity : BaseActivityUIInformation() {
     }
 
     override fun getInfoFromUI() {
-        agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString().toLowerCase())
-        if (price_tv.text.isNotEmpty()) {
+        agent = agent_et.text.toString()
+        agent = Utils.removeSpacesAndAccentLetters(agent_et.toString().toLowerCase())
+        if (price_tv.text!!.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())
         }
         description = description_et.text.toString()
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
-        if (type_tv.text.isNotEmpty()) {
+        if (type_tv.text!!.isNotEmpty()) {
             type = type_tv.text.toString().toLowerCase()
         }
         city = Utils.removeSpacesAndAccentLetters(pref!!.getString("CurrentCity", "Unknown")!!.toLowerCase())
+        rooms = Integer.parseInt(rooms_tv.text.toString())
+        bedrooms = Integer.parseInt(bedroom_tv.text.toString())
+        bathrooms = Integer.parseInt(bathroom_tv.text.toString())
 
         if (agent.isNotEmpty()) {
             if (address.isNotEmpty() && latLng != null) {
@@ -169,10 +173,7 @@ class CreateActivity : BaseActivityUIInformation() {
         listPoi = ArrayList()
         latitude = ""
         longitude = ""
-        poi_tv.text = ""
-        spinner_bathrooms.setSelection(0)
-        spinner_bedrooms.setSelection(0)
-        spinner_rooms.setSelection(0)
+        poi_tv.setText("")
     }
 
     private fun createNotification() {

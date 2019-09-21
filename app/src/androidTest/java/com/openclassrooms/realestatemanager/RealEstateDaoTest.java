@@ -26,16 +26,17 @@ public class RealEstateDaoTest {
 
     // DATA SET FOR TEST
     private static long REALESTATE_ID = 1;
-    private static RealEstate REALESTATE_DEMO = new RealEstate(REALESTATE_ID,
-            "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg",
-            "Appartement ", "123456", "NY CENTER");
+    private static RealEstate REALESTATE_DEMO = new RealEstate(REALESTATE_ID, "house", 500000,"1.1","1.1", "House on the countryside",
+            400, 4,10,4,
+            "Rue des cigales", "Maussane ", "false", "01/09/2018", "", "Liz", "school");
 
 
     // FOR DATA
     private RealEstateDatabase database;
 
-    private static Photo NEW_PHOTO = new Photo(1, 1, "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg",
-            "Kitchen");
+    private static Photo NEW_PHOTO = new Photo(REALESTATE_ID, 1,
+            "https://images.victorianplumbing.co.uk/images/Legend-Traditional-Bathroom-Suite_P.jpg",
+            "Kitchen", "video");
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
