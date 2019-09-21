@@ -2,78 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <FrameLayout
-        android:id="@+id/root_layout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!--TEXT FIELDS-->
+        <include
+            layout="@layout/information_layout"
+            android:layout_width="0dp"
+            android:layout_margin="48dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <!--ADDRESS-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="48dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <include
+            layout="@layout/address_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            layout="@layout/media_layout"
+            android:layout_width="match_parent"
+            android:layout_marginTop="48dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <include
-                layout="@layout/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-
-                <include
-                    layout="@layout/information_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="40dp"
-                    android:layout_weight="2" />
-
-
-                <!--ADDRESS-->
-                <include
-                    layout="@layout/address_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-                <include
-                    layout="@layout/media_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <!--BUTTON-->
-                        <Button
-                            android:id="@+id/btn_send"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_create_act"
-                            android:background="@drawable/rounded_button"
-                            android:padding="@dimen/padding_add_btn"
-                            android:text="@string/add"
-                            android:textColor="@color/white" />
-                        <!--BUTTON-->
-                        <Button
-                            android:id="@+id/btn_reset"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/margin_create_act"
-                            android:background="@drawable/rounded_button"
-                            android:padding="@dimen/padding_add_btn"
-                            android:text="@string/reset"
-                            android:textColor="@color/white" />
-                </LinearLayout>
-            </LinearLayout>
+            <!--BUTTON-->
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_create_act"
+                android:background="@drawable/rounded_button"
+                android:padding="@dimen/padding_add_btn"
+                android:text="@string/add"
+                android:textColor="@color/white" />
+            <!--BUTTON-->
+            <Button
+                android:id="@+id/btn_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_create_act"
+                android:background="@drawable/rounded_button"
+                android:padding="@dimen/padding_add_btn"
+                android:text="@string/reset"
+                android:textColor="@color/white" />
         </LinearLayout>
-    </FrameLayout>
-
-
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
