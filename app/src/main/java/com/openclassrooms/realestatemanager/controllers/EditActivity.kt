@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.controllers
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.AsyncTask
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.openclassrooms.realestatemanager.R
@@ -12,6 +13,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
+import kotlinx.android.synthetic.main.sold_layout.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 
@@ -57,15 +59,31 @@ class EditActivity : BaseActivityUIInformation() {
         if (realEstate.sold == "true") startDatePicker = false
         check_sold.isChecked = (realEstate.sold == "true")
         end_date.text = if (realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
-        rooms_tv.setText(realEstate.rooms.toString())
-        bedroom_tv.setText(realEstate.bedrooms.toString())
-        bathroom_tv.setText(realEstate.bathrooms.toString())
 
+        if (realEstate.rooms != null) {
+            rooms_tv.setText(realEstate.rooms.toString())
+        } else {
+            rooms_tv.setText("")
+        }
+
+        if (realEstate.bedrooms != null) {
+            bedroom_tv.setText(realEstate.bedrooms.toString())
+        } else {
+            bedroom_tv.setText("")
+        }
+
+        if (realEstate.bathrooms != null) {
+            bathroom_tv.setText(realEstate.bathrooms.toString())
+        } else {
+            bathroom_tv.setText("")
+        }
         description_et.setText(realEstate.description)
         latitude = realEstate.latitude!!
         longitude = realEstate.longitude!!
         address = realEstate.address
         city = realEstate.city
+        startDate = realEstate.startDate.toString()
+        endDate = realEstate.endDate.toString()
     }
 
     //  Get all photos
@@ -98,12 +116,29 @@ class EditActivity : BaseActivityUIInformation() {
 
     override fun getInfoFromUI() {
         //agent = agent_et.getText.toString()
-
+        agent = agent_et.text.toString()
         if (price_tv.text!!.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
         description = description_et.text.toString()
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         endDate = end_date.text.toString()
+        rooms = if (!rooms_tv.text.isNullOrEmpty()) {
+            Integer.parseInt(rooms_tv.text.toString())
+        } else {
+            null
+        }
+        bedrooms = if (bedroom_tv.text.isNullOrEmpty()) {
+            null
+        } else {
+            Integer.parseInt(bedroom_tv.text.toString())
+        }
+        bathrooms = if (bedroom_tv.text.isNullOrEmpty()) {
+            null
+        } else {
+            Integer.parseInt(bathroom_tv.text.toString())
+        }
 
+        type = type_tv.text.toString()
+        pointsOfInterest = poi_tv.text.toString()
         //Check if end date is picked when object is sold before updating
         if (sold == "true") {
             if (endDate.isNotEmpty()) {
@@ -137,6 +172,8 @@ class EditActivity : BaseActivityUIInformation() {
         }
         Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
         updated = false
+
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun startDatePicker() {

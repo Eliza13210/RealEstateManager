@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     public static final String EXTRA_TAG = "com.openclassrooms.myfragmentapp.Controllers.Activities.MainActivity.EXTRA_TAG";
     public static final String CHANNEL_ID = "com.openclassrooms.myfragmentapp.Controllers.Activities.MainActivity.CHANNEL_REAL_ESTATE";
 
+    private BottomAppBar bottomAppBar;
     private DetailFragment detailFragment;
     private MainFragment mainFragment;
     private long tag = -1;
@@ -54,7 +55,11 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         super.onResume();
         // Call update method here because we are sure that DetailFragment is visible
         this.updateDetailFragmentWithIntentTag();
-        checkIfTablet();
+        if (!tablet) {
+            bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
+            fab.setImageResource(R.drawable.ic_action_add_white);
+        }
+
     }
 
     @Override
@@ -62,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        this.configureAndShowDetailFragment();
         checkIfTablet();
+        this.configureAndShowDetailFragment();
         this.showMainFragment();
         createNotificationChannel();
     }
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
     }
 
     private void setActionbarPhone() {
-        BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
+        bottomAppBar = findViewById(R.id.bottom_app_bar);
         this.setSupportActionBar(bottomAppBar);
         configureDrawerLayout(bottomAppBar, null);
 
@@ -92,15 +97,14 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         fab.setOnClickListener(v -> createRealEstate());
     }
 
+
     //  Start create activity when click on fab if phone
     private void createRealEstate() {
-        BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
         // Move FAB from the center of BottomAppBar to the end of it
         bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
 
         // Change FAB icon
         fab.setImageResource(R.drawable.ic_return);
-
         startActivity(new Intent(this, CreateActivity.class));
     }
 
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         this.setSupportActionBar(toolbar);
         configureDrawerLayout(null, toolbar);
 
-        fab.setImageResource(R.drawable.ic_action_edit_dark);
+        fab.setImageResource(R.drawable.ic_edit_white);
         fab.setOnClickListener(v -> edit());
     }
 

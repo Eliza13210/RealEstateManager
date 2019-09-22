@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         bottomAppBar.setNavigationOnClickListener(view -> startActivity(new Intent(DetailActivity.this, MainActivity.class)));
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setImageResource(R.drawable.ic_action_edit_dark);
+        fab.setImageResource(R.drawable.ic_edit_white);
         fab.setOnClickListener(v -> edit());
     }
 

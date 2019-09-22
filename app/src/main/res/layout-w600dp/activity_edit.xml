@@ -2,80 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/root_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    <include layout="@layout/toolbar" />
 
-        <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_below="@id/toolbar">
 
-            <include layout="@layout/toolbar" />
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-            <include
-                layout="@layout/information_layout"
-                android:layout_width="400dp"
-                android:layout_height="0dp"
-                android:layout_margin="45dp"
-                android:layout_weight="6" />
-
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.4"
-                android:layout_marginStart="45dp"
-                android:orientation="horizontal">
-
-                <Switch
-                    android:id="@+id/check_sold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sold"
-                    android:textSize="@dimen/text_size" />
-
-                <TextView
-                    android:id="@+id/end_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_create_act"
-                    android:clickable="true"
-                    android:hint="End date"
-                    android:textSize="@dimen/text_size" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginStart="45dp"
-                android:layout_marginBottom="45dp"
-                android:orientation="horizontal">
-
-                <!--BUTTON-->
-                <Button
-                    android:id="@+id/btn_update"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_margin="@dimen/margin_create_act"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/rounded_button"
-                    android:padding="@dimen/padding_add_btn"
-                    android:text="Update"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
+                    <include
+                        layout="@layout/information_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                    <include
+                        layout="@layout/media_layout"
+                        android:layout_width="384dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp">
+
+                        <include
+                            layout="@layout/sold_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <!--BUTTON-->
+                        <Button
+                            android:id="@+id/btn_update"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_create_act"
+                            android:background="@drawable/rounded_button"
+                            android:padding="10dp"
+                            android:text="Update"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </FrameLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="24dp"
+            android:background="@color/blue"
+            android:src="@drawable/ic_return" />
+    </RelativeLayout>
 </LinearLayout>
