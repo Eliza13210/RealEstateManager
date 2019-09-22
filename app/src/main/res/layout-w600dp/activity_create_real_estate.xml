@@ -1,11 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <include
-        layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/frame_layout_create"
@@ -33,22 +45,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                <!--ADDRESS-->
-                <include
-                    layout="@layout/address_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp" />
+                    <!--ADDRESS-->
+                    <include
+                        layout="@layout/address_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1" />
 
-                <include
-                    layout="@layout/media_layout"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp" />
+                    <include
+                        layout="@layout/media_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
                 <!--BUTTON-->
                 <LinearLayout

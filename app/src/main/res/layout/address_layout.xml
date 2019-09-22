@@ -40,13 +40,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/address"
+            android:hint="@string/address_req"
             app:helperText="@string/required">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/address_tv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text|textCapSentences"
+                android:maxLines="4" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -56,13 +58,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:hint="@string/city"
+        android:hint="@string/city_req"
         app:helperText="@string/required">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/city_tv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text|textCapSentences"
+            android:maxLines="2" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--BUTTON-->

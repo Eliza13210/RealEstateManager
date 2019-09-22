@@ -142,6 +142,10 @@
     <string name="photo">Photo</string>
     <string name="pick">Pick</string>
     <string name="video">Video</string>
+    <string name="agent_req">Agent*</string>
+    <string name="price_in_dollar">Price $</string>
+    <string name="address_req">Address*</string>
+    <string name="city_req">City*</string>
 
 
 </resources>

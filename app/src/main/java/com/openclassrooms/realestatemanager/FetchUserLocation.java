@@ -17,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,11 +41,11 @@ public class FetchUserLocation {
     private Activity activity;
     private GoogleMap map;
 
-    public FetchUserLocation(Context context, EditText address, EditText city, Activity activity, GoogleMap map) {
+    public FetchUserLocation(Context context, TextInputEditText address, TextInputEditText city, Activity activity, GoogleMap map) {
         this.map = map;
         this.context = context;
         this.address = address;
-        this.city=city;
+        this.city = city;
         this.activity = activity;
     }
 
@@ -73,7 +74,6 @@ public class FetchUserLocation {
          * cases when a latLng is not available.
          */
         try {
-            Log.e("fetch", "try to get location");
             Task locationResult = fusedLocationProviderClient.getLastLocation();
 
             locationResult.addOnCompleteListener(activity, new OnCompleteListener() {
@@ -126,7 +126,7 @@ public class FetchUserLocation {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
-                userAddress = address.getAddressLine(0);
+                userAddress = address.getFeatureName()+" "+address.getThoroughfare();
                 userCity = address.getLocality().toLowerCase().replace("-", " ");
             }
         } catch (IOException e) {
@@ -136,7 +136,7 @@ public class FetchUserLocation {
         //Save user address
         pref.edit().putString("CurrentAddress", userAddress).putString("CurrentCity", userCity).apply();
 
-        updateUIWithAddress(userAddress,userCity);
+        updateUIWithAddress(userAddress, userCity);
     }
 
     private void updateUIWithAddress(String userAddress, String userCity) {

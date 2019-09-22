@@ -10,8 +10,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -26,11 +24,10 @@ import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.AddPhotoPopUp
 import com.openclassrooms.realestatemanager.view.popUps.AddPoiPopUp
 import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
-import kotlinx.android.synthetic.main.activity_create_real_estate.fab
+import kotlinx.android.synthetic.main.activity_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.media_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.type_details_layout.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -100,7 +97,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
         // WILL BE FALSE IF TABLET
         if (resources.getBoolean(R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            fab.setOnClickListener{startActivity(Intent(this, MainActivity::class.java))}
+            fab?.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
         } else {
             isTablet = true
             initToolbar()
@@ -135,18 +132,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     abstract fun initButtons()
 
     private fun initClickableItems() {
-        //Edit text type
-        type_tv.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-                type = type_tv.text.toString()
-            }
-
-            override fun afterTextChanged(s: Editable) {
-            }
-        })
-
         //POINTS OF INTEREST
         poi_tv.setOnClickListener { addPoi() }
 

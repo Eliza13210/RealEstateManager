@@ -7,6 +7,8 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -80,23 +82,19 @@ public class Utils {
      * @return
      */
 
-    public static LatLng getLatLngFromAddress(Context context, String strAddress) {
+    public static LatLng getLatLngFromAddress(Context context, String strAddress, RelativeLayout loadingPanel) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;
         LatLng latLng = null;
-        String userCity = "";
 
         try {
             // May throw an IOException
             address = coder.getFromLocationName(strAddress, 5);
             if (address.size() > 0) {
                 Address location = address.get(0);
-                if (location.getLocality() != null) {
-                    userCity = location.getLocality().toLowerCase().replace("-", " ");
-                } else {
-                    userCity = location.getFeatureName().toLowerCase().replace("-", " ");
-                }
+
+                Log.e("utils", "check " + location);
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
             } else {
@@ -105,9 +103,7 @@ public class Utils {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        //Save user address
-        SharedPreferences pref = context.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE);
-        pref.edit().putString("CurrentCity", userCity).apply();
+
         return latLng;
     }
 

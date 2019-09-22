@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         super.onResume();
         // Call update method here because we are sure that DetailFragment is visible
         this.updateDetailFragmentWithIntentTag();
+        checkIfTablet();
     }
 
     @Override
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         this.setSupportActionBar(bottomAppBar);
         configureDrawerLayout(bottomAppBar, null);
 
+        bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER);
         fab.setImageResource(R.drawable.ic_action_add_white);
         fab.setOnClickListener(v -> createRealEstate());
     }

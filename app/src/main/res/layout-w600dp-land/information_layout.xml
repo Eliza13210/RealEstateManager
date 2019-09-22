@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/margin_create_act"
     android:background="@color/white"
     android:orientation="vertical">
@@ -24,13 +24,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:helperText="@string/required"
-            android:hint="@string/agent">
+            android:hint="@string/agent_req"
+            app:helperText="@string/required">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/agent_et"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -63,6 +65,7 @@
                 android:id="@+id/surface_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,12 +90,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/price">
+            android:hint="@string/price_in_dollar">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/price_tv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -119,7 +123,7 @@
                 android:id="@+id/description_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="textAutoCorrect|textCapSentences" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -147,8 +151,7 @@
                 android:id="@+id/poi_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                />
+                android:focusable="false" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -156,7 +159,6 @@
     <include
         layout="@layout/room_details_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

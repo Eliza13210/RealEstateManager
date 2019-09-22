@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -26,10 +28,13 @@ class CreateActivity : BaseActivityUIInformation() {
 
     private var latLng: LatLng? = null
 
+    override fun onResume() {
+        super.onResume()
+        resetUI()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initAddressTextView()
-        fetchUserLocation = FetchUserLocation(this, address_tv, city_tv, this, null)
         pref = this.getSharedPreferences("RealEstateManager", Context.MODE_PRIVATE)
     }
 
@@ -55,48 +60,32 @@ class CreateActivity : BaseActivityUIInformation() {
     }
 
 
-    private fun initAddressTextView() {
-        // User write address
-        address_tv.addTextChangedListener(
-                object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                        //Give the user time to finish writing
-                        timer?.cancel()
-                        timer = object : CountDownTimer(1500, 1000) {
-                            override fun onTick(millisUntilFinished: Long) {}
-
-                            override fun onFinish() {
-                                checkAddress()
-                            }
-                        }.start()
-                    }
-
-                    override fun afterTextChanged(s: Editable) {}
-                })
-    }
-
     /**
      * Get LatLng from the address the user typed
      */
     private fun checkAddress() {
         address = address_tv.text.toString()
+        city = Utils.removeSpacesAndAccentLetters(city_tv.text.toString())
+
+        loadingPanel?.visibility = View.VISIBLE
+        val checkAddress = "$address $city"
         AsyncTask.execute {
-            latLng = Utils.getLatLngFromAddress(this, address)
+            latLng = Utils.getLatLngFromAddress(this, checkAddress, loadingPanel)
         }
+
     }
 
     /**
      * Get user latLng when clicking on geo latLng icon and update edit text with address
      */
     private fun getUserLocation() {
+        fetchUserLocation = FetchUserLocation(this, address_tv, city_tv, this, null)
         fetchUserLocation?.checkLocationPermission()
     }
 
     override fun getInfoFromUI() {
-        agent = agent_et.text.toString()
-        agent = Utils.removeSpacesAndAccentLetters(agent_et.toString().toLowerCase())
+        checkAddress()
+        agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString())
         if (price_tv.text!!.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())
         }
@@ -104,23 +93,45 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
-        if (type_tv.text!!.isNotEmpty()) {
-            type = type_tv.text.toString().toLowerCase()
+        type = type_tv.text.toString().toLowerCase()
+
+        rooms = if (!rooms_tv.text.isNullOrEmpty()) {
+            Integer.parseInt(rooms_tv.text.toString())
+        } else {
+            null
         }
-        city = Utils.removeSpacesAndAccentLetters(pref!!.getString("CurrentCity", "Unknown")!!.toLowerCase())
-        rooms = Integer.parseInt(rooms_tv.text.toString())
-        bedrooms = Integer.parseInt(bedroom_tv.text.toString())
-        bathrooms = Integer.parseInt(bathroom_tv.text.toString())
+        bedrooms = if (bedroom_tv.text.isNullOrEmpty()) {
+            null
+        } else {
+            Integer.parseInt(bedroom_tv.text.toString())
+        }
+        bathrooms = if (bedroom_tv.text.isNullOrEmpty()) {
+            null
+        } else {
+            Integer.parseInt(bathroom_tv.text.toString())
+        }
 
         if (agent.isNotEmpty()) {
-            if (address.isNotEmpty() && latLng != null) {
-                latitude = latLng!!.latitude.toString()
-                longitude = latLng!!.longitude.toString()
-                createRealEstate()
+            if (city_tv.text.isNullOrEmpty() || address_tv.text.isNullOrEmpty()) {
+                Toast.makeText(this@CreateActivity, resources.getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
+                loadingPanel.visibility = View.INVISIBLE
             } else {
-                Toast.makeText(this, getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
+                timer?.cancel()
+                timer = object : CountDownTimer(1500, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {}
+                    override fun onFinish() {
+
+                        if (latLng != null) {
+                            createRealEstate()
+                        } else {
+                            Toast.makeText(this@CreateActivity, resources.getString(R.string.warning_add_object_without_address), Toast.LENGTH_SHORT).show()
+                        }
+                        loadingPanel.visibility = View.INVISIBLE
+                    }
+                }.start()
             }
         } else {
+            loadingPanel.visibility = View.INVISIBLE
             Toast.makeText(this, getString(R.string.warning_add_item_without_agent), Toast.LENGTH_SHORT).show()
         }
     }
@@ -130,6 +141,10 @@ class CreateActivity : BaseActivityUIInformation() {
      */
     override fun createRealEstate() {
 
+
+        latitude = latLng!!.latitude.toString()
+        longitude = latLng!!.longitude.toString()
+        Log.e("create", "create real estate " + latLng)
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, city, "false", startDate, null, agent, pointsOfInterest
         )
@@ -162,8 +177,11 @@ class CreateActivity : BaseActivityUIInformation() {
         surface = null
         surface_tv.setText("")
         rooms = null
+        rooms_tv.setText("")
         bathrooms = null
+        bedroom_tv.setText("")
         bedrooms = null
+        bedroom_tv.setText("")
         address = ""
         address_tv.setText("")
         city = ""
@@ -173,6 +191,7 @@ class CreateActivity : BaseActivityUIInformation() {
         agent = ""
         agent_et.setText("")
         listPoi = ArrayList()
+        latLng = null
         latitude = ""
         longitude = ""
         poi_tv.setText("")
@@ -188,6 +207,5 @@ class CreateActivity : BaseActivityUIInformation() {
         with(NotificationManagerCompat.from(this)) {
             notify(1, builder.build())
         }
-
     }
 }
