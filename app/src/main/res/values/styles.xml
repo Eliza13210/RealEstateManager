@@ -20,6 +20,7 @@
     <!--SEARCH ACTIVITY -->
     <style name="SearchTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/red</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:fontFamily">@font/roboto_regular</item>

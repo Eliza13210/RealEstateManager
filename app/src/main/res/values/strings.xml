@@ -35,40 +35,6 @@
     <string name="popup_title_permission_files_access">Access photo gallery</string>
     <string name="popup_title_permission_camera_access">Access camera</string>
 
-    <!-- SPINNER ROOMS CREATE REAL ESTATE ACTIVITY-->
-    <string-array name="rooms_array">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-    </string-array>
-
-    <!-- SPINNER BATHROOMS CREATE REAL ESTATE ACTIVITY-->
-    <string-array name="bathrooms_array">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-    </string-array>
-
-
     <!--MAP-->
     <string name="map_url_start">https://maps.googleapis.com/maps/api/staticmap?center=</string>
     <string name="map_url_city_and_marker">&amp;zoom=13&amp;size=600x300&amp;maptype=roadmap
@@ -146,6 +112,13 @@
     <string name="price_in_dollar">Price $</string>
     <string name="address_req">Address*</string>
     <string name="city_req">City*</string>
+    <string name="sold_after">After</string>
+    <string name="sold_before">Before</string>
+    <string name="start_date_before">Before</string>
+    <string name="max_surface">Max Surface</string>
+    <string name="min_surface">Min Surface</string>
+    <string name="max_price">Max Price</string>
+    <string name="min_price">Min Price</string>
 
 
 </resources>

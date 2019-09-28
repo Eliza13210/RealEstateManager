@@ -5,16 +5,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.widget.CheckBox
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.gson.Gson
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.SearchManager
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
@@ -23,10 +22,13 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.poi_details_layout.*
+import kotlinx.android.synthetic.main.seekbar_layout.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R
+import kotlinx.android.synthetic.main.seekbar_layout.view.*
 
 
 class SearchActivity : AppCompatActivity() {
@@ -35,13 +37,19 @@ class SearchActivity : AppCompatActivity() {
 
     private var type = ""
     private var sold = false
+    private var surfaceMin = "0"
+    private var surfaceMax = "1000"
+    private var priceMax = ""
+    private var priceMin = ""
+
     private var updatedList = ArrayList<RealEstate>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(com.openclassrooms.realestatemanager.R.layout.activity_search)
         initToolbar()
         initClickableItems()
+        initSeekbars()
         initViewModel()
         checkIfTablet()
     }
@@ -56,40 +64,86 @@ class SearchActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
     }
 
+    private fun initSeekbars() {
+
+        val seekbarListener = object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                Log.v("searchA", "seekbar" + seekBar)
+
+                when (seekBar) {
+                    seekbar_max_surface -> surface_max_textview.text = "" + progress + " m2"
+                    seekbar_min_surface -> surface_min_textview.text = "" + progress + " m2"
+
+                    seekbar_max_price -> price_max_textview.text = "$ $progress"
+                    seekbar_min_price -> price_min_textview.text = "$ $progress"
+
+                    seekbar_max_rooms -> max_rooms_textview.text = "$progress"
+                    seekbar_min_rooms -> min_rooms_textview.text = "$progress"
+
+                    seekbar_max_bedrooms -> max_bedrooms_textview.text = "$progress"
+                    seekbar_min_bedrooms -> min_bedrooms_textview.text = "$progress"
+
+                    seekbar_max_bathrooms -> max_bathrooms_textview.text = "$progress"
+                    seekbar_min_bathrooms -> min_bathrooms_textview.text = "$progress"
+
+                    seekbar_max_photos -> max_photos_textview.text = "$progress"
+                    seekbar_min_photos -> min_photos_textview.text = "$progress"
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                //logic
+            }
+        }
+
+        //SURFACE SEEKBARS
+        seekbar_max_surface.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_surface.setOnSeekBarChangeListener(seekbarListener)
+
+        //PRICE SEEKBARS
+        seekbar_max_price.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_price.setOnSeekBarChangeListener(seekbarListener)
+
+        //ROOM SEEKBARS
+        seekbar_max_rooms.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_rooms.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_max_bedrooms.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_bedrooms.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_max_bathrooms.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_bathrooms.setOnSeekBarChangeListener(seekbarListener)
+
+        //PHOTOS SEEKBARS
+        seekbar_max_photos.setOnSeekBarChangeListener(seekbarListener)
+        seekbar_min_photos.setOnSeekBarChangeListener(seekbarListener)
+
+    }
+
+
     private fun initClickableItems() {
-        //Edit text type
-        type_tv.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                type = type_tv.text.toString()
-            }
-        })
-
         //BUTTON SEARCH
         btn_search.setOnClickListener {
             getQueryFromUI()
         }
 
         //CHECKBOX SOLD
-        cb_sold.setOnClickListener {
-            sold = cb_sold.isChecked
+        check_sold.setOnClickListener {
+            sold = check_sold.isChecked
         }
 
         //DATE PICKER
-        start_date_et.setOnClickListener { startDatePicker(start_date_et) }
-        end_date_et.setOnClickListener { startDatePicker(end_date_et) }
+        sold_after_tv.setOnClickListener { startDatePicker(sold_after_tv) }
+        sold_before_tv.setOnClickListener { startDatePicker(sold_before_tv) }
 
-        start_date_after.setOnClickListener { startDatePicker(start_date_after) }
-        start_date_before.setOnClickListener { startDatePicker(start_date_before) }
+        start_date_after_tv.setOnClickListener { startDatePicker(start_date_after_tv) }
+        start_date_before_tv.setOnClickListener { startDatePicker(start_date_before_tv) }
     }
 
     private fun checkIfTablet() {
         // WILL BE FALSE IF TABLET
-        if (resources.getBoolean(R.bool.portrait_only)) {
+        if (resources.getBoolean(com.openclassrooms.realestatemanager.R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
     }
@@ -153,10 +207,13 @@ class SearchActivity : AppCompatActivity() {
 
     private fun getQueryFromUI() {
         val manageSearch = SearchManager()
-        manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_et, surface_min, surface_max, price_min, price_max,
-                rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_before, start_date_after, start_date_et,
-                end_date_et, cb_sold)
 
+        type = type_tv.text.toString()
+        //  manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_tv, surfaceMin, surfaceMax, price_min, price_max,
+        //        rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_before, start_date_after, start_date_et,
+        //      end_date_et, sold)
+
+        Log.e("searchA", "query" + manageSearch.getQuery() + manageSearch.getArgs().toString())
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 

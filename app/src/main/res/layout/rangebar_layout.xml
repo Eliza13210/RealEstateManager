@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--SURFACE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/surface"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_surface"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="1000"
+        app:steps="10"
+        app:gap="20"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/surf_min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/surf_max"
+        android:textAlignment="textEnd"
+        android:layout_gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--PRICE -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/price"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="100000000"
+        app:steps="10000"
+        app:gap="100000"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/price_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/price_max"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <!--ROOMS -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/rooms"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_rooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="100"
+        app:gap="2"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/rooms_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/rooms_max"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--BEDROOMS-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/bedrooms"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_bedrooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="100"
+        app:gap="1"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bedrooms_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/bedrooms_max"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--BATHROOMS -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/bathrooms"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_bathrooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="100"
+        app:gap="1"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bathrooms_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/bathrooms_max"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!--PHOTOS -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/photos"/>
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+        android:id="@+id/range_photos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:corner_radius="5"
+        app:min_value="0"
+        app:max_value="50"
+        app:bar_color="@color/grey"
+        app:bar_highlight_color="@color/colorAccent"
+        app:left_thumb_color="@color/colorAccent"
+        app:right_thumb_color="@color/colorAccent"
+        app:left_thumb_color_pressed="@color/grey"
+        app:right_thumb_color_pressed="@color/grey"
+        app:data_type="_integer"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/photos_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/photos_max"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

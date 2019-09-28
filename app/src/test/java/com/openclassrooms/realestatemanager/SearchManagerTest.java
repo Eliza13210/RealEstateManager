@@ -92,14 +92,12 @@ public class SearchManagerTest {
         Mockito.when(sold_date_from.getText()).thenReturn(new MockEditable(""));
         Mockito.when(sold_date_before.getText()).thenReturn(new MockEditable(""));
 
-        Mockito.when(cb_sold.isChecked()).thenReturn(true);
-
         List<String> listCheckBox = new ArrayList<>();
         listCheckBox.add("school");
         listCheckBox.add("bus station");
 
         manager.getQueryFromUI(agent_et, "house", listCheckBox, city_et, surface_min, surface_max, price_min, price_max, rooms_min, rooms_max,
-                bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date, end_date, sold_date_from, sold_date_before, cb_sold);
+                bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date, end_date, sold_date_from, sold_date_before, true);
 
         String query = manager.getQuery();
 

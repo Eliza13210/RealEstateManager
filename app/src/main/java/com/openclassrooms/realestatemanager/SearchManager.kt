@@ -15,17 +15,17 @@ class SearchManager {
     private val bindArgs = arrayListOf<String>()
 
     fun getQueryFromUI(agent_et: EditText?, type: String?, checkbox: List<String>?, city_et: EditText?,
-                       surface_min: EditText?, surface_max: EditText?,
-                       price_min: EditText?, price_max: EditText?,
+                       surface_min: String?, surface_max: String?,
+                       price_min: String?, price_max: String?,
                        rooms_min: EditText?, rooms_max: EditText?,
                        bedrooms_min: EditText?, bedrooms_max: EditText?,
                        bathrooms_min: EditText?, bathrooms_max: EditText?,
                        start_date_before: TextView?, start_date_after: TextView?,
                        sold_date_from: TextView?, sold_date_before: TextView?,
-                       cb_sold: CheckBox?) {
+                       isSold: Boolean?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
-        var sold = cb_sold!!.isChecked
+        var sold=isSold
 
         sb.append("SELECT * FROM RealEstate WHERE ")
 
@@ -50,38 +50,35 @@ class SearchManager {
         }
 
         //CITY
-        if (city_et!!.text.isNotEmpty()) {
+        if (!city_et?.text.isNullOrEmpty()) {
             sb.append("city LIKE ? AND ")
-            bindArgs.add("%" + Utils.removeSpacesAndAccentLetters(city_et.text.toString().toLowerCase()) + "%")
+            bindArgs.add("%" + Utils.removeSpacesAndAccentLetters(city_et?.text.toString().toLowerCase()) + "%")
         }
 
-        val minimum = Utils.convertToIntAndMultiply(surface_min?.text.toString())
-        val maximum = Utils.convertToIntAndMultiply(surface_max?.text.toString())
-
         //SURFACE
-        if (surface_min!!.text.isNotEmpty() && surface_max!!.text.isNotEmpty()) {
+        if (surface_min!!.isNotEmpty() && surface_max!!.isNotEmpty()) {
             sb.append("surface BETWEEN ? AND ? AND ")
-            bindArgs.add(minimum.toString())
-            bindArgs.add(maximum.toString())
-        } else if (surface_min.text.isNotEmpty()) {
+            bindArgs.add(surface_min)
+            bindArgs.add(surface_max)
+        } else if (surface_min.isNotEmpty()) {
             sb.append("surface >= ? AND ")
-            bindArgs.add(minimum.toString())
-        } else if (surface_max!!.text.isNotEmpty()) {
+            bindArgs.add(surface_min)
+        } else if (surface_max!!.isNotEmpty()) {
             sb.append("surface <= ? AND ")
-            bindArgs.add(maximum.toString())
+            bindArgs.add(surface_max)
         }
 
         //PRICE
-        if (price_min!!.text.isNotEmpty() && price_max!!.text.isNotEmpty()) {
+        if (price_min!!.isNotEmpty() && price_max!!.isNotEmpty()) {
             sb.append("price BETWEEN ? AND ? AND ")
-            bindArgs.add(price_min.text.toString())
-            bindArgs.add(price_max.text.toString())
-        } else if (price_min.text.isNotEmpty()) {
+            bindArgs.add(price_min)
+            bindArgs.add(price_max)
+        } else if (price_min.isNotEmpty()) {
             sb.append("price >= ? AND ")
-            bindArgs.add(price_min.text.toString())
-        } else if (price_max!!.text.isNotEmpty()) {
+            bindArgs.add(price_min)
+        } else if (price_max!!.isNotEmpty()) {
             sb.append("price <= ? AND ")
-            bindArgs.add(price_max.text.toString())
+            bindArgs.add(price_max)
         }
 
         //ROOMS
@@ -124,23 +121,24 @@ class SearchManager {
         }
 
         //SOLD DATES
+
         //SOLD AFTER
         val soldDateFrom: String?
 
-        if (sold_date_from!!.text == "Click to pick a date" || sold_date_from.text!!.isNotEmpty()) {
+        if (sold_date_from?.text.isNullOrEmpty()) {
             soldDateFrom = ""
         } else {
             sold = true
-            soldDateFrom = sold_date_from.text.toString()
+            soldDateFrom = sold_date_from?.text.toString()
         }
 
         //SOLD BEFORE
         val soldDateBefore: String?
-        if (sold_date_before!!.text == "Click to pick a date" || sold_date_before.text!!.isNotEmpty()) {
+        if (sold_date_before?.text.isNullOrEmpty()) {
             soldDateBefore = ""
         } else {
             sold = true
-            soldDateBefore = sold_date_before.text.toString()
+            soldDateBefore = sold_date_before?.text.toString()
         }
 
         if (soldDateFrom.isNotEmpty() && soldDateBefore.isNotEmpty()) {
@@ -157,23 +155,23 @@ class SearchManager {
         }
 
         //START DATES
-        val beforeDate = if (start_date_before!!.text == "Click to pick a date") {
+        val beforeDate = if (start_date_before?.text.isNullOrEmpty()) {
             ""
         } else {
-            start_date_before.text
+            start_date_before?.text
         }
-        val afterDate = if (start_date_after!!.text == "Click to pick a date") {
+        val afterDate = if (start_date_after?.text .isNullOrEmpty()) {
             ""
         } else {
-            start_date_after.text
+            start_date_after?.text
         }
 
-        if (beforeDate.isNotEmpty() && afterDate.isNotEmpty()) {
+        if (beforeDate!!.isNotEmpty() && afterDate!!.isNotEmpty()) {
             sb.append("startDate >= ? AND startDate <= ? AND ")
             bindArgs.add(beforeDate.toString())
             bindArgs.add(afterDate.toString())
 
-        } else if (afterDate.isNotEmpty()) {
+        } else if (afterDate!!.isNotEmpty()) {
             sb.append("startDate >= ? AND ")
             bindArgs.add(afterDate.toString())
         } else if (beforeDate.isNotEmpty()) {
