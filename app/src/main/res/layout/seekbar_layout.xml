@@ -32,7 +32,8 @@
         android:id="@+id/seekbar_max_surface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="1000"/>
 
     <!--MIN SURFACE-->
     <LinearLayout
@@ -62,7 +63,8 @@
         android:id="@+id/seekbar_min_surface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="1000"/>
 
     <!--MAX PRICE-->
 
@@ -93,7 +95,8 @@
         android:id="@+id/seekbar_max_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="100000000"/>
 
     <!--MIN PRICE-->
     <LinearLayout
@@ -115,7 +118,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -124,7 +126,8 @@
         android:id="@+id/seekbar_min_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="100000000"/>
 
 
     <!--MAX ROOMS-->
@@ -147,8 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
-            android:text="100"
+            android:text="50"
             android:textAlignment="textEnd" />
     </LinearLayout>
 
@@ -156,7 +158,8 @@
         android:id="@+id/seekbar_max_rooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="50"/>
 
 
     <!--MIN ROOMS-->
@@ -179,7 +182,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -188,7 +190,8 @@
         android:id="@+id/seekbar_min_rooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="50"/>
 
 
     <!--MAX BEDROOMS-->
@@ -211,8 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
-            android:text="100"
+            android:text="20"
             android:textAlignment="textEnd" />
     </LinearLayout>
 
@@ -220,7 +222,8 @@
         android:id="@+id/seekbar_max_bedrooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20"/>
 
 
     <!--MIN ROOMS-->
@@ -243,7 +246,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -252,7 +254,8 @@
         android:id="@+id/seekbar_min_bedrooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20"/>
 
 
     <!--MAX BATHROOMS-->
@@ -275,8 +278,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
-            android:text="100"
+            android:text="20"
             android:textAlignment="textEnd" />
     </LinearLayout>
 
@@ -284,7 +286,8 @@
         android:id="@+id/seekbar_max_bathrooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20"/>
 
 
     <!--MIN BATHROOMS-->
@@ -307,7 +310,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -316,7 +318,8 @@
         android:id="@+id/seekbar_min_bathrooms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20"/>
 
 
     <!--MAX PHOTOS-->
@@ -339,8 +342,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-
-            android:text="100"
+            android:text="20"
             android:textAlignment="textEnd" />
     </LinearLayout>
 
@@ -348,7 +350,8 @@
         android:id="@+id/seekbar_max_photos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20"/>
 
 
     <!--MIN PHOTOS-->
@@ -379,6 +382,7 @@
         android:id="@+id/seekbar_min_photos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:max="20" />
 
 </LinearLayout>

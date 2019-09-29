@@ -65,7 +65,7 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
 
     private fun updateDetails(realEstate: RealEstate) {
         detail_description.text = realEstate.description
-        detail_surface.text = realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) }
+        detail_surface.text = realEstate.surface?.toString()
         detail_rooms.text =  realEstate.rooms?.toString()
         detail_bathrooms.text =  realEstate.bathrooms?.toString()
         detail_bedrooms.text =  realEstate.bedrooms?.toString()

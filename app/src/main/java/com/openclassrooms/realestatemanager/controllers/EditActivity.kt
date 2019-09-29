@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.AsyncTask
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.openclassrooms.realestatemanager.R
@@ -52,7 +51,7 @@ class EditActivity : BaseActivityUIInformation() {
     private fun updateDetails(realEstate: RealEstate) {
         agent_et.setText(realEstate.agent)
         type_tv.setText(realEstate.type)
-        surface_tv.setText(realEstate.surface?.let { Utils.convertIntToStringAndDivide(it.toFloat()) })
+        surface_tv.setText(realEstate.surface?.toString())
         price_tv.setText(realEstate.price?.toString())
         poi_tv.setText(realEstate.pointsOfInterest)
         description_et.setText(realEstate.description)
@@ -119,7 +118,7 @@ class EditActivity : BaseActivityUIInformation() {
         agent = agent_et.text.toString()
         if (price_tv.text!!.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
         description = description_et.text.toString()
-        surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
+        surface = Integer.parseInt(surface_tv.text.toString())
         endDate = end_date.text.toString()
         rooms = if (!rooms_tv.text.isNullOrEmpty()) {
             Integer.parseInt(rooms_tv.text.toString())

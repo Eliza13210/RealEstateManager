@@ -30,7 +30,7 @@ class CreateActivity : BaseActivityUIInformation() {
 
     override fun onResume() {
         super.onResume()
-        resetUI()
+        if (!updated) resetUI()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +90,11 @@ class CreateActivity : BaseActivityUIInformation() {
             price = Integer.parseInt(price_tv.text.toString())
         }
         description = description_et.text.toString()
-        surface = Utils.convertToIntAndMultiply(surface_tv.text.toString())
+        surface = if (!surface_tv.text.toString().isNullOrEmpty()) {
+            Integer.parseInt(surface_tv.text.toString())
+        } else {
+            null
+        }
         startDate = Utils.getTodayDate(Calendar.getInstance().time)
         pointsOfInterest = poi_tv.text.toString()
         type = type_tv.text.toString().toLowerCase()

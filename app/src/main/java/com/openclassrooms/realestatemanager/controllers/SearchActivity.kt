@@ -41,17 +41,31 @@ class SearchActivity : AppCompatActivity() {
     private var surfaceMax = "1000"
     private var priceMax = ""
     private var priceMin = ""
+    private var roomsMax = ""
+    private var roomsMin = ""
+    private var bedroomsMax = ""
+    private var bedroomsMin = ""
+    private var bathroomsMax = ""
+    private var bathroomsMin = ""
 
     private var updatedList = ArrayList<RealEstate>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.openclassrooms.realestatemanager.R.layout.activity_search)
+        checkIfTablet()
         initToolbar()
         initClickableItems()
         initSeekbars()
         initViewModel()
-        checkIfTablet()
+    }
+
+
+    private fun checkIfTablet() {
+        // WILL BE FALSE IF TABLET
+        if (resources.getBoolean(com.openclassrooms.realestatemanager.R.bool.portrait_only)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     /**
@@ -95,7 +109,6 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                //logic
             }
         }
 
@@ -118,7 +131,6 @@ class SearchActivity : AppCompatActivity() {
         //PHOTOS SEEKBARS
         seekbar_max_photos.setOnSeekBarChangeListener(seekbarListener)
         seekbar_min_photos.setOnSeekBarChangeListener(seekbarListener)
-
     }
 
 
@@ -141,12 +153,6 @@ class SearchActivity : AppCompatActivity() {
         start_date_before_tv.setOnClickListener { startDatePicker(start_date_before_tv) }
     }
 
-    private fun checkIfTablet() {
-        // WILL BE FALSE IF TABLET
-        if (resources.getBoolean(com.openclassrooms.realestatemanager.R.bool.portrait_only)) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
-    }
 
     private fun startDatePicker(editText: TextView) {
         val cal = Calendar.getInstance()
@@ -209,17 +215,28 @@ class SearchActivity : AppCompatActivity() {
         val manageSearch = SearchManager()
 
         type = type_tv.text.toString()
-        //  manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_tv, surfaceMin, surfaceMax, price_min, price_max,
-        //        rooms_min, rooms_max, bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date_before, start_date_after, start_date_et,
-        //      end_date_et, sold)
+        surfaceMin = seekbar_min_surface.progress.toString()
+        surfaceMax = seekbar_max_surface.progress.toString()
+        priceMin = seekbar_min_price.progress.toString()
+        priceMax = seekbar_max_price.progress.toString()
+        roomsMin = seekbar_min_rooms.progress.toString()
+        roomsMax = seekbar_max_rooms.progress.toString()
+        bedroomsMax = seekbar_max_bedrooms.progress.toString()
+        bedroomsMin = seekbar_min_bedrooms.progress.toString()
+        bathroomsMax = seekbar_max_bathrooms.progress.toString()
+        bathroomsMin = seekbar_min_bathrooms.progress.toString()
 
-        Log.e("searchA", "query" + manageSearch.getQuery() + manageSearch.getArgs().toString())
+        manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_tv, surfaceMin, surfaceMax, priceMin, priceMax,
+                roomsMin, roomsMax, bedroomsMin, bedroomsMax, bathroomsMin, bathroomsMax, start_date_before, start_date_after, start_date_et,
+                end_date_et, sold)
+
+        Log.e("searchA", "query" + manageSearch.getQuery() + manageSearch.getArgs().asList().toString())
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 
     private fun search(query: String, arg: Array<String>) {
         viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> {
-            if (photos_min_et.text.isNotEmpty() || photos_max_et.text.isNotEmpty())
+            if (seekbar_min_photos.progress > 0 || seekbar_max_photos.progress > 0)
                 this.searchOnPhotos(it)
             else {
                 showResult(it)
@@ -243,8 +260,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun upDateListIfPhotos(listPhoto: List<Photo>, realEstate: RealEstate, isLast: Boolean) {
-        val max = if (photos_max_et.text.isNotEmpty()) Integer.parseInt(photos_max_et.text.toString()) else 20
-        val min = if (photos_min_et.text.isNotEmpty()) Integer.parseInt(photos_min_et.text.toString()) else 0
+        val max = if (seekbar_max_photos.progress > 0) seekbar_max_photos.progress else 20
+        val min = if (seekbar_min_photos.progress > 0) seekbar_min_photos.progress else 0
 
         if (listPhoto.size in min..max) {
             updatedList.add(realEstate)

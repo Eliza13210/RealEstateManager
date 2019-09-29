@@ -17,15 +17,15 @@ class SearchManager {
     fun getQueryFromUI(agent_et: EditText?, type: String?, checkbox: List<String>?, city_et: EditText?,
                        surface_min: String?, surface_max: String?,
                        price_min: String?, price_max: String?,
-                       rooms_min: EditText?, rooms_max: EditText?,
-                       bedrooms_min: EditText?, bedrooms_max: EditText?,
-                       bathrooms_min: EditText?, bathrooms_max: EditText?,
+                       rooms_min: String?, rooms_max: String?,
+                       bedrooms_min: String?, bedrooms_max: String?,
+                       bathrooms_min: String?, bathrooms_max: String?,
                        start_date_before: TextView?, start_date_after: TextView?,
                        sold_date_from: TextView?, sold_date_before: TextView?,
                        isSold: Boolean?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
-        var sold=isSold
+        var sold = isSold
 
         sb.append("SELECT * FROM RealEstate WHERE ")
 
@@ -56,68 +56,68 @@ class SearchManager {
         }
 
         //SURFACE
-        if (surface_min!!.isNotEmpty() && surface_max!!.isNotEmpty()) {
+        if (surface_min!! != "0" && surface_max!! !="0") {
             sb.append("surface BETWEEN ? AND ? AND ")
             bindArgs.add(surface_min)
             bindArgs.add(surface_max)
-        } else if (surface_min.isNotEmpty()) {
+        } else if (surface_min != "0") {
             sb.append("surface >= ? AND ")
             bindArgs.add(surface_min)
-        } else if (surface_max!!.isNotEmpty()) {
+        } else if (surface_max!! != "0") {
             sb.append("surface <= ? AND ")
             bindArgs.add(surface_max)
         }
 
         //PRICE
-        if (price_min!!.isNotEmpty() && price_max!!.isNotEmpty()) {
+        if (price_min!! != "0" && price_max!! != "0") {
             sb.append("price BETWEEN ? AND ? AND ")
             bindArgs.add(price_min)
             bindArgs.add(price_max)
-        } else if (price_min.isNotEmpty()) {
+        } else if (price_min != "0") {
             sb.append("price >= ? AND ")
             bindArgs.add(price_min)
-        } else if (price_max!!.isNotEmpty()) {
+        } else if (price_max!! != "0") {
             sb.append("price <= ? AND ")
             bindArgs.add(price_max)
         }
 
         //ROOMS
-        if (rooms_min!!.text.isNotEmpty() && rooms_max!!.text.isNotEmpty()) {
+        if (rooms_min!! != "0" && rooms_max!! != "0") {
             sb.append("rooms BETWEEN ? AND ? AND ")
-            bindArgs.add(rooms_min.text.toString())
-            bindArgs.add(rooms_max.text.toString())
-        } else if (rooms_min.text.isNotEmpty()) {
+            bindArgs.add(rooms_min)
+            bindArgs.add(rooms_max)
+        } else if (rooms_min != "0") {
             sb.append("rooms >= ? AND ")
-            bindArgs.add(rooms_min.text.toString())
-        } else if (rooms_max!!.text.isNotEmpty()) {
+            bindArgs.add(rooms_min)
+        } else if (rooms_max!! != "0") {
             sb.append("rooms <= ? AND ")
-            bindArgs.add(rooms_max.text.toString())
+            bindArgs.add(rooms_max)
         }
 
         //BEDROOMS
-        if (bedrooms_min!!.text.isNotEmpty() && bedrooms_max!!.text.isNotEmpty()) {
+        if (bedrooms_min!! != "0" && bedrooms_max!! != "0") {
             sb.append("bedrooms BETWEEN ? AND ? AND ")
-            bindArgs.add(bedrooms_min.text.toString())
-            bindArgs.add(bedrooms_max.text.toString())
-        } else if (bedrooms_min.text.isNotEmpty()) {
+            bindArgs.add(bedrooms_min)
+            bindArgs.add(bedrooms_max)
+        } else if (bedrooms_min != "0") {
             sb.append("bedrooms >= ? AND ")
-            bindArgs.add(bedrooms_min.text.toString())
-        } else if (bedrooms_max!!.text.isNotEmpty()) {
+            bindArgs.add(bedrooms_min)
+        } else if (bedrooms_max!! != "0") {
             sb.append("bedrooms <= ? AND ")
-            bindArgs.add(bedrooms_max.text.toString())
+            bindArgs.add(bedrooms_max)
         }
 
         //BATHROOMS
-        if (bathrooms_min!!.text.isNotEmpty() && bathrooms_max!!.text.isNotEmpty()) {
+        if (bathrooms_min!! != "0" && bathrooms_max!! != "0") {
             sb.append("bathrooms BETWEEN ? AND ? AND ")
-            bindArgs.add(bathrooms_min.text.toString())
-            bindArgs.add(bathrooms_max.text.toString())
-        } else if (bathrooms_min.text.isNotEmpty()) {
+            bindArgs.add(bathrooms_min)
+            bindArgs.add(bathrooms_max)
+        } else if (bathrooms_min != "0") {
             sb.append("bathrooms >= ? AND ")
-            bindArgs.add(bathrooms_min.text.toString())
-        } else if (bathrooms_max!!.text.isNotEmpty()) {
+            bindArgs.add(bathrooms_min)
+        } else if (bathrooms_max!! != "0") {
             sb.append("bathrooms <= ? AND ")
-            bindArgs.add(bathrooms_max.text.toString())
+            bindArgs.add(bathrooms_max)
         }
 
         //SOLD DATES
@@ -160,7 +160,7 @@ class SearchManager {
         } else {
             start_date_before?.text
         }
-        val afterDate = if (start_date_after?.text .isNullOrEmpty()) {
+        val afterDate = if (start_date_after?.text.isNullOrEmpty()) {
             ""
         } else {
             start_date_after?.text

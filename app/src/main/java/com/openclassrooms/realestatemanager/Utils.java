@@ -130,20 +130,6 @@ public class Utils {
         return isBefore;
     }
 
-    public static int convertToIntAndMultiply(String string) {
-        float value;
-        if (string.isEmpty()) {
-            value = 0;
-        } else {
-            value = Float.valueOf(string) * 100;
-        }
-        return (int) value;
-    }
-
-    public static String convertIntToStringAndDivide(float value) {
-        return String.valueOf(value / 100);
-    }
-
     public static String removeSpacesAndAccentLetters(String input) {
         String output;
         output = input.trim();

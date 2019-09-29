@@ -34,22 +34,7 @@ public class SearchManagerTest {
     EditText surface_min;
     @Mock
     EditText surface_max;
-    @Mock
-    EditText price_min;
-    @Mock
-    EditText price_max;
-    @Mock
-    EditText rooms_min;
-    @Mock
-    EditText rooms_max;
-    @Mock
-    EditText bedrooms_min;
-    @Mock
-    EditText bedrooms_max;
-    @Mock
-    EditText bathrooms_min;
-    @Mock
-    EditText bathrooms_max;
+
     @Mock
     TextView start_date;
     @Mock
@@ -59,8 +44,6 @@ public class SearchManagerTest {
     @Mock
     TextView end_date;
 
-    @Mock
-    CheckBox cb_sold;
 
     @Before
     public void setUp() {
@@ -72,19 +55,6 @@ public class SearchManagerTest {
         SearchManager manager = new SearchManager();
         Mockito.when(agent_et.getText()).thenReturn(new MockEditable("Liz"));
         Mockito.when(city_et.getText()).thenReturn(new MockEditable("Avignon"));
-        Mockito.when(surface_min.getText()).thenReturn(new MockEditable("100"));
-        Mockito.when(surface_max.getText()).thenReturn(new MockEditable("200"));
-        Mockito.when(price_min.getText()).thenReturn(new MockEditable("200000"));
-        Mockito.when(price_max.getText()).thenReturn(new MockEditable("400000"));
-
-        Mockito.when(rooms_min.getText()).thenReturn(new MockEditable("5"));
-        Mockito.when(rooms_max.getText()).thenReturn(new MockEditable("10"));
-
-        Mockito.when(bedrooms_min.getText()).thenReturn(new MockEditable(""));
-        Mockito.when(bedrooms_max.getText()).thenReturn(new MockEditable("5"));
-
-        Mockito.when(bathrooms_min.getText()).thenReturn(new MockEditable("1"));
-        Mockito.when(bathrooms_max.getText()).thenReturn(new MockEditable(""));
 
         Mockito.when(start_date.getText()).thenReturn(new MockEditable("01/04/2019"));
         Mockito.when(end_date.getText()).thenReturn(new MockEditable(""));
@@ -96,13 +66,16 @@ public class SearchManagerTest {
         listCheckBox.add("school");
         listCheckBox.add("bus station");
 
-        manager.getQueryFromUI(agent_et, "house", listCheckBox, city_et, surface_min, surface_max, price_min, price_max, rooms_min, rooms_max,
-                bedrooms_min, bedrooms_max, bathrooms_min, bathrooms_max, start_date, end_date, sold_date_from, sold_date_before, true);
+        manager.getQueryFromUI(agent_et, "house", listCheckBox, city_et, "100", "200", "200000", "400000",
+                "5", "10",
+                "0", "5",
+                "1", "0", start_date, end_date, sold_date_from, sold_date_before, true);
 
         String query = manager.getQuery();
 
         String[] args = manager.getArgs();
-        String[] expected = new String[]{"liz", "%house%", "%school%", "%bus station%", "%avignon%", "10000", "20000", "200000", "400000", "5", "10", "5", "1",
+        String[] expected = new String[]{"liz", "%house%", "%school%", "%bus station%", "%avignon%", "100", "200",
+                "200000", "400000", "5", "10", "5", "1",
                 "01/04/2019", "true"};
 
 
