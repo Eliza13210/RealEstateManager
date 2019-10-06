@@ -1,8 +1,7 @@
 package com.openclassrooms.realestatemanager
 
-import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
 
 /**
  * Creates Query and arguments for raw query search in activity
@@ -20,8 +19,8 @@ class SearchManager {
                        rooms_min: String?, rooms_max: String?,
                        bedrooms_min: String?, bedrooms_max: String?,
                        bathrooms_min: String?, bathrooms_max: String?,
-                       start_date_before: TextView?, start_date_after: TextView?,
-                       sold_date_from: TextView?, sold_date_before: TextView?,
+                       start_date_before: TextInputEditText?, start_date_after: TextInputEditText?,
+                       sold_date_from: TextInputEditText?, sold_date_before: TextInputEditText?,
                        isSold: Boolean?) {
 
         val sb: StringBuilder = java.lang.StringBuilder()
@@ -160,6 +159,7 @@ class SearchManager {
         } else {
             start_date_before?.text
         }
+
         val afterDate = if (start_date_after?.text.isNullOrEmpty()) {
             ""
         } else {
@@ -168,8 +168,8 @@ class SearchManager {
 
         if (beforeDate!!.isNotEmpty() && afterDate!!.isNotEmpty()) {
             sb.append("startDate >= ? AND startDate <= ? AND ")
-            bindArgs.add(beforeDate.toString())
             bindArgs.add(afterDate.toString())
+            bindArgs.add(beforeDate.toString())
 
         } else if (afterDate!!.isNotEmpty()) {
             sb.append("startDate >= ? AND ")

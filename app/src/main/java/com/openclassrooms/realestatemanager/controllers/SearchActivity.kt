@@ -33,6 +33,12 @@ import kotlinx.android.synthetic.main.seekbar_layout.view.*
 
 class SearchActivity : AppCompatActivity() {
 
+    //FOR SEEKBAR
+    var MIN = 0
+    var MAX = 1000
+    var STEP = 100
+    var textView: TextView? = null
+
     private var viewModel: RealEstateViewModel? = null
 
     private var type = ""
@@ -85,24 +91,78 @@ class SearchActivity : AppCompatActivity() {
                 Log.v("searchA", "seekbar" + seekBar)
 
                 when (seekBar) {
-                    seekbar_max_surface -> surface_max_textview.text = "" + progress + " m2"
-                    seekbar_min_surface -> surface_min_textview.text = "" + progress + " m2"
+                    seekbar_max_surface -> {
+                        textView = surface_max_textview
+                        MAX = 1000
+                        STEP = 100
+                        Log.e("search", seekbar_min_surface.progress.toString())
+                    }
 
-                    seekbar_max_price -> price_max_textview.text = "$ $progress"
-                    seekbar_min_price -> price_min_textview.text = "$ $progress"
+                    seekbar_min_surface -> {
+                        textView = surface_min_textview
+                        MAX = 1000
+                        STEP = 100
+                    }
 
-                    seekbar_max_rooms -> max_rooms_textview.text = "$progress"
-                    seekbar_min_rooms -> min_rooms_textview.text = "$progress"
+                    seekbar_max_price -> {
+                        textView = price_max_textview
+                        MAX = 10000000
+                        STEP = 10000
+                    }
+                    seekbar_min_price -> {
+                        textView = price_min_textview
+                        MAX = 100000000
+                        STEP = 10000
+                    }
 
-                    seekbar_max_bedrooms -> max_bedrooms_textview.text = "$progress"
-                    seekbar_min_bedrooms -> min_bedrooms_textview.text = "$progress"
+                    seekbar_max_rooms -> {
+                        textView = max_rooms_textview
+                        MAX = 50
+                        STEP = 1
+                    }
+                    seekbar_min_rooms -> {
+                        textView = min_rooms_textview
+                        MAX = 50
+                        STEP = 1
+                    }
 
-                    seekbar_max_bathrooms -> max_bathrooms_textview.text = "$progress"
-                    seekbar_min_bathrooms -> min_bathrooms_textview.text = "$progress"
+                    seekbar_max_bedrooms -> {
+                        textView = max_bedrooms_textview
+                        MAX = 20
+                        STEP = 1
+                    }
+                    seekbar_min_bedrooms -> {
+                        textView = min_bedrooms_textview
+                        MAX = 20
+                        STEP = 1
+                    }
 
-                    seekbar_max_photos -> max_photos_textview.text = "$progress"
-                    seekbar_min_photos -> min_photos_textview.text = "$progress"
+                    seekbar_max_bathrooms -> {
+                        textView = max_bathrooms_textview
+                        MAX = 20
+                        STEP = 1
+                    }
+                    seekbar_min_bathrooms -> {
+                        textView = min_bathrooms_textview
+                        MAX = 20
+                        STEP = 1
+                    }
+
+                    seekbar_max_photos -> {
+                        textView = max_photos_textview
+                        MAX = 20
+                        STEP = 1
+                    }
+                    seekbar_min_photos -> {
+                        textView = min_photos_textview
+                        MAX = 20
+                        STEP = 1
+                    }
                 }
+                seekBar.max = (MAX - MIN) / STEP
+                val progressStep = MIN + (progress * STEP)
+
+                textView!!.text = progressStep.toString()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -163,7 +223,7 @@ class SearchActivity : AppCompatActivity() {
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
-                editText.text = Utils.getTodayDate(cal.time)
+                editText.text = Utils.formateDateForDatabase(cal.time)
             } else {
                 Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
             }
@@ -215,20 +275,20 @@ class SearchActivity : AppCompatActivity() {
         val manageSearch = SearchManager()
 
         type = type_tv.text.toString()
-        surfaceMin = seekbar_min_surface.progress.toString()
-        surfaceMax = seekbar_max_surface.progress.toString()
-        priceMin = seekbar_min_price.progress.toString()
-        priceMax = seekbar_max_price.progress.toString()
-        roomsMin = seekbar_min_rooms.progress.toString()
-        roomsMax = seekbar_max_rooms.progress.toString()
-        bedroomsMax = seekbar_max_bedrooms.progress.toString()
-        bedroomsMin = seekbar_min_bedrooms.progress.toString()
-        bathroomsMax = seekbar_max_bathrooms.progress.toString()
-        bathroomsMin = seekbar_min_bathrooms.progress.toString()
+        surfaceMin = surface_min_textview.text.toString()
+        surfaceMax = surface_max_textview.text.toString()
+        priceMin = price_min_textview.text.toString()
+        priceMax = price_max_textview.text.toString()
+        roomsMin = min_rooms_textview.text.toString()
+        roomsMax = max_rooms_textview.text.toString()
+        bedroomsMax = max_bedrooms_textview.text.toString()
+        bedroomsMin = min_bedrooms_textview.text.toString()
+        bathroomsMax = max_bathrooms_textview.text.toString()
+        bathroomsMin = min_bathrooms_textview.text.toString()
 
         manageSearch.getQueryFromUI(agent_et, type, getInfoFromCheckBox(), city_tv, surfaceMin, surfaceMax, priceMin, priceMax,
-                roomsMin, roomsMax, bedroomsMin, bedroomsMax, bathroomsMin, bathroomsMax, start_date_before, start_date_after, start_date_et,
-                end_date_et, sold)
+                roomsMin, roomsMax, bedroomsMin, bedroomsMax, bathroomsMin, bathroomsMax, start_date_before_tv, start_date_after_tv, sold_after_tv,
+                sold_before_tv, sold)
 
         Log.e("searchA", "query" + manageSearch.getQuery() + manageSearch.getArgs().asList().toString())
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
@@ -236,9 +296,9 @@ class SearchActivity : AppCompatActivity() {
 
     private fun search(query: String, arg: Array<String>) {
         viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> {
-            if (seekbar_min_photos.progress > 0 || seekbar_max_photos.progress > 0)
+            if (seekbar_min_photos.progress > 0 || seekbar_max_photos.progress < 20) {
                 this.searchOnPhotos(it)
-            else {
+            } else {
                 showResult(it)
             }
         })

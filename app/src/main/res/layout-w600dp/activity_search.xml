@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:orientation="vertical">
 
             <!--TYPE-->
@@ -81,282 +82,29 @@
             </LinearLayout>
 
 
-            <!--SURFACE -->
+            <!--SEEK BARS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="24dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <include
+                    layout="@layout/seekbar_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    layout="@layout/rangebar_layout"/>
-
-
+                    />
             </LinearLayout>
-            <!--PRICE -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/text_view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Price ($)"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/price_min"
-                    android:layout_width="@dimen/edit_text_width_long"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="8"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/min" />
-
-                <EditText
-                    android:id="@+id/price_max"
-                    android:layout_width="@dimen/edit_text_width_long"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="8"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/max" />
-            </LinearLayout>
-
-            <!--ROOMS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/text_view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/rooms"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/rooms_min"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/min" />
-
-                <EditText
-                    android:id="@+id/rooms_max"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/max" />
-            </LinearLayout>
-
-            <!--BEDROOMS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/text_view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/bedrooms"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/bedrooms_min"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/min" />
-
-                <EditText
-                    android:id="@+id/bedrooms_max"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/max" />
-            </LinearLayout>
-
-            <!--BATHROOMS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/text_view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/bathrooms"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/bathrooms_min"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/min" />
-
-                <EditText
-                    android:id="@+id/bathrooms_max"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/max" />
-            </LinearLayout>
-
-
-            <!--PHOTOS -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="@dimen/text_view_width"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/photos"
-                    android:textSize="@dimen/text_size_create_act"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/photos_min_et"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:text="@string/min" />
-
-                <EditText
-                    android:id="@+id/photos_max_et"
-                    android:layout_width="@dimen/edit_text_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="2"
-                    android:textAlignment="textEnd" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/max" />
-            </LinearLayout>
-
 
             <!-- POINTS OF INTEREST-->
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/points_of_interest" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -372,29 +120,29 @@
                 android:layout_marginBottom="10dp" />
 
             <!-- START DATE -->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Start date"/>
+                android:layout_marginTop="24dp"
+                android:text="Start date" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="70">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="@dimen/non_touch_target_dimen"
                     android:layout_height="@dimen/non_touch_target_dimen"
-                    android:layout_marginEnd="8dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_calendar"
-                    android:contentDescription="@string/click_to_pick_a_date" />
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/click_to_pick_a_date"
+                    android:src="@drawable/ic_calendar" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="128dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:focusable="false"
@@ -411,7 +159,8 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="128dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:hint="@string/start_date_before">
@@ -432,26 +181,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Sold date"/>
+                android:text="Sold date" />
 
             <!-- SOLD DATE -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="70">
+                >
 
                 <ImageView
                     android:layout_width="@dimen/non_touch_target_dimen"
                     android:layout_height="@dimen/non_touch_target_dimen"
-                    android:layout_marginEnd="8dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_calendar"
-                    android:contentDescription="@string/click_to_pick_a_date" />
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/click_to_pick_a_date"
+                    android:src="@drawable/ic_calendar" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="128dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:focusable="false"
@@ -468,7 +218,8 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="128dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:hint="@string/sold_before">
@@ -484,34 +235,34 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
-                <Switch
-                    android:id="@+id/check_sold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sold"/>
+                    android:text="@string/sold" />
+
+                <Switch
+                    android:id="@+id/check_sold"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <!--BUTTON-->
             <com.google.android.material.button.MaterialButton
-
                 android:id="@+id/btn_search"
+                style="@style/Widget.MaterialComponents.Button"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
                 android:text="@string/search"/>
-
-
 
         </LinearLayout>
     </ScrollView>

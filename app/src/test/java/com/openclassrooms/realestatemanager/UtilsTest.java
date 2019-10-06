@@ -96,13 +96,6 @@ public class UtilsTest {
         assertTrue(isBefore);
     }
 
-    @Test
-
-    public void convertStringToInt() {
-        int converted = Utils.convertToInt("200");
-        assertEquals(200, converted);
-    }
-
 
     @Test
     public void replaceSpacesAndAccentLettersInString() {

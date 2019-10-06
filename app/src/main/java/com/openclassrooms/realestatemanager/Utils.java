@@ -107,6 +107,11 @@ public class Utils {
         return latLng;
     }
 
+    public static String formateDateForDatabase(Date date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date);
+    }
+
     /**
      * Check that date is before today date
      */

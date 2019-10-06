@@ -95,7 +95,8 @@ class CreateActivity : BaseActivityUIInformation() {
         } else {
             null
         }
-        startDate = Utils.getTodayDate(Calendar.getInstance().time)
+        startDate = Utils.formateDateForDatabase(Calendar.getInstance().time)
+        Log.e("create", "date "+startDate)
         pointsOfInterest = poi_tv.text.toString()
         type = type_tv.text.toString().toLowerCase()
 

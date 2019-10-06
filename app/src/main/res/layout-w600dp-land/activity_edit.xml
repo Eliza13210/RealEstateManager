@@ -39,6 +39,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="24dp"
                     android:orientation="vertical">
+
                     <!--MEDIA-->
                     <include
                         layout="@layout/media_layout"
