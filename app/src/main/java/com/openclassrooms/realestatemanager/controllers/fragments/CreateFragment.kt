@@ -55,7 +55,7 @@ class CreateFragment : BaseFragment() {
         loadingPanel?.visibility = View.VISIBLE
         val checkAddress = "$address $city"
         AsyncTask.execute {
-            latLng = Utils.getLatLngFromAddress(context, checkAddress, loadingPanel)
+            latLng = Utils.getLatLngFromAddress(activity, checkAddress, loadingPanel)
         }
 
     }

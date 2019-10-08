@@ -1,204 +1,99 @@
 package com.openclassrooms.realestatemanager.controllers
 
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.os.AsyncTask
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.Utils
-import com.openclassrooms.realestatemanager.models.Photo
-import com.openclassrooms.realestatemanager.models.RealEstate
-import kotlinx.android.synthetic.main.activity_edit.*
-import kotlinx.android.synthetic.main.information_layout.*
-import kotlinx.android.synthetic.main.room_details_layout.*
-import kotlinx.android.synthetic.main.sold_layout.*
-import kotlinx.android.synthetic.main.type_details_layout.*
-import java.util.*
+import com.openclassrooms.realestatemanager.controllers.fragments.EditFragment
+import com.openclassrooms.realestatemanager.view.PhotoAdapter
+import kotlinx.android.synthetic.main.activity_create.*
+import kotlinx.android.synthetic.main.toolbar.*
 
+class EditActivity: AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
-class EditActivity : BaseActivityUIInformation() {
-
-    private var startDatePicker = true
-
+    private var isTablet = false
+    private var editFragment: EditFragment? = null
 
     override fun onNewIntent(intent: Intent?) {
         if (intent != null)
             setIntent(intent)
     }
-
     override fun onResume() {
         super.onResume()
-        realEstateId = intent.getLongExtra(DetailActivity.EXTRA_TAG, 0)
-        if (!updated) {
-            initRealEstate(realEstateId)
-            getPhotos(realEstateId)
-        }
+         editFragment!!.initRealEstate(intent.getLongExtra(DetailActivity.EXTRA_TAG, 0))
+
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_edit)
+        checkIfTablet()
+        showFragment()
     }
 
-    override fun getLayoutView(): Int {
-        return R.layout.activity_edit
-    }
-
-    private fun initRealEstate(id: Long) {
-        this.viewModel?.getRealEstate(id)?.observe(this, Observer<RealEstate> {
-            if (it != null)
-                this.updateDetails(it)
-        })
-    }
-
-
-    private fun updateDetails(realEstate: RealEstate) {
-        agent_et.setText(realEstate.agent)
-        type_tv.setText(realEstate.type)
-        surface_tv.setText(realEstate.surface?.toString())
-        price_tv.setText(realEstate.price?.toString())
-        poi_tv.setText(realEstate.pointsOfInterest)
-        description_et.setText(realEstate.description)
-        if (realEstate.sold == "true") startDatePicker = false
-        check_sold.isChecked = (realEstate.sold == "true")
-        end_date.text = if (realEstate.endDate.isNullOrEmpty()) " " else realEstate.endDate
-
-        if (realEstate.rooms != null) {
-            rooms_tv.setText(realEstate.rooms.toString())
+    private fun checkIfTablet() {
+        // WILL BE FALSE IF TABLET
+        if (resources.getBoolean(R.bool.portrait_only)) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            setActionbarPhone()
         } else {
-            rooms_tv.setText("")
+            isTablet = true
+            initToolbar()
         }
-
-        if (realEstate.bedrooms != null) {
-            bedroom_tv.setText(realEstate.bedrooms.toString())
-        } else {
-            bedroom_tv.setText("")
-        }
-
-        if (realEstate.bathrooms != null) {
-            bathroom_tv.setText(realEstate.bathrooms.toString())
-        } else {
-            bathroom_tv.setText("")
-        }
-        description_et.setText(realEstate.description)
-        latitude = realEstate.latitude!!
-        longitude = realEstate.longitude!!
-        address = realEstate.address
-        city = realEstate.city
-        startDate = realEstate.startDate.toString()
-        endDate = realEstate.endDate.toString()
     }
 
-    //  Get all photos
-    private fun getPhotos(realEstateId: Long) {
-        this.viewModel?.getPhotos(realEstateId)?.observe(this, Observer<List<Photo>> {
-            this.updatePhotoList(it)
-        })
+    private fun initToolbar() {
+        //Initiate toolbar to navigate back to main activity
+        this.setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
-    private fun updatePhotoList(list: List<Photo>) {
-        photos.clear()
-        photos.addAll(list)
-        this.photoAdapter.updateData(list, null)
+    private fun setActionbarPhone() {
+        this.setSupportActionBar(bottom_app_bar)
+        bottom_app_bar.setNavigationOnClickListener({ view -> startActivity(Intent(this@EditActivity, MainActivity::class.java)) })
+
+        fab.setImageResource(R.drawable.ic_action_done)
+        fab?.setOnClickListener { editFragment!!.getInfoFromUI() }
     }
 
-    override fun initButtons() {
-        btn_update.setOnClickListener { getInfoFromUI() }
-        check_sold.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                sold = "true"
-                if (startDatePicker) startDatePicker()
-            } else {
-                sold = "false"
-                endDate = ""
-                end_date.text = ""
-                startDatePicker = true
+    private fun showFragment() {
+        editFragment = supportFragmentManager?.findFragmentById(R.id.frame_layout_create) as? EditFragment
+        if (editFragment == null) {
+            editFragment = EditFragment()
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.frame_layout_create, editFragment!!)
+                    .commit()
+        }
+    }
+
+
+
+    /**
+     * Handle click in action bar
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // REMOVE CREATE ITEM FROM TOOLBAR IF PHONE
+        if (!isTablet) {
+            menuInflater.inflate(R.menu.bottom_app_bar_menu_nav_back, menu)
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.app_bar_home -> {
+                startActivity(Intent(this@EditActivity, MainActivity::class.java))
+                return true
             }
         }
+        return super.onOptionsItemSelected(item)
     }
 
-    override fun getInfoFromUI() {
-        //agent = agent_et.getText.toString()
-        agent = agent_et.text.toString()
-        if (price_tv.text!!.isNotEmpty()) price = Integer.parseInt(price_tv.text.toString())
-        description = description_et.text.toString()
-        surface = Integer.parseInt(surface_tv.text.toString())
-        endDate = end_date.text.toString()
-        rooms = if (!rooms_tv.text.isNullOrEmpty()) {
-            Integer.parseInt(rooms_tv.text.toString())
-        } else {
-            null
-        }
-        bedrooms = if (bedroom_tv.text.isNullOrEmpty()) {
-            null
-        } else {
-            Integer.parseInt(bedroom_tv.text.toString())
-        }
-        bathrooms = if (bedroom_tv.text.isNullOrEmpty()) {
-            null
-        } else {
-            Integer.parseInt(bathroom_tv.text.toString())
-        }
-
-        type = type_tv.text.toString()
-        pointsOfInterest = poi_tv.text.toString()
-        //Check if end date is picked when object is sold before updating
-        if (sold == "true") {
-            if (endDate.isNotEmpty()) {
-                createRealEstate()
-            } else {
-                Toast.makeText(this, "You need to choose a date if the object is sold", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            createRealEstate()
-        }
-    }
-
-    override fun createRealEstate() {
-
-        val realEstate = RealEstate(realEstateId, type, price, latitude, longitude, description, surface, bedrooms,
-                rooms, bathrooms, address, city, sold, startDate, endDate, agent, poi_tv.text.toString())
-
-        AsyncTask.execute {
-            viewModel?.updateRealEstate(realEstate)
-            for (photo in photos) {
-                //If photo has been deleted, remove it from database
-                if (photo.text.equals("Deleted") && photo.id != null) {
-                    viewModel?.deletePhoto(photo.id)
-                }
-                //Id will be null if not yet added to database, that means that it is a new photo that needs to be added
-                if (photo.id == null && !photo.text.equals("Deleted")) {
-                    photo.realEstateId = realEstateId
-                    viewModel?.createPhoto(photo)
-                }
-            }
-        }
-        Toast.makeText(this, "Real estate updated successfully", Toast.LENGTH_SHORT).show()
-        updated = false
-
-        startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    private fun startDatePicker() {
-        sold = "true"
-
-        val cal = Calendar.getInstance()
-
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, monthOfYear)
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-            if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
-                end_date.text = Utils.formateDateForDatabase(cal.time)
-                Log.e("edit", "sold date "+ cal.time.toString())
-            } else {
-                sold = "false"
-                check_sold.isChecked = false
-                Toast.makeText(this, "You have to choose a date before today", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        DatePickerDialog(this@EditActivity, dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+    override fun onItemClick(id: Long?, position: Int?) {
     }
 }

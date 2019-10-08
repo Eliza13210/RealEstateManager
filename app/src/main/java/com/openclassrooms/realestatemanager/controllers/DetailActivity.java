@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_bottom_app_bar_layout);
         ButterKnife.bind(this);
         this.configureAndShowDetailFragment();
         setActionbar();
@@ -63,12 +63,12 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
     // --------------
     private void configureAndShowDetailFragment() {
         // Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
-        detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
+        detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout);
 
         if (detailFragment == null) {
             detailFragment = new DetailFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frame_layout_detail, detailFragment)
+                    .add(R.id.frame_layout, detailFragment)
                     .commit();
         }
     }

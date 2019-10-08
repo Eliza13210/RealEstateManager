@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:elevation="8dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:backgroundTint="@color/grey"
             app:fabAlignmentMode="center"
             app:hideOnScroll="true"
