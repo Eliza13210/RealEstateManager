@@ -119,6 +119,7 @@
     <string name="min_surface">Min Surface</string>
     <string name="max_price">Max Price</string>
     <string name="min_price">Min Price</string>
+    <string name="action_reset">action_reset</string>
 
 
 </resources>

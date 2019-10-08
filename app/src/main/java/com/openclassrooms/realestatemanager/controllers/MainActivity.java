@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
         bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
 
         // Change FAB icon
-        fab.setImageResource(R.drawable.ic_return);
+        fab.setImageResource(R.drawable.ic_action_done);
         startActivity(new Intent(this, CreateActivity.class));
     }
 

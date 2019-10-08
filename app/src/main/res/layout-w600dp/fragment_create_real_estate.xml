@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_create_act"
+                    android:orientation="vertical">
+
+                    <!--TEXT FIELDS-->
+                    <include
+                        layout="@layout/information_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <!--ADDRESS-->
+                        <include
+                            layout="@layout/address_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1" />
+
+                        <include
+                            layout="@layout/media_layout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+
+                    <!--BUTTON-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_create"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:padding="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add"/>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
+
+</LinearLayout>
+

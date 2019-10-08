@@ -1,18 +1,20 @@
-package com.openclassrooms.realestatemanager.controllers
+package com.openclassrooms.realestatemanager.controllers.fragments
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.FetchUserLocation
@@ -24,10 +26,8 @@ import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.AddPhotoPopUp
 import com.openclassrooms.realestatemanager.view.popUps.AddPoiPopUp
 import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
-import kotlinx.android.synthetic.main.fragment_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.media_layout.*
-import kotlinx.android.synthetic.main.toolbar.*
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
@@ -35,11 +35,11 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.PermissionCallbacks,
+abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
         PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
-    protected var isTablet = false
 
+    protected var updated = false
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
     protected var pref: SharedPreferences? = null
@@ -58,8 +58,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     protected var viewModel: RealEstateViewModel? = null
     protected val photoAdapter: PhotoAdapter = PhotoAdapter()
     protected var realEstateId: Long = 0
-
-    var updated = false
 
     // For creating real estate object
     protected var photos = ArrayList<Photo>()
@@ -81,10 +79,10 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     protected var latitude = ""
     protected var longitude = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(getLayoutView())
-        checkIfTablet()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(getLayoutView(), container, false)!!
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         initViewModel()
         initButtons()
@@ -92,26 +90,6 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     }
 
     abstract fun getLayoutView(): Int
-
-    private fun checkIfTablet() {
-        // WILL BE FALSE IF TABLET
-        if (resources.getBoolean(R.bool.portrait_only)) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        } else {
-            isTablet = true
-            initToolbar()
-        }
-    }
-
-    private fun initToolbar() {
-        //Initiate toolbar to navigate back to main activity
-        this.setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            updated = false
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-    }
 
     private fun initRecyclerView() {
         recyclerview_photos.apply {
@@ -121,7 +99,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     }
 
     private fun initViewModel() {
-        val mViewModelFactory = Injection.provideViewModelFactory(this)
+        val mViewModelFactory = Injection.provideViewModelFactory(context)
         this.viewModel = ViewModelProviders.of(this, mViewModelFactory).get(RealEstateViewModel::class.java)
     }
 
@@ -173,7 +151,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     }
 
     private fun addPoi() {
-        val popUp = AddPoiPopUp(this, listPoi, poi_tv)
+        val popUp = AddPoiPopUp(context!!, listPoi, poi_tv)
         popUp.popUpDialog()
     }
 
@@ -184,17 +162,17 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
 
     private fun takePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (intent.resolveActivity(packageManager) != null) {
+        if (intent.resolveActivity(context!!.packageManager) != null) {
             var photoFile: File? = null
             try {
                 photoFile = createImageFile()
             } catch (ex: IOException) {
-                Toast.makeText(this, "Error $ex", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error $ex", Toast.LENGTH_SHORT).show()
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 val photoURI = FileProvider.getUriForFile(
-                        applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
+                        activity!!.applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
                         photoFile)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(intent, rcCaptureImageActivityPerm)
@@ -204,18 +182,18 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
 
     private fun takeVideo() {
         val takeVideoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-        if (takeVideoIntent.resolveActivity(packageManager) != null) {
+        if (takeVideoIntent.resolveActivity(context!!.packageManager) != null) {
 
             var videoFile: File? = null
             try {
                 videoFile = createVideoFile()
             } catch (ex: IOException) {
-                Toast.makeText(this, "Error $ex", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error $ex", Toast.LENGTH_SHORT).show()
             }
             // Continue only if the File was successfully created
             if (videoFile != null) {
                 val videoURI = FileProvider.getUriForFile(
-                        applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
+                        activity!!.applicationContext, "com.openclassrooms.realestatemanager.fileprovider",
                         videoFile)
                 takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoURI)
                 startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
@@ -229,7 +207,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
         // Create an image file name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val image = File.createTempFile(
                 imageFileName, /* prefix */
                 ".jpg", /* suffix */
@@ -243,7 +221,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
     private fun createVideoFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(Date())
         val imageFileName = "MP4_" + timeStamp + "_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val video = File.createTempFile(
                 imageFileName, /* prefix */
                 ".mp4", /* suffix */
@@ -256,11 +234,11 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
 
     /**PERMISSIONS*/
     private fun hasCameraPermission(): Boolean {
-        return EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)
+        return EasyPermissions.hasPermissions(context!!, Manifest.permission.CAMERA)
     }
 
     private fun hasReadExternalStoragePermission(): Boolean {
-        return EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        return EasyPermissions.hasPermissions(context!!, Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -271,7 +249,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (requestCode == FetchUserLocation.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
-            Toast.makeText(this, getString(R.string.authorize_gps), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.authorize_gps), Toast.LENGTH_SHORT).show()
         } else if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }
@@ -319,7 +297,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
             this.uriImageSelected = data!!.data
             addPhotoToList(uriImageSelected.toString(), "photo")
         } else {
-            Toast.makeText(this, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_title_no_image_chosen), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -330,7 +308,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
             currentPhotoPath = "file:///$currentPhotoPath"
             addPhotoToList(currentPhotoPath!!, "photo")
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, getString(R.string.photo_not_taken), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.photo_not_taken), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -340,13 +318,13 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
             currentPhotoPath = "file:///$currentPhotoPath"
             addPhotoToList(currentPhotoPath!!, "video")
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, getString(R.string.no_video_saved), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.no_video_saved), Toast.LENGTH_SHORT).show()
         }
     }
 
     /** Start pop up to add description to photo/video, and then add the photo/video object to list */
     private fun addPhotoToList(uri: String, type: String) {
-        val photoPopUp = AddPhotoPopUp(this)
+        val photoPopUp = AddPhotoPopUp(context)
         photoPopUp.popUpDialog(uri, type, photos, photoAdapter)
     }
 
@@ -354,7 +332,7 @@ abstract class BaseActivityUIInformation : AppCompatActivity(), EasyPermissions.
      * Handle click on photo in recycler view
      */
     override fun onItemClick(id: Long?, position: Int?) {
-        val photoPopup = PhotoPopUp(this)
+        val photoPopup = PhotoPopUp(context!!)
         var photo: Photo? = null
         if (id != null) {
             for (p in photos) {
