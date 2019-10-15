@@ -4,77 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/root_layout"
+    <include layout="@layout/toolbar" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frame_layout_edit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include
-                layout="@layout/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="48dp"
-                android:orientation="horizontal">
-
-                <include
-                    layout="@layout/information_layout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="24dp"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginStart="24dp"
-                    android:orientation="vertical">
-
-                    <!--MEDIA-->
-                    <include
-                        layout="@layout/media_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <!--SOLD AND BUTTON-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="16dp">
-
-                        <include
-                            layout="@layout/sold_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center" />
-                    </LinearLayout>
-
-
-                    <!--BUTTON-->
-                    <Button
-                        android:id="@+id/btn_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_create_act"
-                        android:layout_marginTop="@dimen/margin_create_act"
-                        android:background="@drawable/rounded_button"
-                        android:padding="@dimen/padding_add_btn"
-                        android:text="@string/update"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
+        android:layout_height="match_parent" />
 </LinearLayout>

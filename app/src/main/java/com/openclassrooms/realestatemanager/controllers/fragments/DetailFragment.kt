@@ -10,17 +10,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.BuildConfig
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.injections.Injection
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
-import com.openclassrooms.realestatemanager.view.popUps.MapPopUp
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
+import com.openclassrooms.realestatemanager.view.popUps.MapPopUp
 import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
-import java.util.ArrayList
+import java.util.*
 
 
 class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
@@ -30,7 +29,8 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
     private var photos: List<Photo>? = null
     private val photoAdapter: PhotoAdapter = PhotoAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = inflater.inflate(R.layout.fragment_detail, container, false)!!
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+            = inflater.inflate(R.layout.fragment_detail, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +69,8 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
         detail_rooms.text =  realEstate.rooms?.toString()
         detail_bathrooms.text =  realEstate.bathrooms?.toString()
         detail_bedrooms.text =  realEstate.bedrooms?.toString()
-        detail_address.text = realEstate.address
+        val location= realEstate.address + ", \n" +realEstate.city
+        detail_address.text = location
         detail_poi_tv.text = realEstate.pointsOfInterest
 
         if (realEstate.sold == "true")

@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity implements PhotoAdapter.Ph
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_app_bar_layout);
+        setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         this.configureAndShowDetailFragment();
         setActionbar();

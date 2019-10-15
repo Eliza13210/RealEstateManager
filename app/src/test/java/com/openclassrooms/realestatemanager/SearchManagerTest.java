@@ -6,6 +6,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,13 +38,13 @@ public class SearchManagerTest {
     EditText surface_max;
 
     @Mock
-    TextView start_date;
+    TextInputEditText start_date;
     @Mock
-    TextView sold_date_from;
+    TextInputEditText sold_date_from;
     @Mock
-    TextView sold_date_before;
+    TextInputEditText sold_date_before;
     @Mock
-    TextView end_date;
+    TextInputEditText end_date;
 
 
     @Before

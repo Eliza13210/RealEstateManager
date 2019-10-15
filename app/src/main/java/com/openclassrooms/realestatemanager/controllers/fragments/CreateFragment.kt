@@ -41,7 +41,8 @@ class CreateFragment : BaseFragment() {
         geo_loc.setOnClickListener {
             getUserLocation()
         }
-        btn_create?.setOnClickListener{getInfoFromUI()}
+        //Button create in tablet
+        btn_create?.setOnClickListener { getInfoFromUI() }
     }
 
 
@@ -64,6 +65,7 @@ class CreateFragment : BaseFragment() {
      * Get user latLng when clicking on geo latLng icon and update edit text with address
      */
     private fun getUserLocation() {
+        updated = true
         fetchUserLocation = FetchUserLocation(context, address_tv, city_tv, activity, null)
         fetchUserLocation?.checkLocationPermission()
     }
@@ -75,13 +77,17 @@ class CreateFragment : BaseFragment() {
             price = Integer.parseInt(price_tv.text.toString())
         }
         description = description_et.text.toString()
-        surface = if (!surface_tv.text.toString().isNullOrEmpty()) {
+        surface = if (surface_tv.text.toString().isNotEmpty()) {
             Integer.parseInt(surface_tv.text.toString())
         } else {
             null
         }
         startDate = Utils.formateDateForDatabase(Calendar.getInstance().time)
+
+
         Log.e("create", "date " + startDate)
+
+
         pointsOfInterest = poi_tv.text.toString()
         type = type_tv.text.toString().toLowerCase()
 
@@ -133,7 +139,7 @@ class CreateFragment : BaseFragment() {
 
         latitude = latLng!!.latitude.toString()
         longitude = latLng!!.longitude.toString()
-        Log.e("create", "create real estate " + latLng)
+
         val realEstate = RealEstate(null, type, price, latitude, longitude, description, surface, bedrooms,
                 rooms, bathrooms, address, city, "false", startDate, null, agent, pointsOfInterest
         )
@@ -148,6 +154,7 @@ class CreateFragment : BaseFragment() {
                     viewModel?.createPhoto(photo)
             }
         }
+        updated = false
         startActivity(Intent(activity, MainActivity::class.java))
     }
 
@@ -187,7 +194,7 @@ class CreateFragment : BaseFragment() {
     }
 
     private fun createNotification() {
-        var builder = NotificationCompat.Builder(context!!, MainActivity.CHANNEL_ID)
+        val builder = NotificationCompat.Builder(context!!, MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle("Real Estate manager")
                 .setContentText(getString(R.string.real_estate_added))

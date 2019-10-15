@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-        <!--TEXT FIELDS-->
-        <include
-            layout="@layout/information_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="48dp"
-            android:layout_weight="1" />
-
-        <!--ADDRESS-->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="48dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_create_act"
             android:orientation="vertical">
 
+            <!--TEXT FIELDS-->
             <include
-                layout="@layout/address_layout"
+                layout="@layout/information_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <include
-                layout="@layout/media_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:layout_weight="1" />
-
-                <!--BUTTON-->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_create"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:padding="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <!--ADDRESS-->
+                <include
+                    layout="@layout/address_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/add"/>
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1" />
 
+                <include
+                    layout="@layout/media_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <!--BUTTON-->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create"
+                style="@style/Widget.MaterialComponents.Button"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add"/>
         </LinearLayout>
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
     <RelativeLayout
         android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
@@ -67,3 +69,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+

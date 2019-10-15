@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/frame_layout_result"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_app_bar" />
 
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:elevation="8dp"
+            app:backgroundTint="@color/grey"
+            app:fabAlignmentMode="end"
+            app:hideOnScroll="true"
+            app:titleTextColor="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/bottom_app_bar" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+
+        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fillViewport="true">
 
             <LinearLayout
@@ -24,26 +25,39 @@
                 <include
                     layout="@layout/information_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="8" />
-
+                    android:layout_height="wrap_content" />
 
                 <include
                     layout="@layout/media_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp" />
-
+                    android:layout_marginTop="16dp" />
 
                 <include
                     layout="@layout/sold_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="104dp"/>
+                    android:layout_marginBottom="16dp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <!--BUTTON-->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_update"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="16dp"
+                        android:padding="16dp"
+                        android:text="@string/search"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
+                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
-
 </RelativeLayout>

@@ -7,9 +7,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.controllers.BaseActivityUIInformation
-import com.openclassrooms.realestatemanager.controllers.DetailActivity
-import com.openclassrooms.realestatemanager.controllers.MainActivity
+import com.openclassrooms.realestatemanager.controllers.*
+import com.openclassrooms.realestatemanager.controllers.fragments.BaseFragment
 import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
@@ -55,7 +54,7 @@ class PhotoPopUp(var context: Context) {
             videoView.start()
         }
 
-        if (context is BaseActivityUIInformation) {
+        if (context is CreateActivity || context is EditActivity) {
             // Set up the buttons
             builder.setPositiveButton(context.getString(R.string.delete_photo)) { dialog, _ ->
 

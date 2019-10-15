@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers.fragments
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.AsyncTask
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.openclassrooms.realestatemanager.R
@@ -11,6 +10,7 @@ import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.controllers.MainActivity
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.RealEstate
+import kotlinx.android.synthetic.main.fragment_edit_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.sold_layout.*
@@ -90,6 +90,10 @@ class EditFragment : BaseFragment() {
     }
 
     override fun initButtons() {
+        //Button update in tablet layout
+        btn_update?.setOnClickListener {
+            getInfoFromUI()
+        }
         check_sold.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sold = "true"
@@ -132,6 +136,7 @@ class EditFragment : BaseFragment() {
 
         type = type_tv.text.toString()
         pointsOfInterest = poi_tv.text.toString()
+
         //Check if end date is picked when object is sold before updating
         if (sold == "true") {
             if (endDate.isNotEmpty()) {
@@ -181,7 +186,7 @@ class EditFragment : BaseFragment() {
 
             if (Utils.checkBeforeToday(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))) {
                 end_date.text = Utils.formateDateForDatabase(cal.time)
-                Log.e("edit", "sold date " + cal.time.toString())
+
             } else {
                 sold = "false"
                 check_sold.isChecked = false

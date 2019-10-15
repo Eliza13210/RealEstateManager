@@ -48,7 +48,7 @@ class CreateActivity : AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemC
     private fun setActionbarPhone() {
         this.setSupportActionBar(bottom_app_bar)
 
-        fab.setImageResource(R.drawable.ic_action_done)
+        fab?.setImageResource(R.drawable.ic_action_done)
         fab?.setOnClickListener { addRealEstate() }
     }
 
@@ -89,5 +89,6 @@ class CreateActivity : AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemC
     }
 
     override fun onItemClick(id: Long?, position: Int?) {
+        createFragment!!.onItemClick(id, position)
     }
 }

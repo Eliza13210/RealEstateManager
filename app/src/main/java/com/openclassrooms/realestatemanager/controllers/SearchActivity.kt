@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.CheckBox
 import android.widget.SeekBar
 import android.widget.TextView
@@ -27,11 +29,11 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.type_details_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
-import android.R
-import kotlinx.android.synthetic.main.seekbar_layout.view.*
 
 
 class SearchActivity : AppCompatActivity() {
+
+    private var isTablet: Boolean = false
 
     //FOR SEEKBAR
     var MIN = 0
@@ -60,7 +62,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.openclassrooms.realestatemanager.R.layout.activity_search)
         checkIfTablet()
-        initToolbar()
         initClickableItems()
         initSeekbars()
         initViewModel()
@@ -71,7 +72,19 @@ class SearchActivity : AppCompatActivity() {
         // WILL BE FALSE IF TABLET
         if (resources.getBoolean(com.openclassrooms.realestatemanager.R.bool.portrait_only)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            setActionbarPhone()
+        } else {
+            isTablet = true
+            initToolbar()
         }
+    }
+
+    private fun setActionbarPhone() {
+        this.setSupportActionBar(bottom_app_bar)
+        bottom_app_bar?.setNavigationOnClickListener { startActivity(Intent(this@SearchActivity, MainActivity::class.java)) }
+
+        fab?.setImageResource(com.openclassrooms.realestatemanager.R.drawable.ic_action_done)
+        fab?.setOnClickListener { getQueryFromUI() }
     }
 
     /**
@@ -195,11 +208,11 @@ class SearchActivity : AppCompatActivity() {
 
 
     private fun initClickableItems() {
-        //BUTTON SEARCH
-        btn_search.setOnClickListener {
+
+        //BUTTON SEARCH in TABLET LAYOUT
+        btn_search?.setOnClickListener {
             getQueryFromUI()
         }
-
         //CHECKBOX SOLD
         check_sold.setOnClickListener {
             sold = check_sold.isChecked
@@ -340,4 +353,26 @@ class SearchActivity : AppCompatActivity() {
         intent.putExtra(SearchResultActivity.EXTRA_TAG_RESULT, jsonList)
         startActivity(intent)
     }
+
+    /**
+     * Handle click in action bar
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // REMOVE CREATE ITEM FROM TOOLBAR IF PHONE
+        if (!isTablet) {
+            menuInflater.inflate(com.openclassrooms.realestatemanager.R.menu.bottom_app_bar_menu_nav_back, menu)
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            com.openclassrooms.realestatemanager.R.id.app_bar_home -> {
+                startActivity(Intent(this@SearchActivity, MainActivity::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

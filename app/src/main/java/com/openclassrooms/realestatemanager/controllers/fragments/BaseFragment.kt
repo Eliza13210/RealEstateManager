@@ -3,12 +3,12 @@ package com.openclassrooms.realestatemanager.controllers.fragments
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,9 +40,9 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
 
 
     protected var updated = false
+
     // For latLng
     protected var fetchUserLocation: FetchUserLocation? = null
-    protected var pref: SharedPreferences? = null
 
     //PERMISSIONS AND REQUESTS
     private val rcImagePerm = 100
@@ -104,7 +104,7 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     }
 
     /**
-     * Implemented in EditActivity and CreateActivity
+     * Implemented in Edit and Create fragment
      */
     abstract fun initButtons()
 
@@ -275,7 +275,7 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
     /**
      * Handle response after launching start activity for result intents
      */
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             rcCaptureImageActivityPerm -> {
@@ -332,6 +332,7 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
      * Handle click on photo in recycler view
      */
     override fun onItemClick(id: Long?, position: Int?) {
+        Log.e("baseF", "clicked")
         val photoPopup = PhotoPopUp(context!!)
         var photo: Photo? = null
         if (id != null) {

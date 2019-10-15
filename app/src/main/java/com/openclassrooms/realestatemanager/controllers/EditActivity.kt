@@ -12,7 +12,7 @@ import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class EditActivity: AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
+class EditActivity : AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemClickedListener {
 
     private var isTablet = false
     private var editFragment: EditFragment? = null
@@ -21,11 +21,13 @@ class EditActivity: AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemClic
         if (intent != null)
             setIntent(intent)
     }
+
     override fun onResume() {
         super.onResume()
-         editFragment!!.initRealEstate(intent.getLongExtra(DetailActivity.EXTRA_TAG, 0))
+        editFragment!!.initRealEstate(intent.getLongExtra(DetailActivity.EXTRA_TAG, 0))
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
@@ -55,22 +57,21 @@ class EditActivity: AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemClic
 
     private fun setActionbarPhone() {
         this.setSupportActionBar(bottom_app_bar)
-        bottom_app_bar.setNavigationOnClickListener({ view -> startActivity(Intent(this@EditActivity, MainActivity::class.java)) })
+        bottom_app_bar?.setNavigationOnClickListener { startActivity(Intent(this@EditActivity, MainActivity::class.java)) }
 
-        fab.setImageResource(R.drawable.ic_action_done)
+        fab?.setImageResource(R.drawable.ic_action_done)
         fab?.setOnClickListener { editFragment!!.getInfoFromUI() }
     }
 
     private fun showFragment() {
-        editFragment = supportFragmentManager?.findFragmentById(R.id.frame_layout_create) as? EditFragment
+        editFragment = supportFragmentManager?.findFragmentById(R.id.frame_layout_edit) as? EditFragment
         if (editFragment == null) {
             editFragment = EditFragment()
             supportFragmentManager.beginTransaction()
-                    .add(R.id.frame_layout_create, editFragment!!)
+                    .add(R.id.frame_layout_edit, editFragment!!)
                     .commit()
         }
     }
-
 
 
     /**
