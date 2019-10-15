@@ -31,7 +31,7 @@ class SearchManager {
         //AGENT
         if (agent_et!!.text!!.isNotEmpty()) {
             sb.append("agent LIKE ? AND ")
-            bindArgs.add("%" + agent_et.text.toString()+ "%")
+            bindArgs.add("%" + Utils.removeSpacesAndAccentLetters(agent_et.text.toString())+ "%")
         }
 
         //TYPE

@@ -104,30 +104,6 @@ class SearchActivity : AppCompatActivity() {
                 Log.v("searchA", "seekbar" + seekBar)
 
                 when (seekBar) {
-                    seekbar_max_surface -> {
-                        textView = surface_max_textview
-                        MAX = 1000
-                        STEP = 100
-                        Log.e("search", seekbar_min_surface.progress.toString())
-                    }
-
-                    seekbar_min_surface -> {
-                        textView = surface_min_textview
-                        MAX = 1000
-                        STEP = 100
-                    }
-
-                    seekbar_max_price -> {
-                        textView = price_max_textview
-                        MAX = 10000000
-                        STEP = 100000
-                    }
-                    seekbar_min_price -> {
-                        textView = price_min_textview
-                        MAX = 100000000
-                        STEP = 10000
-                    }
-
                     seekbar_max_rooms -> {
                         textView = max_rooms_textview
                         MAX = 50
@@ -160,17 +136,6 @@ class SearchActivity : AppCompatActivity() {
                         MAX = 20
                         STEP = 1
                     }
-
-                    seekbar_max_photos -> {
-                        textView = max_photos_textview
-                        MAX = 20
-                        STEP = 1
-                    }
-                    seekbar_min_photos -> {
-                        textView = min_photos_textview
-                        MAX = 20
-                        STEP = 1
-                    }
                 }
                 seekBar.max = (MAX - MIN) / STEP
                 val progressStep = MIN + (progress * STEP)
@@ -185,14 +150,6 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        //SURFACE SEEKBARS
-        seekbar_max_surface.setOnSeekBarChangeListener(seekbarListener)
-        seekbar_min_surface.setOnSeekBarChangeListener(seekbarListener)
-
-        //PRICE SEEKBARS
-        seekbar_max_price.setOnSeekBarChangeListener(seekbarListener)
-        seekbar_min_price.setOnSeekBarChangeListener(seekbarListener)
-
         //ROOM SEEKBARS
         seekbar_max_rooms.setOnSeekBarChangeListener(seekbarListener)
         seekbar_min_rooms.setOnSeekBarChangeListener(seekbarListener)
@@ -201,9 +158,6 @@ class SearchActivity : AppCompatActivity() {
         seekbar_max_bathrooms.setOnSeekBarChangeListener(seekbarListener)
         seekbar_min_bathrooms.setOnSeekBarChangeListener(seekbarListener)
 
-        //PHOTOS SEEKBARS
-        seekbar_max_photos.setOnSeekBarChangeListener(seekbarListener)
-        seekbar_min_photos.setOnSeekBarChangeListener(seekbarListener)
     }
 
 
@@ -288,10 +242,10 @@ class SearchActivity : AppCompatActivity() {
         val manageSearch = SearchManager()
 
         type = type_tv.text.toString()
-        surfaceMin = surface_min_textview.text.toString()
-        surfaceMax = surface_max_textview.text.toString()
-        priceMin = price_min_textview.text.toString()
-        priceMax = price_max_textview.text.toString()
+        surfaceMin = surface_min.text.toString()
+        surfaceMax = surface_max.text.toString()
+        priceMin = price_min.text.toString()
+        priceMax = price_max.text.toString()
         roomsMin = min_rooms_textview.text.toString()
         roomsMax = max_rooms_textview.text.toString()
         bedroomsMax = max_bedrooms_textview.text.toString()
@@ -309,7 +263,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun search(query: String, arg: Array<String>) {
         viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> {
-            if (seekbar_min_photos.progress > 0 || seekbar_max_photos.progress < 20) {
+            if (photos_min.text.toString().toInt() > 0 || photos_max.text.toString().toInt() != 10) {
                 this.searchOnPhotos(it)
             } else {
                 showResult(it)
@@ -333,8 +287,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun upDateListIfPhotos(listPhoto: List<Photo>, realEstate: RealEstate, isLast: Boolean) {
-        val max = if (seekbar_max_photos.progress > 0) seekbar_max_photos.progress else 20
-        val min = if (seekbar_min_photos.progress > 0) seekbar_min_photos.progress else 0
+        val max = if (photos_max.text.toString().toInt() > 0) photos_max.text.toString().toInt() else 20
+        val min = if (photos_min.text.toString().toInt() > 0) photos_min.text.toString().toInt() else 0
 
         if (listPhoto.size in min..max) {
             updatedList.add(realEstate)

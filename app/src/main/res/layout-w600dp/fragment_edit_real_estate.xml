@@ -54,7 +54,7 @@
                         android:layout_gravity="bottom"
                         android:layout_marginBottom="16dp"
                         android:padding="16dp"
-                        android:text="@string/search"
+                        android:text="@string/update"
                         android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button" />
                 </LinearLayout>
             </LinearLayout>

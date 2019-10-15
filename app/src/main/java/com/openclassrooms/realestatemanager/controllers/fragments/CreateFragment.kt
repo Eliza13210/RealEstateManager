@@ -73,6 +73,7 @@ class CreateFragment : BaseFragment() {
     override fun getInfoFromUI() {
         checkAddress()
         agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString())
+
         Log.e("create", agent)
         if (price_tv.text!!.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())

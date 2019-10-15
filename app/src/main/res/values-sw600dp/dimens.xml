@@ -10,10 +10,10 @@
     <dimen name="text_size_create_act">16sp</dimen>
 
     <!--RECYCLERVIEW LIST OF REAL ESTATES-->
-    <dimen name="photo_list_size_width">204dp</dimen>
-    <dimen name="photo_list_size_height">304dp</dimen>
+    <dimen name="photo_list_size_width">164dp</dimen>
+    <dimen name="photo_list_size_height">240dp</dimen>
 
-    <dimen name="text_list_size_width">184dp</dimen>
+    <dimen name="text_list_size_width">164dp</dimen>
     <dimen name="text_list_size_height">104dp</dimen>
 
     <dimen name="photo_item_size_width">104dp</dimen>
