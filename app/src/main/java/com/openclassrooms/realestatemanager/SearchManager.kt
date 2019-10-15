@@ -13,7 +13,7 @@ class SearchManager {
     private var query: String? = null
     private val bindArgs = arrayListOf<String>()
 
-    fun getQueryFromUI(agent_et: EditText?, type: String?, checkbox: List<String>?, city_et: EditText?,
+    fun getQueryFromUI(agent_et: TextInputEditText?, type: String?, checkbox: List<String>?, city_et: EditText?,
                        surface_min: String?, surface_max: String?,
                        price_min: String?, price_max: String?,
                        rooms_min: String?, rooms_max: String?,
@@ -29,9 +29,9 @@ class SearchManager {
         sb.append("SELECT * FROM RealEstate WHERE ")
 
         //AGENT
-        if (agent_et!!.text.isNotEmpty()) {
-            sb.append("agent = ? AND ")
-            bindArgs.add(Utils.removeSpacesAndAccentLetters(agent_et.text.toString().toLowerCase()))
+        if (agent_et!!.text!!.isNotEmpty()) {
+            sb.append("agent LIKE ? AND ")
+            bindArgs.add("%" + agent_et.text.toString()+ "%")
         }
 
         //TYPE
@@ -55,66 +55,66 @@ class SearchManager {
         }
 
         //SURFACE
-        if (surface_min!! != "0" && surface_max!! !="0") {
+        if (surface_min!! != "0" && surface_max!! !="1000") {
             sb.append("surface BETWEEN ? AND ? AND ")
             bindArgs.add(surface_min)
             bindArgs.add(surface_max)
         } else if (surface_min != "0") {
             sb.append("surface >= ? AND ")
             bindArgs.add(surface_min)
-        } else if (surface_max!! != "0") {
+        } else if (surface_max!! != "1000") {
             sb.append("surface <= ? AND ")
             bindArgs.add(surface_max)
         }
 
         //PRICE
-        if (price_min!! != "0" && price_max!! != "0") {
+        if (price_min!! != "0" && price_max!! != "10000000") {
             sb.append("price BETWEEN ? AND ? AND ")
             bindArgs.add(price_min)
             bindArgs.add(price_max)
         } else if (price_min != "0") {
             sb.append("price >= ? AND ")
             bindArgs.add(price_min)
-        } else if (price_max!! != "0") {
+        } else if (price_max!! != "10000000") {
             sb.append("price <= ? AND ")
             bindArgs.add(price_max)
         }
 
         //ROOMS
-        if (rooms_min!! != "0" && rooms_max!! != "0") {
+        if (rooms_min!! != "0" && rooms_max!! != "50") {
             sb.append("rooms BETWEEN ? AND ? AND ")
             bindArgs.add(rooms_min)
             bindArgs.add(rooms_max)
         } else if (rooms_min != "0") {
             sb.append("rooms >= ? AND ")
             bindArgs.add(rooms_min)
-        } else if (rooms_max!! != "0") {
+        } else if (rooms_max!! != "50") {
             sb.append("rooms <= ? AND ")
             bindArgs.add(rooms_max)
         }
 
         //BEDROOMS
-        if (bedrooms_min!! != "0" && bedrooms_max!! != "0") {
+        if (bedrooms_min!! != "0" && bedrooms_max!! != "20") {
             sb.append("bedrooms BETWEEN ? AND ? AND ")
             bindArgs.add(bedrooms_min)
             bindArgs.add(bedrooms_max)
         } else if (bedrooms_min != "0") {
             sb.append("bedrooms >= ? AND ")
             bindArgs.add(bedrooms_min)
-        } else if (bedrooms_max!! != "0") {
+        } else if (bedrooms_max!! != "20") {
             sb.append("bedrooms <= ? AND ")
             bindArgs.add(bedrooms_max)
         }
 
         //BATHROOMS
-        if (bathrooms_min!! != "0" && bathrooms_max!! != "0") {
+        if (bathrooms_min!! != "0" && bathrooms_max!! != "20") {
             sb.append("bathrooms BETWEEN ? AND ? AND ")
             bindArgs.add(bathrooms_min)
             bindArgs.add(bathrooms_max)
         } else if (bathrooms_min != "0") {
             sb.append("bathrooms >= ? AND ")
             bindArgs.add(bathrooms_min)
-        } else if (bathrooms_max!! != "0") {
+        } else if (bathrooms_max!! != "20") {
             sb.append("bathrooms <= ? AND ")
             bindArgs.add(bathrooms_max)
         }

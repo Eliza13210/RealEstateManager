@@ -73,6 +73,7 @@ class CreateFragment : BaseFragment() {
     override fun getInfoFromUI() {
         checkAddress()
         agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString())
+        Log.e("create", agent)
         if (price_tv.text!!.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())
         }
@@ -175,6 +176,7 @@ class CreateFragment : BaseFragment() {
         rooms = null
         rooms_tv.setText("")
         bathrooms = null
+        bathroom_tv.setText("")
         bedroom_tv.setText("")
         bedrooms = null
         bedroom_tv.setText("")

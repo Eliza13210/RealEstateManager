@@ -34,7 +34,6 @@
             android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,12 +54,6 @@
         <activity
             android:name=".controllers.CreateActivity"
             android:label="Create new real estate"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.Transparent"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".controllers.EditActivity"
-            android:label="Edit item"
             android:launchMode="singleTask"
             android:theme="@style/Theme.Transparent"
             android:windowSoftInputMode="adjustPan" />

@@ -29,12 +29,6 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <!--TYPE-->
-            <include
-                layout="@layout/type_details_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <!--AGENT REAL ESTATE-->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,10 +52,16 @@
                         android:id="@+id/agent_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:inputType="text|textCapSentences" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
+            <!--TYPE-->
+            <include
+                layout="@layout/type_details_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"

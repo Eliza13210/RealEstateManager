@@ -29,14 +29,9 @@ import static org.junit.Assert.assertEquals;
 public class SearchManagerTest {
 
     @Mock
-    EditText agent_et;
+    TextInputEditText agent_et;
     @Mock
     EditText city_et;
-    @Mock
-    EditText surface_min;
-    @Mock
-    EditText surface_max;
-
     @Mock
     TextInputEditText start_date;
     @Mock

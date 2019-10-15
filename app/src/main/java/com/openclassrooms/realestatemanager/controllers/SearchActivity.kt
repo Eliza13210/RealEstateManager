@@ -120,7 +120,7 @@ class SearchActivity : AppCompatActivity() {
                     seekbar_max_price -> {
                         textView = price_max_textview
                         MAX = 10000000
-                        STEP = 10000
+                        STEP = 100000
                     }
                     seekbar_min_price -> {
                         textView = price_min_textview
