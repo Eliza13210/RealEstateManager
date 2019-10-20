@@ -39,4 +39,9 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
+    <!--TOOLBAR-->
+    <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark">
+       <item name="android:minHeight">@dimen/action_bar_default_height_material</item>
+    </style>
+
 </resources>

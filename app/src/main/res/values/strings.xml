@@ -108,20 +108,25 @@
     <string name="photo">Photo</string>
     <string name="pick">Pick</string>
     <string name="video">Video</string>
+
+    <!--SEEKBAR LAYOUT-->
     <string name="agent_req">Agent*</string>
     <string name="price_in_dollar">Price $</string>
     <string name="address_req">Address*</string>
     <string name="city_req">City*</string>
-    <string name="sold_after">After</string>
-    <string name="sold_before">Before</string>
-    <string name="start_date_before">Before</string>
-    <string name="max_surface">Max Surface</string>
-    <string name="min_surface">Min Surface</string>
-    <string name="max_price">Max Price</string>
-    <string name="min_price">Min Price</string>
+    <string name="sold_after">Sold after</string>
+    <string name="sold_before">Sold before</string>
+    <string name="start_date_before">Added before</string>
+    <string name="added_after">Added after</string>
+    <string name="max_surface">Max surface</string>
+    <string name="min_surface">Min surface</string>
+    <string name="max_price">Max price</string>
+    <string name="min_price">Min price</string>
     <string name="action_reset">action_reset</string>
     <string name="action_back">action_back</string>
     <string name="max_photos">Max photos</string>
+    <string name="min_photos">Min photos</string>
+    <string name="max_rooms">Max Rooms</string>
 
 
 </resources>

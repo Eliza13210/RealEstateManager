@@ -30,8 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="5"
-                android:text="0" />
+                android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,11 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:maxLength="5"
-                android:text="1000" />
+                android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
     </LinearLayout>
 
     <!--PRICE -->
@@ -65,6 +61,7 @@
             android:layout_height="@dimen/non_touch_target_dimen"
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/price"
             android:src="@drawable/ic_action_dollar"
             android:tint="@color/black" />
 
@@ -80,8 +77,7 @@
                 android:id="@+id/price_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="0" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -96,8 +92,7 @@
                 android:id="@+id/price_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="10000000" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -113,7 +108,8 @@
             android:layout_gravity="center"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_pick_photo"
-            android:tint="@color/black" />
+            android:tint="@color/black"
+            android:contentDescription="@string/photo" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -121,14 +117,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:hint="Min photos">
+            android:hint="@string/min_photos">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/photos_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="0" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -143,24 +138,150 @@
                 android:id="@+id/photos_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="10" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
+    <!-- START DATE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/non_touch_target_dimen"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/click_to_pick_a_date"
+            android:src="@drawable/ic_calendar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:hint="@string/added_after">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/start_date_after_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:hint="@string/start_date_before">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/start_date_before_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <!-- SOLD DATE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/non_touch_target_dimen"
+            android:layout_height="@dimen/non_touch_target_dimen"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/click_to_pick_a_date"
+            android:src="@drawable/ic_calendar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:hint="@string/sold_after">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sold_after_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:hint="@string/sold_before">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/sold_before_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/sold" />
+
+        <Switch
+            android:id="@+id/check_sold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0dp" />
+    </LinearLayout>
+
+    <!--SEEKBARS-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:visibility="visible" />
 
     <!--MAX ROOMS-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Max Rooms"
+            android:text="@string/max_rooms"
             android:textStyle="bold" />
 
         <TextView
@@ -168,7 +289,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="50"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -186,7 +306,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
@@ -201,7 +320,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -218,7 +336,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
@@ -233,7 +350,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="20"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -251,7 +367,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
@@ -266,7 +381,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -283,7 +397,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
@@ -298,7 +411,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="20"
             android:textAlignment="textEnd" />
     </LinearLayout>
@@ -316,7 +428,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
@@ -331,7 +442,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
             android:text="0"
             android:textAlignment="textEnd" />
     </LinearLayout>

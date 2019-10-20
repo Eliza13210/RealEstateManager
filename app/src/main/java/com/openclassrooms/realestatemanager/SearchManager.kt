@@ -68,14 +68,14 @@ class SearchManager {
         }
 
         //PRICE
-        if (price_min!! != "0" && price_max!! != "10000000") {
+        if (price_min!!.isNotEmpty() && price_max!!.isNotEmpty()) {
             sb.append("price BETWEEN ? AND ? AND ")
             bindArgs.add(price_min)
             bindArgs.add(price_max)
-        } else if (price_min != "0") {
+        } else if (price_min.isNotEmpty()) {
             sb.append("price >= ? AND ")
             bindArgs.add(price_min)
-        } else if (price_max!! != "10000000") {
+        } else if (price_max!!.isNotEmpty()) {
             sb.append("price <= ? AND ")
             bindArgs.add(price_max)
         }

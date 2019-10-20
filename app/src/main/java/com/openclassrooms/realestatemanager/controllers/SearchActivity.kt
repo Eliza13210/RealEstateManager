@@ -263,7 +263,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun search(query: String, arg: Array<String>) {
         viewModel!!.searchRealEstates(query, arg).observe(this, Observer<List<RealEstate>> {
-            if (photos_min.text.toString().toInt() > 0 || photos_max.text.toString().toInt() != 10) {
+            if (photos_min.text.toString().isNotEmpty() || photos_max.text.toString().isNotEmpty() ) {
                 this.searchOnPhotos(it)
             } else {
                 showResult(it)
