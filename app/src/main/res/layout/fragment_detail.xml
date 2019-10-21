@@ -279,6 +279,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_marginEnd="4dp"
                                 android:orientation="vertical">
 
                                 <!--ADDRESS-->
@@ -335,16 +336,15 @@
                         android:src="@drawable/ic_icon_location" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/detail_poi_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Points of interest"
+                            android:text="@string/points_of_interest"
                             android:textSize="@dimen/text_size"
                             android:textStyle="bold" />
 

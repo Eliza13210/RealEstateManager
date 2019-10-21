@@ -69,7 +69,7 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
         detail_rooms.text =  realEstate.rooms?.toString()
         detail_bathrooms.text =  realEstate.bathrooms?.toString()
         detail_bedrooms.text =  realEstate.bedrooms?.toString()
-        val location= realEstate.address + ", \n" +realEstate.city
+        val location= realEstate.address + "\n" +realEstate.city.toUpperCase()
         detail_address.text = location
         detail_poi_tv.text = realEstate.pointsOfInterest
 

@@ -13,7 +13,7 @@ class SearchManager {
     private var query: String? = null
     private val bindArgs = arrayListOf<String>()
 
-    fun getQueryFromUI(agent_et: TextInputEditText?, type: String?, checkbox: List<String>?, city_et: EditText?,
+    fun getQueryFromUI(agent_et: TextInputEditText?, type: String?, checkbox: List<String>?, city_et: TextInputEditText?,
                        surface_min: String?, surface_max: String?,
                        price_min: String?, price_max: String?,
                        rooms_min: String?, rooms_max: String?,
@@ -55,14 +55,14 @@ class SearchManager {
         }
 
         //SURFACE
-        if (surface_min!! != "0" && surface_max!! !="1000") {
+        if (surface_min!!.isNotEmpty() && surface_max!!.isNotEmpty()) {
             sb.append("surface BETWEEN ? AND ? AND ")
             bindArgs.add(surface_min)
             bindArgs.add(surface_max)
-        } else if (surface_min != "0") {
+        } else if (surface_min.isNotEmpty()) {
             sb.append("surface >= ? AND ")
             bindArgs.add(surface_min)
-        } else if (surface_max!! != "1000") {
+        } else if (surface_max!!.isNotEmpty()) {
             sb.append("surface <= ? AND ")
             bindArgs.add(surface_max)
         }

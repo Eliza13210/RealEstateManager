@@ -31,7 +31,7 @@ public class SearchManagerTest {
     @Mock
     TextInputEditText agent_et;
     @Mock
-    EditText city_et;
+    TextInputEditText city_et;
     @Mock
     TextInputEditText start_date;
     @Mock
@@ -66,17 +66,17 @@ public class SearchManagerTest {
         manager.getQueryFromUI(agent_et, "house", listCheckBox, city_et, "100", "200", "200000", "400000",
                 "5", "10",
                 "0", "5",
-                "1", "0", start_date, end_date, sold_date_from, sold_date_before, true);
+                "1", "20", start_date, end_date, sold_date_from, sold_date_before, true);
 
         String query = manager.getQuery();
 
         String[] args = manager.getArgs();
-        String[] expected = new String[]{"liz", "%house%", "%school%", "%bus station%", "%avignon%", "100", "200",
+        String[] expected = new String[]{"%Liz%", "%house%", "%school%", "%bus station%", "%avignon%", "100", "200",
                 "200000", "400000", "5", "10", "5", "1",
                 "01/04/2019", "true"};
 
 
-        assertEquals("SELECT * FROM RealEstate WHERE agent = ? AND type LIKE ? AND pointsOfInterest LIKE ? AND pointsOfInterest LIKE ? " +
+        assertEquals("SELECT * FROM RealEstate WHERE agent LIKE ? AND type LIKE ? AND pointsOfInterest LIKE ? AND pointsOfInterest LIKE ? " +
                 "AND city LIKE ? AND surface BETWEEN ? AND ? " +
                 "AND price BETWEEN ? AND ? AND rooms BETWEEN ? AND ? " +
                 "AND bedrooms <= ? " +

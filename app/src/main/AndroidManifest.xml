@@ -43,25 +43,25 @@
         <activity
             android:name=".controllers.SearchResultActivity"
             android:label="@string/search_results"
-            android:theme="@style/SearchTheme" />
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".controllers.DetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme" />
         <activity
             android:name=".controllers.SearchActivity"
-            android:theme="@style/SearchTheme" />
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".controllers.CreateActivity"
             android:label="Create new real estate"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.Transparent"
+            android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".controllers.EditActivity"
             android:label="Edit item"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.Transparent"
+            android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustPan" />
 
         <uses-library

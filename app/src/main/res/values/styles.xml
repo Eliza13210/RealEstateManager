@@ -17,31 +17,19 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
-    <!--SEARCH ACTIVITY -->
-    <style name="SearchTheme" parent="Theme.AppCompat.DayNight">
+    <!--ACTIVITIES -->
+    <style name="ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimaryDark">@color/red</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
-    <!-- FOR FAB ANIMATION TO ACTIVITY -->
-    <style name="Theme.Transparent" parent="AppTheme">
-        <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
 
     <!--ALERT DIALOG-->
     <style name="AlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
-    </style>
-
-    <!--TOOLBAR-->
-    <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark">
-       <item name="android:minHeight">@dimen/action_bar_default_height_material</item>
     </style>
 
 </resources>
