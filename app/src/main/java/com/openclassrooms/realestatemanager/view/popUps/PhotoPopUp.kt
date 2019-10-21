@@ -8,8 +8,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.controllers.*
-import com.openclassrooms.realestatemanager.controllers.fragments.BaseFragment
-import com.openclassrooms.realestatemanager.controllers.fragments.DetailFragment
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.squareup.picasso.Picasso
