@@ -16,7 +16,7 @@ import com.openclassrooms.realestatemanager.models.RealEstate
 import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.MapPopUp
-import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
+import com.openclassrooms.realestatemanager.view.popUps.PopUpPhoto
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.util.*
@@ -108,7 +108,7 @@ class DetailFragment : Fragment(), PhotoAdapter.PhotoViewHolder.OnItemClickedLis
     // Handle click in photo recycler view to show photo or video in popup
     // --------------
     override fun onItemClick(id: Long?, position: Int?) {
-        val photoPopup = PhotoPopUp(context!!)
+        val photoPopup = PopUpPhoto(context!!)
         var photo: Photo? = null
         if (id != null) {
             for (p in photos!!) {

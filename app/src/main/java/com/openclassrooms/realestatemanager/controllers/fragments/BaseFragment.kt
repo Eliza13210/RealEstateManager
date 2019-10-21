@@ -25,7 +25,7 @@ import com.openclassrooms.realestatemanager.realEstateList.RealEstateViewModel
 import com.openclassrooms.realestatemanager.view.PhotoAdapter
 import com.openclassrooms.realestatemanager.view.popUps.AddPhotoPopUp
 import com.openclassrooms.realestatemanager.view.popUps.AddPoiPopUp
-import com.openclassrooms.realestatemanager.view.popUps.PhotoPopUp
+import com.openclassrooms.realestatemanager.view.popUps.PopUpPhoto
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.media_layout.*
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -332,7 +332,7 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
      * Handle click on photo in recycler view
      */
     override fun onItemClick(id: Long?, position: Int?) {
-        val photoPopup = PhotoPopUp(context!!)
+        val photoPopup = PopUpPhoto(context!!)
         var photo: Photo? = null
         if (id != null) {
             for (p in photos) {

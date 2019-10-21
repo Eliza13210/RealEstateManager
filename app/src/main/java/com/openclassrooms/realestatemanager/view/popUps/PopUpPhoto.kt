@@ -20,7 +20,7 @@ import java.util.*
  * If the popup is opened in edit or create activity, the user can also delete the photo/video
  */
 
-class PhotoPopUp(var context: Context) {
+class PopUpPhoto(var context: Context) {
 
     fun popUp(uri: String, photos: ArrayList<Photo>, type: String, photoAdapter: PhotoAdapter, position: Int?) {
         val builder = AlertDialog.Builder(context, R.style.AlertDialog)
