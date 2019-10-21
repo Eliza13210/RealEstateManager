@@ -96,5 +96,6 @@ class EditActivity : AppCompatActivity(), PhotoAdapter.PhotoViewHolder.OnItemCli
     }
 
     override fun onItemClick(id: Long?, position: Int?) {
+        editFragment!!.onItemClick(id, position)
     }
 }

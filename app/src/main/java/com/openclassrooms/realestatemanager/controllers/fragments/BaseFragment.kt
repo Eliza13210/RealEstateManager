@@ -332,7 +332,6 @@ abstract class BaseFragment : Fragment(), EasyPermissions.PermissionCallbacks,
      * Handle click on photo in recycler view
      */
     override fun onItemClick(id: Long?, position: Int?) {
-        Log.e("baseF", "clicked")
         val photoPopup = PhotoPopUp(context!!)
         var photo: Photo? = null
         if (id != null) {
