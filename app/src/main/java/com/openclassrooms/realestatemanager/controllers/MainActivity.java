@@ -100,11 +100,6 @@ public class MainActivity extends AppCompatActivity implements RealEstateViewHol
 
     //  Start create activity when click on fab if phone
     private void createRealEstate() {
-        // Move FAB from the center of BottomAppBar to the end of it
-        bottomAppBar.setFabAlignmentMode(BottomAppBar.FAB_ALIGNMENT_MODE_END);
-
-        // Change FAB icon
-        fab.setImageResource(R.drawable.ic_action_done);
         startActivity(new Intent(this, CreateActivity.class));
     }
 
