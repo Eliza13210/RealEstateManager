@@ -15,7 +15,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -34,7 +36,7 @@ public class RealEstateContentProviderTest {
 
     // DATA SET FOR TEST
     private static long ID = 1;
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private ExecutorService taskExecutor = Executors.newFixedThreadPool(4);
 
     @Before
     public void setUp() {
@@ -47,7 +49,7 @@ public class RealEstateContentProviderTest {
 
     @Test
     public void getItemsWhenNoItemInserted() {
-        executor.execute(() -> {
+        taskExecutor.submit(() -> {
             final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(RealEstateContentProvider.URI_REALESTATE, ID),
                     null, null, null, null);
 
@@ -55,12 +57,18 @@ public class RealEstateContentProviderTest {
             assertEquals(cursor.getCount(), 0);
             cursor.close();
         });
+        taskExecutor.shutdown();
+        try {
+            taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
     }
 
     @Test
     public void insertAndGetItem() {
         // BEFORE : Adding demo item
-        executor.execute(() -> {
+        taskExecutor.submit(() -> {
             final Uri exUri = mContentResolver.insert(RealEstateContentProvider.URI_REALESTATE, generateItem());
             // TEST
             assert exUri != null;
@@ -73,6 +81,12 @@ public class RealEstateContentProviderTest {
             assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("description")), is("Beautiful house!"));
             cursor.close();
         });
+        taskExecutor.shutdown();
+        try {
+            taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
     }
 
     // ---

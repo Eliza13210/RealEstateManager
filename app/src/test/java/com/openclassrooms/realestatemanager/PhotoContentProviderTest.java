@@ -16,7 +16,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import androidx.room.Room;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -34,7 +36,8 @@ public class PhotoContentProviderTest {
 
     // DATA SET FOR TEST
     private static long ID = 1;
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private ExecutorService taskExecutor = Executors.newFixedThreadPool(4);
+
 
     @Before
     public void setUp() {
@@ -47,7 +50,7 @@ public class PhotoContentProviderTest {
 
     @Test
     public void getItemsWhenNoItemInserted() {
-        executor.execute(() -> {
+        taskExecutor.submit(() ->  {
             final Cursor cursor = mContentResolver.query(ContentUris.withAppendedId(PhotoContentProvider.URI_PHOTO, ID),
                     null, null, null, null);
 
@@ -55,12 +58,17 @@ public class PhotoContentProviderTest {
             assertEquals(cursor.getCount(), 0);
             cursor.close();
         });
-    }
+        taskExecutor.shutdown();
+        try {
+            taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+        }
+        }
 
     @Test
     public void insertAndGetItem() {
         // BEFORE : Adding demo item
-        executor.execute(() -> {
+        taskExecutor.submit(() ->  {
             final Uri exUri = mContentResolver.insert(PhotoContentProvider.URI_PHOTO, generateItem());
             // TEST
             final Cursor cursor = mContentResolver.query(exUri,
@@ -72,6 +80,12 @@ public class PhotoContentProviderTest {
             assertEquals(cursor.getString(cursor.getColumnIndexOrThrow("text")), is("Garden"));
             cursor.close();
         });
+        taskExecutor.shutdown();
+        try {
+            taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
     }
 
     // ---
@@ -80,7 +94,7 @@ public class PhotoContentProviderTest {
         final ContentValues values = new ContentValues();
         values.put("id", 1);
         values.put("realEstateId", 1);
-        values.put("url", "//");
+        values.put("url", "file");
         values.put("text", "Garden");
         values.put("type", "photo");
         return values;
