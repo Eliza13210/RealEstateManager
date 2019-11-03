@@ -101,7 +101,6 @@ class SearchActivity : AppCompatActivity() {
 
         val seekbarListener = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                Log.v("searchA", "seekbar" + seekBar)
 
                 when (seekBar) {
                     seekbar_max_rooms -> {
@@ -257,7 +256,6 @@ class SearchActivity : AppCompatActivity() {
                 roomsMin, roomsMax, bedroomsMin, bedroomsMax, bathroomsMin, bathroomsMax, start_date_before_tv, start_date_after_tv, sold_after_tv,
                 sold_before_tv, sold)
 
-        Log.e("searchA", "query" + manageSearch.getQuery() + manageSearch.getArgs().asList().toString())
         search(manageSearch.getQuery()!!, manageSearch.getArgs())
     }
 

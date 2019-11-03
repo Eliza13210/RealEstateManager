@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager
 
-import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 
 /**

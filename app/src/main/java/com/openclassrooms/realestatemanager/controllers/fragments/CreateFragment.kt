@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.controllers.fragments
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -14,8 +13,8 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.Utils
 import com.openclassrooms.realestatemanager.controllers.MainActivity
 import com.openclassrooms.realestatemanager.models.RealEstate
-import kotlinx.android.synthetic.main.fragment_create_real_estate.*
 import kotlinx.android.synthetic.main.address_layout.*
+import kotlinx.android.synthetic.main.fragment_create_real_estate.*
 import kotlinx.android.synthetic.main.information_layout.*
 import kotlinx.android.synthetic.main.room_details_layout.*
 import kotlinx.android.synthetic.main.type_details_layout.*
@@ -74,7 +73,6 @@ class CreateFragment : BaseFragment() {
         checkAddress()
         agent = Utils.removeSpacesAndAccentLetters(agent_et.text.toString())
 
-        Log.e("create", agent)
         if (price_tv.text!!.isNotEmpty()) {
             price = Integer.parseInt(price_tv.text.toString())
         }
@@ -85,10 +83,6 @@ class CreateFragment : BaseFragment() {
             null
         }
         startDate = Utils.formateDateForDatabase(Calendar.getInstance().time)
-
-
-        Log.e("create", "date " + startDate)
-
 
         pointsOfInterest = poi_tv.text.toString()
         type = type_tv.text.toString().toLowerCase()

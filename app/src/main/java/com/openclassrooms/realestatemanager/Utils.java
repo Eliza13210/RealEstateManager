@@ -94,7 +94,6 @@ public class Utils {
             if (address.size() > 0) {
                 Address location = address.get(0);
 
-                Log.e("utils", "check " + location);
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
             } else {
